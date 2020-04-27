@@ -11,7 +11,7 @@ class Constants {
     const val AUTHENTICATION = "authentication"
     const val WRITE_TIMEOUT = 30L
     const val READ_TIMEOUT = 30L
-    const val ROLE_STUDENTS = "ROLE_STUDENTS"
+    const val ROLE_STUDENT = "ROLE_STUDENT"
     const val TOKEN = "token"
   }
 }

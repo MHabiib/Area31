@@ -10,10 +10,6 @@ class MainPresenter @Inject constructor() {
     view.showHomeFragment()
   }
 
-  fun onExamIconClick() {
-    view.showExamFragment()
-  }
-
   fun onProfileIconClick() {
     view.showProfileFragment()
   }

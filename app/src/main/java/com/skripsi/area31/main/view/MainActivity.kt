@@ -2,17 +2,18 @@ package com.skripsi.area31.main.view
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.databinding.ActivityMainBinding
-import com.skripsi.area31.exam.view.ExamFragment
 import com.skripsi.area31.home.HomeFragment
 import com.skripsi.area31.main.injection.DaggerMainComponent
 import com.skripsi.area31.main.injection.MainComponent
 import com.skripsi.area31.main.presenter.MainPresenter
+import com.skripsi.area31.profile.view.ProfileFragment
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainContract {
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity(), MainContract {
       presenter.onProfileIconClick()
     }
     binding.fabExam.setOnClickListener {
-      presenter.onExamIconClick()
+      Toast.makeText(this, "Arraa araa", Toast.LENGTH_LONG).show()
     }
   }
 
@@ -56,6 +57,8 @@ class MainActivity : AppCompatActivity(), MainContract {
   }
 
   override fun showHomeFragment() {
+    binding.homeIndicator.visibility = View.VISIBLE
+    binding.profileIndicator.visibility = View.GONE
     if (supportFragmentManager.findFragmentByTag(HomeFragment.TAG) == null) {
       supportFragmentManager.beginTransaction().add(R.id.frame, HomeFragment().newInstance(),
           HomeFragment.TAG).commit()
@@ -64,56 +67,27 @@ class MainActivity : AppCompatActivity(), MainContract {
         supportFragmentManager.beginTransaction().show(it).commit()
       }
     }
-    if (supportFragmentManager.findFragmentByTag(ExamFragment.TAG) != null) {
-      supportFragmentManager.run { findFragmentByTag(ExamFragment.TAG) }?.let {
+    if (supportFragmentManager.findFragmentByTag(ProfileFragment.TAG) != null) {
+      supportFragmentManager.run { findFragmentByTag(ProfileFragment.TAG) }?.let {
         supportFragmentManager.beginTransaction().hide(it).commit()
-      }
-    }
-    if (supportFragmentManager.findFragmentByTag(ExamFragment.TAG) != null) {
-      supportFragmentManager.run { findFragmentByTag(ExamFragment.TAG) }?.let {
-        supportFragmentManager.beginTransaction().remove(it).commit()
-      }
-    }
-  }
-
-  override fun showExamFragment() {
-    if (supportFragmentManager.findFragmentByTag(ExamFragment.TAG) == null) {
-      supportFragmentManager.beginTransaction().add(R.id.frame, ExamFragment().newInstance(),
-          ExamFragment.TAG).commit()
-    } else {
-      supportFragmentManager.run { findFragmentByTag(ExamFragment.TAG) }?.let {
-        supportFragmentManager.beginTransaction().show(it).commit()
-      }
-    }
-    if (supportFragmentManager.findFragmentByTag(ExamFragment.TAG) != null) {
-      supportFragmentManager.run { findFragmentByTag(ExamFragment.TAG) }?.let {
-        supportFragmentManager.beginTransaction().hide(it).commit()
-      }
-    }
-    if (supportFragmentManager.findFragmentByTag(HomeFragment.TAG) != null) {
-      supportFragmentManager.run { findFragmentByTag(HomeFragment.TAG) }?.let {
-        supportFragmentManager.beginTransaction().remove(it).commit()
       }
     }
   }
 
   override fun showProfileFragment() {
-    if (supportFragmentManager.findFragmentByTag(ExamFragment.TAG) == null) {
-      supportFragmentManager.beginTransaction().add(R.id.frame, ExamFragment().newInstance(),
-          ExamFragment.TAG).commit()
+    binding.profileIndicator.visibility = View.VISIBLE
+    binding.homeIndicator.visibility = View.GONE
+    if (supportFragmentManager.findFragmentByTag(ProfileFragment.TAG) == null) {
+      supportFragmentManager.beginTransaction().add(R.id.frame, ProfileFragment().newInstance(),
+          ProfileFragment.TAG).commit()
     } else {
-      supportFragmentManager.run { findFragmentByTag(ExamFragment.TAG) }?.let {
+      supportFragmentManager.run { findFragmentByTag(ProfileFragment.TAG) }?.let {
         supportFragmentManager.beginTransaction().show(it).commit()
       }
     }
     if (supportFragmentManager.findFragmentByTag(HomeFragment.TAG) != null) {
       supportFragmentManager.run { findFragmentByTag(HomeFragment.TAG) }?.let {
         supportFragmentManager.beginTransaction().hide(it).commit()
-      }
-    }
-    if (supportFragmentManager.findFragmentByTag(ExamFragment.TAG) != null) {
-      supportFragmentManager.run { findFragmentByTag(ExamFragment.TAG) }?.let {
-        supportFragmentManager.beginTransaction().remove(it).commit()
       }
     }
   }

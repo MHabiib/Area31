@@ -17,7 +17,7 @@ import com.skripsi.area31.login.injection.DaggerLoginComponent
 import com.skripsi.area31.login.injection.LoginComponent
 import com.skripsi.area31.login.presenter.LoginPresenter
 import com.skripsi.area31.main.view.MainActivity
-import com.skripsi.area31.utils.Constants.Companion.ROLE_STUDENTS
+import com.skripsi.area31.utils.Constants.Companion.ROLE_STUDENT
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -78,7 +78,7 @@ class LoginActivity : BaseActivity(), LoginContract {
   }
 
   override fun onSuccess(token: Token) {
-    Authentication.save(this, token, ROLE_STUDENTS)
+    Authentication.save(this, token, ROLE_STUDENT)
     val intent = Intent(this, MainActivity::class.java)
     startActivity(intent)
     finish()
