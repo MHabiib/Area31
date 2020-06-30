@@ -41,11 +41,11 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/ic_pattern"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
                         android:tint="@color/white"
                         app:layout_constraintBottom_toBottomOf="@id/profile_name_display"
                         app:layout_constraintHorizontal_bias="0.2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/profile_name_display" />
 
                     <ProgressBar
@@ -69,8 +69,8 @@
                         android:textSize="@dimen/h_medium"
                         app:layout_constraintBottom_toTopOf="@id/guideline2"
                         app:layout_constraintHorizontal_bias="0.1"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/user_image"
+                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Hi, Customer" />
 
@@ -78,7 +78,7 @@
                         android:id="@+id/constraint_layout_profile"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:background="@drawable/card_layout_grey"
+                        android:background="@drawable/card_layout_white"
                         android:clipChildren="false"
                         android:clipToPadding="false"
                         android:padding="@dimen/twenty_dp"
@@ -123,8 +123,8 @@
                             android:id="@+id/email_tag"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/four_dp"
                             android:layout_marginTop="@dimen/twelve_dp"
+                            android:paddingBottom="@dimen/four_dp"
                             android:text="Email"
                             android:textColor="@color/colorPrimary"
                             app:layout_constraintLeft_toLeftOf="@id/constraint_layout_profile"
@@ -134,9 +134,9 @@
                             android:id="@+id/password_tag"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/twelve_dp"
                             android:paddingBottom="@dimen/four_dp"
                             android:text="Password"
-                            android:layout_marginTop="@dimen/twelve_dp"
                             android:textColor="@color/colorPrimary"
                             app:layout_constraintLeft_toLeftOf="@id/constraint_layout_profile"
                             app:layout_constraintTop_toBottomOf="@id/profile_phone_number" />
@@ -145,12 +145,23 @@
                             android:id="@+id/profile_phone_number_tag"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/four_dp"
                             android:layout_marginTop="@dimen/twelve_dp"
+                            android:paddingBottom="@dimen/four_dp"
                             android:text="Phone"
                             android:textColor="@color/colorPrimary"
                             app:layout_constraintLeft_toLeftOf="@id/constraint_layout_profile"
                             app:layout_constraintTop_toBottomOf="@id/profile_email" />
+
+                        <TextView
+                            android:id="@+id/name_tag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/twelve_dp"
+                            android:paddingBottom="@dimen/four_dp"
+                            android:text="Name"
+                            android:textColor="@color/colorPrimary"
+                            app:layout_constraintLeft_toLeftOf="@id/constraint_layout_profile"
+                            app:layout_constraintTop_toTopOf="@id/constraint_layout_profile" />
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/profile_name"
@@ -185,17 +196,6 @@
                             app:layout_constraintTop_toBottomOf="@id/email_tag"
                             tools:text="Email" />
 
-                        <TextView
-                            android:id="@+id/name_tag"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/four_dp"
-                            android:layout_marginTop="@dimen/twelve_dp"
-                            android:text="Name"
-                            android:textColor="@color/colorPrimary"
-                            app:layout_constraintLeft_toLeftOf="@id/constraint_layout_profile"
-                            app:layout_constraintTop_toTopOf="@id/constraint_layout_profile" />
-
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/profile_phone_number"
                             android:layout_width="match_parent"
@@ -217,6 +217,7 @@
                             android:id="@+id/profile_password"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/eight_dp"
                             android:enabled="false"
                             android:inputType="textPassword"
                             android:maxLines="1"
@@ -225,7 +226,6 @@
                             android:textColor="@color/darkGrey"
                             android:textSize="@dimen/h2"
                             app:backgroundTint="@null"
-                            android:layout_marginRight="@dimen/eight_dp"
                             app:layout_constraintLeft_toLeftOf="@id/constraint_layout_profile"
                             app:layout_constraintRight_toLeftOf="@id/btn_edit_profile"
                             app:layout_constraintTop_toBottomOf="@id/password_tag"

@@ -13,5 +13,6 @@ class Constants {
     const val READ_TIMEOUT = 30L
     const val ROLE_STUDENT = "ROLE_STUDENT"
     const val TOKEN = "token"
+    const val REQUEST_CAMERA_PERMISSION = 2020
   }
 }

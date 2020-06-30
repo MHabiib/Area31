@@ -38,7 +38,6 @@ class ProfileFragment : Fragment(), ProfileContract {
   @Inject lateinit var gson: Gson
   private lateinit var binding: FragmentProfileBinding
   private lateinit var accessToken: String
-  private var editMode = false
 
   companion object {
     const val TAG: String = "ProfileFragment"

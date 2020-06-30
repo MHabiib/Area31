@@ -1,19 +1,24 @@
 package com.skripsi.area31.main.view
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.databinding.ActivityMainBinding
-import com.skripsi.area31.home.HomeFragment
+import com.skripsi.area31.enroll.view.EnrollFragment
+import com.skripsi.area31.home.view.HomeFragment
 import com.skripsi.area31.main.injection.DaggerMainComponent
 import com.skripsi.area31.main.injection.MainComponent
 import com.skripsi.area31.main.presenter.MainPresenter
 import com.skripsi.area31.profile.view.ProfileFragment
+import com.skripsi.area31.utils.Constants.Companion.REQUEST_CAMERA_PERMISSION
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainContract {
@@ -26,6 +31,7 @@ class MainActivity : AppCompatActivity(), MainContract {
 
   @Inject lateinit var presenter: MainPresenter
   private lateinit var binding: ActivityMainBinding
+  private val bottomSheetFragment = EnrollFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -38,7 +44,35 @@ class MainActivity : AppCompatActivity(), MainContract {
       presenter.onProfileIconClick()
     }
     binding.fabExam.setOnClickListener {
-      Toast.makeText(this, "Arraa araa", Toast.LENGTH_LONG).show()
+      when (this.let {
+        ActivityCompat.checkSelfPermission(it, Manifest.permission.CAMERA)
+      } != PackageManager.PERMISSION_GRANTED) {
+        true -> {
+          ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),
+              REQUEST_CAMERA_PERMISSION)
+        }
+        else -> {
+          supportFragmentManager.let { fragmentManager ->
+            if (!bottomSheetFragment.isAdded) {
+              bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
+            }
+          }
+        }
+      }
+    }
+  }
+
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+      grantResults: IntArray) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    if (requestCode == REQUEST_CAMERA_PERMISSION) {
+      if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (!bottomSheetFragment.isAdded) {
+          bottomSheetFragment.show(this.supportFragmentManager, bottomSheetFragment.tag)
+        }
+      } else {
+        showHomeFragment()
+      }
     }
   }
 

@@ -15,4 +15,12 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/card_layout_bottomsheet_enroll</item>
+    </style>
+
 </resources>

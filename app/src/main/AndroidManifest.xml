@@ -14,7 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".home.HomeFragment"
+            android:name=".home.view.HomeFragment"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -39,7 +39,13 @@
             android:name=".login.view.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".register.view.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
     </application>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature android:name="android.hardware.camera.flash" />
     <uses-feature

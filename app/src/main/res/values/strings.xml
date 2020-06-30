@@ -2,4 +2,11 @@
     <string name="app_name">Area31</string>
     <string name="digits_number">+0123456789</string>
     <string name="digits">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.()-</string>
+    <string name="asiajakarta">Asia/Jakarta</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="good_afternoon">Good Afternoon</string>
+    <string name="good_evening">Good Evening</string>
+    <string name="good_night">Good Night</string>
+    <string name="hello">Hello,</string>
+    <string name="manual_input_courseid"><u>Manual input CourseID</u></string>
 </resources>

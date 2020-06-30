@@ -7,18 +7,20 @@ import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.core.base.BaseActivity
 import com.skripsi.area31.core.model.Token
 import com.skripsi.area31.core.network.Authentication
+import com.skripsi.area31.databinding.ActivityLoginBinding
 import com.skripsi.area31.login.injection.DaggerLoginComponent
 import com.skripsi.area31.login.injection.LoginComponent
 import com.skripsi.area31.login.presenter.LoginPresenter
 import com.skripsi.area31.main.view.MainActivity
+import com.skripsi.area31.register.view.RegisterActivity
 import com.skripsi.area31.utils.Constants.Companion.ROLE_STUDENT
-import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), LoginContract {
@@ -31,41 +33,55 @@ class LoginActivity : BaseActivity(), LoginContract {
 
   @Inject lateinit var presenter: LoginPresenter
   @Inject lateinit var gson: Gson
+  private lateinit var binding: ActivityLoginBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_login)
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
     presenter.attach(this)
     presenter.subscribe()
-    btnSign.setOnClickListener {
-      if (isValid()) {
-        loading(true)
-        hideKeyboard()
-        presenter.login(txtEmail.text.toString(), txtPassword.text.toString())
+    with(binding) {
+      btnLogin.setOnClickListener {
+        if (isValid()) {
+          loading(true)
+          hideKeyboard()
+          presenter.login(etEmail.text.toString(), etPassword.text.toString())
+        } else {
+          Toast.makeText(this@LoginActivity, "Fill all the entries with valid value.",
+              Toast.LENGTH_SHORT).show()
+        }
+      }
+      tvForgotPassword.setOnClickListener {
+        Toast.makeText(this@LoginActivity, "Under construction.", Toast.LENGTH_SHORT).show()
+      }
+      btnRegister.setOnClickListener {
+        val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+        startActivity(intent)
+        finish()
       }
     }
   }
 
   private fun loading(isLoading: Boolean) {
-    if (isLoading) {
-      inputLayoutEmail.visibility = View.GONE
-      progressBar.visibility = View.VISIBLE
-      inputLayoutPassword.visibility = View.GONE
-      btnSign.visibility = View.GONE
-    } else {
-      txtPassword.text?.clear()
-      progressBar.visibility = View.GONE
-      inputLayoutEmail.visibility = View.VISIBLE
-      inputLayoutPassword.visibility = View.VISIBLE
-      btnSign.visibility = View.VISIBLE
+    with(binding) {
+      if (isLoading) {
+        progressBar.visibility = View.VISIBLE
+        btnLogin.isEnabled = false
+      } else {
+        etPassword.text?.clear()
+        progressBar.visibility = View.GONE
+        btnLogin.isEnabled = true
+      }
     }
   }
 
   private fun isValid(): Boolean {
-    if (txtEmail?.text.toString().isEmpty() && Patterns.EMAIL_ADDRESS.matcher(
-            txtEmail?.text.toString()).matches()) return false
-    if (txtPassword?.text.toString().isEmpty()) return false
-    return true
+    with(binding) {
+      if (etEmail.text.toString().isEmpty()) return false
+      if (!Patterns.EMAIL_ADDRESS.matcher(etEmail.text.toString()).matches()) return false
+      if (etPassword.text.toString().isEmpty()) return false
+      return true
+    }
   }
 
   private fun hideKeyboard() {
