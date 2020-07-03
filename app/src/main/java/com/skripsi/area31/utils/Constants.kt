@@ -15,6 +15,7 @@ class Constants {
     const val TOKEN = "token"
     const val REQUEST_CAMERA_PERMISSION = 2020
     const val HOME_FRAGMENT = "Home Fragment"
+    const val CHAPTER_FRAGMENT = "Chapter Fragment"
     const val PROFILE_FRAGMENT = "Profile Fragment"
     const val COURSE_ID = "COURSE_ID"
     const val REFRESH_COURSE = 77

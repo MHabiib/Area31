@@ -72,7 +72,8 @@ class HomeFragment : Fragment(), HomeContract {
       rvCourse.addOnScrollListener(object :
           PaginationScrollListener(linearLayoutManager, isLastPage) {
         override fun loadMoreItems() {
-          if (!isLastPage) {
+          if (!isLoading && !isLastPage) {
+            isLoading = true
             presenter.loadListCourse(accessToken, currentPage)
           }
         }
@@ -133,6 +134,7 @@ class HomeFragment : Fragment(), HomeContract {
     binding.refreshCourse.isEnabled = true
     binding.shimmerCourse.visibility = View.GONE
     binding.shimmerCourse.stopShimmer()
+    isLoading = false
     Toast.makeText(context, "Error nih", Toast.LENGTH_SHORT).show()
   }
 

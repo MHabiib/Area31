@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
+import com.skripsi.area31.chapter.view.ChapterFragment
 import com.skripsi.area31.core.base.BaseActivity
 import com.skripsi.area31.core.model.SimpleCustomResponse
 import com.skripsi.area31.core.model.Token
@@ -35,6 +36,7 @@ class CourseActivity : BaseActivity(), CourseContract {
   private lateinit var binding: ActivityCourseBinding
   private lateinit var accessToken: String
   private var courseId: String? = null
+  private val bottomSheetFragmentChapter = ChapterFragment()
   private val bottomSheetFragment = LeaveCourseBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +65,12 @@ class CourseActivity : BaseActivity(), CourseContract {
         }
       }
       layoutChapter.setOnClickListener {
-        Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putString(COURSE_ID, courseId)
+        bottomSheetFragmentChapter.arguments = bundle
+        this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+          bottomSheetFragmentChapter.show(fragmentManager, bottomSheetFragmentChapter.tag)
+        }
       }
       layoutQuiz.setOnClickListener {
         Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
@@ -100,6 +107,10 @@ class CourseActivity : BaseActivity(), CourseContract {
 
   fun dismissDialog() {
     bottomSheetFragment.dismiss()
+  }
+
+  fun dismissChapterDialog() {
+    bottomSheetFragmentChapter.dismiss()
   }
 
   override fun leaveCourseSuccess(response: String) {

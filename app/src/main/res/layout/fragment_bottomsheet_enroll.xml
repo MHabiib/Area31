@@ -198,7 +198,7 @@
                 android:layout_marginTop="@dimen/twelve_dp"
                 android:layout_marginBottom="@dimen/twenty_four_dp"
                 android:text="@string/manual_input_courseid"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

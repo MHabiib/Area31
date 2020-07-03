@@ -75,7 +75,7 @@
                         android:padding="@dimen/twelve_dp"
                         android:text="Cancel"
                         android:layout_weight="0.5"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorAccent" />
 
                     <Button
                         android:id="@+id/btn_Leave"

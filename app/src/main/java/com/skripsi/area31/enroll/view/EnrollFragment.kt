@@ -176,7 +176,7 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
       tvCourseStatus.text = course.status
       courseId = course.courseId
       if (course.status == "AVAILABLE") {
-        tvCourseStatus.setTextColor(resources.getColor(R.color.colorPrimary))
+        tvCourseStatus.setTextColor(resources.getColor(R.color.colorAccent))
       } else {
         tvCourseStatus.setTextColor(resources.getColor(R.color.red))
         btnJoin.visibility = View.GONE

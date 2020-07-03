@@ -13,11 +13,21 @@
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blue_course"
             android:clipChildren="false"
             android:clipToPadding="false">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -70,7 +80,7 @@
                             android:paddingLeft="@dimen/four_dp"
                             android:paddingRight="@dimen/four_dp"
                             android:src="@drawable/ic_arrow"
-                            android:tint="@color/colorPrimary"
+                            android:tint="@color/colorAccent"
                             app:layout_constraintTop_toBottomOf="@id/chapter_name"
                             app:layout_constraintRight_toRightOf="parent"/>
 

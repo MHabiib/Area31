@@ -108,7 +108,7 @@ class ProfileFragment : Fragment(), ProfileContract {
 
   private fun FragmentProfileBinding.enableSaveButton() {
     btnSaveChanges.isEnabled = true
-    btnSaveChanges.setTextColor(resources.getColor(R.color.colorAccent))
+    btnSaveChanges.setTextColor(resources.getColor(R.color.colorPrimary))
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
