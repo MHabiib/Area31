@@ -1,6 +1,7 @@
 package com.skripsi.area31.login.view
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
@@ -20,7 +21,9 @@ import com.skripsi.area31.login.injection.LoginComponent
 import com.skripsi.area31.login.presenter.LoginPresenter
 import com.skripsi.area31.main.view.MainActivity
 import com.skripsi.area31.register.view.RegisterActivity
+import com.skripsi.area31.utils.Constants.Companion.AUTHENTICATION
 import com.skripsi.area31.utils.Constants.Companion.ROLE_STUDENT
+import com.skripsi.area31.utils.Constants.Companion.TOKEN
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), LoginContract {
@@ -95,6 +98,12 @@ class LoginActivity : BaseActivity(), LoginContract {
 
   override fun onSuccess(token: Token) {
     Authentication.save(this, token, ROLE_STUDENT)
+    presenter.isAuthorize(gson.fromJson(
+        this.getSharedPreferences(AUTHENTICATION, Context.MODE_PRIVATE)?.getString(TOKEN, null),
+        Token::class.java).accessToken)
+  }
+
+  override fun onAuthorized() {
     val intent = Intent(this, MainActivity::class.java)
     startActivity(intent)
     finish()

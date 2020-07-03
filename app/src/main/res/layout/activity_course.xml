@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_course"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/card_layout_bottomsheet_change_password"
+                android:paddingBottom="@dimen/twenty_four_dp"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_details">
+
+                <TextView
+                    android:id="@+id/tv_things_in_this"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:text="Things in this course"
+                    android:textAlignment="center"
+                    android:textColor="@color/darkGreyTransparent"
+                    android:textSize="@dimen/h2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_chapter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="@dimen/twelve_dp"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:layout_marginRight="@dimen/twelve_dp"
+                    android:background="@drawable/background_blue_course_item"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@id/layout_qna"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_things_in_this">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/twelve_dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/card_white"
+                            android:ellipsize="end"
+                            android:paddingLeft="@dimen/four_dp"
+                            android:paddingRight="@dimen/four_dp"
+                            android:src="@drawable/ic_arrow"
+                            android:tint="@color/colorPrimary"
+                            app:layout_constraintTop_toBottomOf="@id/chapter_name"
+                            app:layout_constraintRight_toRightOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/chapter_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:text="Chapter"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h_medium"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/chapter_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:text="Learn now"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/chapter_title" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_quiz"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/twelve_dp"
+                    android:background="@drawable/background_purple"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toRightOf="@id/guideline2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_things_in_this">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/twelve_dp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/card_white"
+                            android:ellipsize="end"
+                            android:paddingLeft="@dimen/four_dp"
+                            android:paddingRight="@dimen/four_dp"
+                            android:src="@drawable/ic_arrow"
+                            android:tint="@color/purple"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/quiz_name" />
+
+                        <TextView
+                            android:id="@+id/quiz_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:text="Play now"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h4"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/quiz_title" />
+
+                        <TextView
+                            android:id="@+id/quiz_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:text="Quiz"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h_medium2"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_qna"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/twelve_dp"
+                    android:background="@drawable/background_orange"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toRightOf="@id/guideline2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_quiz">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/twelve_dp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/card_white"
+                            android:ellipsize="end"
+                            android:paddingLeft="@dimen/four_dp"
+                            android:paddingRight="@dimen/four_dp"
+                            android:src="@drawable/ic_arrow"
+                            android:tint="@color/orange"
+                            app:layout_constraintTop_toBottomOf="@id/qna_name"
+                            app:layout_constraintRight_toRightOf="parent" />
+
+                        <TextView
+                            android:id="@+id/qna_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:text="Ask now"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h4"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/qna_title" />
+
+                        <TextView
+                            android:id="@+id/qna_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:text="QnA"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h_medium2"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_resource"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/twelve_dp"
+                    android:background="@drawable/background_green"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@id/layout_qna">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/twelve_dp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/card_white"
+                            android:ellipsize="end"
+                            android:paddingLeft="@dimen/four_dp"
+                            android:paddingRight="@dimen/four_dp"
+                            android:src="@drawable/ic_arrow"
+                            android:tint="@color/green"
+                            app:layout_constraintTop_toBottomOf="@id/resource_name"
+                            app:layout_constraintRight_toRightOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/resource_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:text="Download now"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h4"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/resource_title" />
+
+                        <TextView
+                            android:id="@+id/resource_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:text="Resource"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h_medium2"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_complaint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/twelve_dp"
+                    android:background="@drawable/card_purple_complaint"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toRightOf="@id/guideline2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_qna">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/twelve_dp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/card_white"
+                            android:ellipsize="end"
+                            android:paddingLeft="@dimen/four_dp"
+                            android:paddingRight="@dimen/four_dp"
+                            android:src="@drawable/ic_arrow"
+                            android:tint="@color/purple_two"
+                            app:layout_constraintTop_toBottomOf="@id/complaint_name"
+                            app:layout_constraintRight_toRightOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/complaint_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:text="Complaint now"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h4"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/complaint_title" />
+
+                        <TextView
+                            android:id="@+id/complaint_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:text="Complaint"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/h_medium2"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/twelve_dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/ib_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@drawable/ic_back"
+                    android:tint="@color/white"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/ib_leave"
+                    android:layout_width="52dp"
+                    android:layout_height="20dp"
+                    android:background="@null"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/ic_leave"
+                    android:tint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/ib_back"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ib_back" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/twelve_dp"
+                    app:layout_constraintTop_toBottomOf="@id/ib_back">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:indeterminateDrawable="@drawable/custom_progressbar"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/guideline"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_course"
+                        app:layout_constraintTop_toTopOf="@id/iv_course" />
+
+                    <ImageView
+                        android:id="@+id/iv_course"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="fitEnd"
+                        android:src="@drawable/ic_course"
+                        app:layout_constraintLeft_toRightOf="@id/guideline"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_course_name" />
+
+                    <ImageView
+                        android:id="@+id/iv_members"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginLeft="@dimen/four_dp"
+                        android:src="@drawable/ic_members"
+                        android:tint="@color/white"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_total_members"
+                        app:layout_constraintLeft_toRightOf="@id/tv_total_members"
+                        app:layout_constraintTop_toTopOf="@id/tv_total_members"
+                        app:layout_constraintVertical_bias="1" />
+
+                    <TextView
+                        android:id="@+id/by"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="48dp"
+                        android:text="by"
+                        android:visibility="gone"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/h2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_course_name" />
+
+                    <TextView
+                        android:id="@+id/tv_instructor_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="48dp"
+                        android:layout_marginRight="@dimen/twelve_dp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/h2"
+                        android:layout_marginLeft="@dimen/four_dp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toRightOf="@id/by"
+                        app:layout_constraintRight_toLeftOf="@id/guideline"
+                        app:layout_constraintTop_toBottomOf="@id/tv_course_name"
+                        tools:text="Jeniieee S.Kom" />
+
+                    <TextView
+                        android:id="@+id/tv_course_description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="@dimen/twelve_dp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/h3"
+                        app:layout_constraintLeft_toLeftOf="@id/by"
+                        app:layout_constraintRight_toLeftOf="@id/guideline"
+                        app:layout_constraintTop_toBottomOf="@id/tv_instructor_name"
+                        tools:text="Learn to create Machine Learning Algorithms in Python and R from two Data Science experts." />
+
+                    <TextView
+                        android:id="@+id/tv_total_members"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/h_medium2"
+                        android:textStyle="bold"
+                        android:layout_marginTop="@dimen/twelve_dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_course_description"
+                        app:layout_constraintVertical_bias="1"
+                        tools:text="12" />
+
+                    <TextView
+                        android:id="@+id/tv_course_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/h1"
+                        android:textStyle="bold"
+                        app:layout_constraintRight_toLeftOf="@id/guideline"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Bio MIA 1" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="212dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

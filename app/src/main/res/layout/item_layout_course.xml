@@ -8,15 +8,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/eight_dp"
-        android:background="@drawable/backgroud_blue_course_item"
-        android:orientation="vertical"
-        android:padding="@dimen/twenty_four_dp">
+        android:background="@drawable/background_blue_course_item"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_pattern"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <ImageView
             android:id="@+id/iv_parking_zone_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@drawable/ic_item_course"
+            android:paddingTop="@dimen/twenty_four_dp"
+            android:paddingBottom="@dimen/twenty_four_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +37,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+
+            android:paddingLeft="@dimen/twenty_four_dp"
+            android:paddingTop="@dimen/twenty_four_dp"
+            android:paddingBottom="@dimen/twenty_four_dp"
             app:layout_constraintRight_toLeftOf="@id/iv_parking_zone_image"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -59,13 +73,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:textColor="@color/white"
                 android:textSize="@dimen/h_medium"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Bio MIA 1" />
+                tools:text="Kotlin for Beginners: Learn Programming With Kotlin" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -21,13 +21,19 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
+import com.skripsi.area31.core.model.SimpleCustomResponse
 import com.skripsi.area31.core.model.Token
 import com.skripsi.area31.databinding.FragmentBottomsheetEnrollBinding
 import com.skripsi.area31.enroll.injection.DaggerEnrollComponent
 import com.skripsi.area31.enroll.injection.EnrollComponent
+import com.skripsi.area31.enroll.model.Course
 import com.skripsi.area31.enroll.presenter.EnrollPresenter
+import com.skripsi.area31.home.view.HomeFragment
+import com.skripsi.area31.main.view.MainActivity
 import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.HOME_FRAGMENT
 import kotlinx.android.synthetic.main.fragment_bottomsheet_enroll.*
+import okhttp3.ResponseBody
 import java.io.IOException
 import javax.inject.Inject
 
@@ -47,6 +53,7 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
   private var cameraSource: CameraSource? = null
   private lateinit var intentData: String
   private lateinit var accessToken: String
+  private lateinit var courseId: String
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
@@ -68,13 +75,32 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
     initialiseDetectorsAndSources()
     with(binding) {
       tvManualInput.setOnClickListener {
-        stopCamera()
-        cameraSource?.release()
-        layoutCamera.visibility = View.GONE
-        tvManualInput.visibility = View.GONE
+        gotoStep2()
         layoutManualJoin.visibility = View.VISIBLE
       }
+      btnCheck.setOnClickListener {
+        showProgress(true)
+        presenter.checkCourse(accessToken, etCourseid.text.toString())
+        etCourseid.text?.clear()
+      }
+      btnJoin.setOnClickListener {
+        showProgress(true)
+        presenter.joinCourse(accessToken, courseId, etCoursePassword.text.toString())
+      }
     }
+  }
+
+  private fun FragmentBottomsheetEnrollBinding.gotoStep2() {
+    stopCamera()
+    if (cameraSource != null) {
+      try {
+        cameraSource?.release()
+      } catch (e: NullPointerException) {
+      }
+      cameraSource = null
+    }
+    layoutCamera.visibility = View.GONE
+    tvManualInput.visibility = View.GONE
   }
 
   private fun initialiseDetectorsAndSources() {
@@ -122,21 +148,57 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
           if (barcode.size() != 0) {
             binding.surfaceView.post {
               if (barcode.valueAt(0).displayValue.startsWith("QR")) {
+                vibratePhone()
                 stopCamera()
                 showProgress(true)
                 intentData = barcode.valueAt(0).displayValue
-                val idSlot = intentData.substringAfter("idSlot=").substringBefore(')')
-                val fcm = intentData.substringAfter(")")
-                //              presenter.createBooking(idSlot, fcm, accessToken)
-                Toast.makeText(context, intentData, Toast.LENGTH_LONG).show()
+                val courseId = intentData.substring(2)
+                showProgress(true)
+                presenter.checkCourse(accessToken, courseId)
               }
             }
-            vibratePhone()
           }
         }
       })
     }
     barcodeDetector
+  }
+
+  override fun checkCourseSuccess(course: Course) {
+    showProgress(false)
+    with(binding) {
+      gotoStep2()
+      layoutManualJoin.visibility = View.GONE
+      layoutCheck.visibility = View.VISIBLE
+      tvCourseName.text = course.name
+      tvInstructorName.text = course.instructorName
+      tvCourseDescription.text = course.description
+      tvCourseStatus.text = course.status
+      courseId = course.courseId
+      if (course.status == "AVAILABLE") {
+        tvCourseStatus.setTextColor(resources.getColor(R.color.colorPrimary))
+      } else {
+        tvCourseStatus.setTextColor(resources.getColor(R.color.red))
+        btnJoin.visibility = View.GONE
+        ilCoursePassword.visibility = View.GONE
+      }
+    }
+  }
+
+  override fun joinCourseSuccess(message: String) {
+    showProgress(false)
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    val mainActivity = activity as MainActivity
+    mainActivity.dismissDialog()
+
+    val homeFragment = fragmentManager?.findFragmentByTag(HOME_FRAGMENT) as HomeFragment
+    homeFragment.successJoinCourse()
+  }
+
+  override fun onBadRequest(error: ResponseBody) {
+    showProgress(false)
+    Toast.makeText(context, gson.fromJson(error.string(), SimpleCustomResponse::class.java).message,
+        Toast.LENGTH_SHORT).show()
   }
 
   fun stopCamera() {
@@ -155,16 +217,22 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
   }
 
   fun showProgress(show: Boolean) {
-    if (show) {
-      binding.progressBar.visibility = View.VISIBLE
-    } else {
-      binding.progressBar.visibility = View.GONE
+    with(binding) {
+      if (show) {
+        btnCheck.isEnabled = false
+        btnJoin.isEnabled = false
+        progressBar.visibility = View.VISIBLE
+      } else {
+        btnCheck.isEnabled = true
+        btnJoin.isEnabled = true
+        progressBar.visibility = View.GONE
+      }
     }
   }
 
   override fun onFailed(message: String) {
-    TODO(
-        "not implemented") //To change body of created functions use File | Settings | File Templates.
+    showProgress(false)
+    Toast.makeText(context, "Unable join to the course", Toast.LENGTH_LONG).show()
   }
 
 

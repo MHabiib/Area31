@@ -16,6 +16,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     compileOptions {
         sourceCompatibility = 1.8
@@ -74,6 +75,9 @@ dependencies {
 
     //scanner
     api 'com.google.android.gms:play-services-vision:19.0.0'
+
+    //shimmer loading
+    implementation 'com.facebook.shimmer:shimmer:0.3.0@aar'
 
     // dependency injection
     implementation "com.google.dagger:dagger:$dagger2_version"

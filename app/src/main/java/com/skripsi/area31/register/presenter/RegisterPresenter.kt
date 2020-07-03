@@ -1,5 +1,6 @@
 package com.skripsi.area31.register.presenter
 
+import android.util.Log
 import com.skripsi.area31.core.base.BasePresenter
 import com.skripsi.area31.core.model.Token
 import com.skripsi.area31.register.model.RegisterStudent
@@ -16,8 +17,14 @@ class RegisterPresenter @Inject constructor(private val registerApi: RegisterApi
     val student = RegisterStudent(username, name, password, phone, "ROLE_STUDENT")
     subscriptions.add(registerApi.createStudent(student).subscribeOn(Schedulers.io()).observeOn(
         AndroidSchedulers.mainThread()).subscribe({
-      login(username, password)
-    }, { view?.onFailed(it.message.toString()) }))
+      if (it.code() == 400) {
+        it.errorBody()?.let { it1 -> view?.onBadRequest(it1) }
+      } else {
+        login(username, password)
+      }
+    }, {
+      Log.e("REGISTER", "onError: ", it)
+    }))
   }
 
   private fun login(username: String, password: String) {

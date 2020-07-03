@@ -1,6 +1,7 @@
 package com.skripsi.area31.home.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.google.gson.Gson
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.core.model.Token
+import com.skripsi.area31.course.view.CourseActivity
 import com.skripsi.area31.databinding.FragmentHomeBinding
 import com.skripsi.area31.home.adapter.ListCourseAdapter
 import com.skripsi.area31.home.injection.DaggerHomeComponent
@@ -21,6 +23,9 @@ import com.skripsi.area31.home.model.Course
 import com.skripsi.area31.home.model.ListCourse
 import com.skripsi.area31.home.presenter.HomePresenter
 import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
+import com.skripsi.area31.utils.Constants.Companion.HOME_FRAGMENT
+import com.skripsi.area31.utils.Constants.Companion.LAUNCH_SECOND_ACTIVITY
 import com.skripsi.area31.utils.PaginationScrollListener
 import java.util.*
 import javax.inject.Inject
@@ -43,7 +48,7 @@ class HomeFragment : Fragment(), HomeContract {
   private lateinit var accessToken: String
 
   companion object {
-    const val TAG: String = "Home Fragment"
+    const val TAG: String = HOME_FRAGMENT
   }
 
   fun newInstance(): HomeFragment = HomeFragment()
@@ -54,8 +59,9 @@ class HomeFragment : Fragment(), HomeContract {
     val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
     with(binding) {
+      shimmerCourse.startShimmer()
       refreshCourse.setOnRefreshListener {
-        refreshListHistory()
+        refreshListCourse()
       }
       listCourseAdapter = ListCourseAdapter()
       rvCourse.layoutManager = linearLayoutManager
@@ -89,7 +95,13 @@ class HomeFragment : Fragment(), HomeContract {
   }
 
   override fun loadListCourseSuccess(listCourse: ListCourse) {
-    binding.rvCourse.isEnabled = true
+    with(binding) {
+      rvCourse.isEnabled = true
+      refreshCourse.isEnabled = true
+      shimmerCourse.visibility = View.GONE
+      shimmerCourse.stopShimmer()
+    }
+
     if (currentPage != 0) {
       if (currentPage <= listCourse.totalPages - 1) {
         listCourseAdapter.addAll(listCourse.course)
@@ -99,6 +111,10 @@ class HomeFragment : Fragment(), HomeContract {
       }
     } else {
       listCourseAdapter.addAll(listCourse.course)
+      if (listCourse.empty) {
+        binding.ivDontHaveCourse.visibility = View.VISIBLE
+        binding.tvIvDontHaveCourse.visibility = View.VISIBLE
+      }
       if (currentPage >= listCourse.totalPages - 1) {
         isLastPage = true
       } else {
@@ -108,7 +124,15 @@ class HomeFragment : Fragment(), HomeContract {
     isLoading = false
   }
 
+  fun successJoinCourse() {
+    currentPage = 0
+    refreshListCourse()
+  }
+
   override fun onFailed(message: String) {
+    binding.refreshCourse.isEnabled = true
+    binding.shimmerCourse.visibility = View.GONE
+    binding.shimmerCourse.stopShimmer()
     Toast.makeText(context, "Error nih", Toast.LENGTH_SHORT).show()
   }
 
@@ -125,12 +149,16 @@ class HomeFragment : Fragment(), HomeContract {
     }
   }
 
-  fun refreshListHistory() {
+  fun refreshListCourse() {
     with(binding) {
+      ivDontHaveCourse.visibility = View.GONE
+      tvIvDontHaveCourse.visibility = View.GONE
       listCourseAdapter.clear()
       listCourseAdapter.notifyDataSetChanged()
       currentPage = 0
       isLastPage = false
+      shimmerCourse.visibility = View.VISIBLE
+      shimmerCourse.startShimmer()
       presenter.loadListCourse(accessToken, currentPage)
       refreshCourse.isRefreshing = false
       refreshCourse.isEnabled = false
@@ -138,7 +166,9 @@ class HomeFragment : Fragment(), HomeContract {
   }
 
   private fun courseItemClick(courseItems: Course) {
-    Toast.makeText(context, "Click on items", Toast.LENGTH_SHORT).show()
+    val intent = Intent(context, CourseActivity::class.java)
+    intent.putExtra(COURSE_ID, courseItems.idCourse)
+    startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY)
   }
 }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -9,7 +8,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@drawable/backgroud_blue_gradient_login"
+            android:src="@drawable/background_blue_gradient_login"
             app:layout_constraintBottom_toTopOf="@id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,21 +26,21 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="@dimen/twelve_dp"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:src="@drawable/ic_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
             android:id="@+id/tv_announce"
-            android:layout_marginLeft="@dimen/twelve_dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/twelve_dp"
             android:layout_marginTop="@dimen/eight_dp"
             android:text="Monalisa"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textColor="@color/white"
+            android:textColor="@color/whiteTransparent"
             android:textSize="@dimen/h_medium"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_logo" />
 
         <View
@@ -63,9 +62,9 @@
             android:id="@+id/guideline3"
             android:layout_width="1dp"
             android:layout_height="match_parent"
+            app:layout_constraintHorizontal_bias="0.4 "
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.4 " />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_course"
@@ -83,7 +82,72 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/twelve_dp"
                 android:layout_marginRight="@dimen/twelve_dp"
-                android:clipToPadding="false" />
+                android:clipToPadding="false"
+                android:paddingBottom="60dp" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ImageView
+            android:id="@+id/iv_dont_have_course"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="@dimen/twelve_dp"
+            android:src="@drawable/ic_dont_have_course"
+            android:scaleType="fitStart"
+            android:layout_marginTop="@dimen/twenty_four_dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="gone"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            app:layout_constraintTop_toBottomOf="@id/guideline2" />
+
+        <TextView
+            android:id="@+id/tv_iv_dont_have_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:text="- You haven't join any course yet -"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:background="@drawable/card_white"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/iv_dont_have_course"
+            app:layout_constraintLeft_toLeftOf="iv_dont_have_course"
+            app:layout_constraintRight_toRightOf="@id/iv_dont_have_course"/>
+
+        <View
+            android:id="@+id/guideline5"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/iv_dont_have_course"
+            app:layout_constraintRight_toRightOf="@id/iv_dont_have_course"
+            app:layout_constraintTop_toTopOf="@id/iv_dont_have_course"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_course"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingLeft="@dimen/twelve_dp"
+            android:paddingTop="@dimen/twelve_dp"
+            android:paddingRight="@dimen/twelve_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_layout_course_shimmer" />
+
+                <include layout="@layout/item_layout_course_shimmer" />
+
+                <include layout="@layout/item_layout_course_shimmer" />
+
+                <include layout="@layout/item_layout_course_shimmer" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

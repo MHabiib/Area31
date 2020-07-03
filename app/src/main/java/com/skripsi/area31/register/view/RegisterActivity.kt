@@ -12,6 +12,7 @@ import com.google.gson.Gson
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.core.base.BaseActivity
+import com.skripsi.area31.core.model.SimpleCustomResponse
 import com.skripsi.area31.core.model.Token
 import com.skripsi.area31.core.network.Authentication
 import com.skripsi.area31.databinding.ActivityRegisterBinding
@@ -21,6 +22,7 @@ import com.skripsi.area31.register.injection.DaggerRegisterComponent
 import com.skripsi.area31.register.injection.RegisterComponent
 import com.skripsi.area31.register.presenter.RegisterPresenter
 import com.skripsi.area31.utils.Constants.Companion.ROLE_STUDENT
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class RegisterActivity : BaseActivity(), RegisterContract {
@@ -71,6 +73,13 @@ class RegisterActivity : BaseActivity(), RegisterContract {
   override fun onFailed(message: String) {
     loading(false)
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+  }
+
+  override fun onBadRequest(responseBody: ResponseBody) {
+    loading(false)
+    Toast.makeText(this,
+        gson.fromJson(responseBody.string(), SimpleCustomResponse::class.java).message,
+        Toast.LENGTH_SHORT).show()
   }
 
   private fun isValid(): Boolean {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -16,6 +17,15 @@
             android:padding="@dimen/twelve_dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:indeterminateDrawable="@drawable/custom_progressbar"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:id="@+id/layout_manual_join"
                 android:layout_width="match_parent"
@@ -26,19 +36,6 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/swipe_up_indicator">
-
-                <Button
-                    android:id="@+id/btn_login"
-                    style="@style/NoCaps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="@dimen/twelve_dp"
-                    android:layout_marginBottom="@dimen/twenty_four_dp"
-                    android:background="@drawable/card_primary"
-                    android:padding="2dp"
-                    android:text="Join"
-                    android:textColor="@color/white" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -56,6 +53,12 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/h2"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:src="@drawable/iv_manual_input"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/il_courseid"
@@ -80,6 +83,111 @@
                         android:singleLine="true"
                         android:textSize="@dimen/h3" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btn_check"
+                    style="@style/NoCaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:layout_marginBottom="@dimen/twenty_four_dp"
+                    android:background="@drawable/card_primary"
+                    android:padding="2dp"
+                    android:text="Check"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_check"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/twelve_dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/swipe_up_indicator">
+
+                <TextView
+                    android:id="@+id/tv_course_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/h_medium2"
+                    tools:text="Course Name"/>
+
+                <TextView
+                    android:id="@+id/tv_instructor_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="@dimen/h2"
+                    tools:text="Instructor name : "/>
+
+                <TextView
+                    android:id="@+id/tv_course_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/eight_dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/h3"
+                    tools:text="Description blablablcaaskjhdghakjshdkhaskjldhasdkjhlasd"/>
+
+                <TextView
+                    android:id="@+id/tv_course_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/h3"
+                    android:paddingTop="@dimen/twelve_dp"
+                    tools:text="Available"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/iv_layout_check"
+                    android:layout_marginTop="@dimen/twelve_dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/il_course_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:background="@drawable/card_white"
+                    android:paddingStart="@dimen/sixteen_dp"
+                    android:paddingTop="@dimen/twelve_dp"
+                    android:paddingEnd="@dimen/sixteen_dp"
+                    android:paddingBottom="@dimen/twelve_dp"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_course_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:hint="Enter course password"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textSize="@dimen/h3" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btn_join"
+                    style="@style/NoCaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:layout_marginBottom="@dimen/twenty_four_dp"
+                    android:background="@drawable/card_primary"
+                    android:padding="2dp"
+                    android:text="Join"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
 
@@ -163,16 +271,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:indeterminateDrawable="@drawable/custom_progressbar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <SurfaceView

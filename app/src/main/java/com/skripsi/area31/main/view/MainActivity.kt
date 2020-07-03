@@ -1,6 +1,7 @@
 package com.skripsi.area31.main.view
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
@@ -18,6 +19,8 @@ import com.skripsi.area31.main.injection.DaggerMainComponent
 import com.skripsi.area31.main.injection.MainComponent
 import com.skripsi.area31.main.presenter.MainPresenter
 import com.skripsi.area31.profile.view.ProfileFragment
+import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.REFRESH_COURSE
 import com.skripsi.area31.utils.Constants.Companion.REQUEST_CAMERA_PERMISSION
 import javax.inject.Inject
 
@@ -83,11 +86,23 @@ class MainActivity : AppCompatActivity(), MainContract {
       finishAffinity()
       return
     }
-
     this.doubleBackToExitPressedOnce = true
     Toast.makeText(this, "Please click back again to exit", Toast.LENGTH_SHORT).show()
 
     Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+  }
+
+  fun dismissDialog() {
+    bottomSheetFragment.dismiss()
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (resultCode == REFRESH_COURSE) {
+      val homeFragment = supportFragmentManager.findFragmentByTag(
+          Constants.HOME_FRAGMENT) as HomeFragment
+      homeFragment.refreshListCourse()
+      super.onActivityResult(requestCode, resultCode, intent)
+    }
   }
 
   override fun showHomeFragment() {
