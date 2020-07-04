@@ -18,6 +18,8 @@ class Constants {
     const val CHAPTER_FRAGMENT = "Chapter Fragment"
     const val PROFILE_FRAGMENT = "Profile Fragment"
     const val COURSE_ID = "COURSE_ID"
+    const val ID_CHAPTER = "ID_CHAPTER"
+    const val PAGE_URL = "ID_CHAPTER"
     const val REFRESH_COURSE = 77
     const val LAUNCH_SECOND_ACTIVITY = 88
   }

@@ -16,6 +16,7 @@ import com.skripsi.area31.course.injection.CourseComponent
 import com.skripsi.area31.course.injection.DaggerCourseComponent
 import com.skripsi.area31.course.model.CourseDetails
 import com.skripsi.area31.course.presenter.CoursePresenter
+import com.skripsi.area31.courseresource.view.ResourceFragment
 import com.skripsi.area31.databinding.ActivityCourseBinding
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
@@ -37,6 +38,7 @@ class CourseActivity : BaseActivity(), CourseContract {
   private lateinit var accessToken: String
   private var courseId: String? = null
   private val bottomSheetFragmentChapter = ChapterFragment()
+  private val bottomSheetFragmentResource = ResourceFragment()
   private val bottomSheetFragment = LeaveCourseBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +81,12 @@ class CourseActivity : BaseActivity(), CourseContract {
         Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
       }
       layoutResource.setOnClickListener {
-        Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putString(COURSE_ID, courseId)
+        bottomSheetFragmentResource.arguments = bundle
+        this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+          bottomSheetFragmentResource.show(fragmentManager, bottomSheetFragmentResource.tag)
+        }
       }
       layoutComplaint.setOnClickListener {
         Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
@@ -111,6 +118,10 @@ class CourseActivity : BaseActivity(), CourseContract {
 
   fun dismissChapterDialog() {
     bottomSheetFragmentChapter.dismiss()
+  }
+
+  fun dismissResourceDialog() {
+    bottomSheetFragmentResource.dismiss()
   }
 
   override fun leaveCourseSuccess(response: String) {

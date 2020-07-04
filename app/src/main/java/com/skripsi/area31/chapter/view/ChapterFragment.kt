@@ -2,6 +2,7 @@ package com.skripsi.area31.chapter.view
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -140,7 +141,10 @@ class ChapterFragment : BottomSheetDialogFragment(), ChapterContract {
   }
 
   private fun chapterItemClick(chapterItems: Chapter) {
-    Toast.makeText(context, chapterItems.idChapter, Toast.LENGTH_SHORT).show()
+    val intent = Intent(context, ReadChapterActivity::class.java)
+    //    intent.putExtra(ID_CHAPTER, "https://google.com/search?q=" + chapterItems.idChapter)
+    intent.putExtra(Constants.ID_CHAPTER, "https://google.com/search?q=" + chapterItems.title)
+    startActivity(intent)
   }
 
   override fun onCancel(dialog: DialogInterface) {

@@ -48,6 +48,23 @@
             android:name=".course.view.CourseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity android:name=".chapter.view.ReadChapterActivity"
+            android:theme="@style/AppTheme" >
+            <intent-filter
+                android:autoVerify="true"
+                tools:targetApi="m">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="google.com"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="true" />
     </application>
 
 
