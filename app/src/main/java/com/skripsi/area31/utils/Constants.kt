@@ -22,5 +22,8 @@ class Constants {
     const val PAGE_URL = "ID_CHAPTER"
     const val REFRESH_COURSE = 77
     const val LAUNCH_SECOND_ACTIVITY = 88
+
+    const val SHORT_MONTH_DATE_TIME_FORMAT = "HH:mm - dd MMM yy"
+    const val MINUTES_TIME_FORMAT = "mm"
   }
 }

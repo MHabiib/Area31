@@ -18,6 +18,7 @@ import com.skripsi.area31.course.model.CourseDetails
 import com.skripsi.area31.course.presenter.CoursePresenter
 import com.skripsi.area31.courseresource.view.ResourceFragment
 import com.skripsi.area31.databinding.ActivityCourseBinding
+import com.skripsi.area31.quizlist.view.QuizFragment
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
 import com.skripsi.area31.utils.Constants.Companion.REFRESH_COURSE
@@ -39,6 +40,7 @@ class CourseActivity : BaseActivity(), CourseContract {
   private var courseId: String? = null
   private val bottomSheetFragmentChapter = ChapterFragment()
   private val bottomSheetFragmentResource = ResourceFragment()
+  private val bottomSheetFragmentQuiz = QuizFragment()
   private val bottomSheetFragment = LeaveCourseBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +77,12 @@ class CourseActivity : BaseActivity(), CourseContract {
         }
       }
       layoutQuiz.setOnClickListener {
-        Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putString(COURSE_ID, courseId)
+        bottomSheetFragmentQuiz.arguments = bundle
+        this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+          bottomSheetFragmentQuiz.show(fragmentManager, bottomSheetFragmentQuiz.tag)
+        }
       }
       layoutQna.setOnClickListener {
         Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
@@ -122,6 +129,10 @@ class CourseActivity : BaseActivity(), CourseContract {
 
   fun dismissResourceDialog() {
     bottomSheetFragmentResource.dismiss()
+  }
+
+  fun dismissQuizDialog() {
+    bottomSheetFragmentQuiz.dismiss()
   }
 
   override fun leaveCourseSuccess(response: String) {
