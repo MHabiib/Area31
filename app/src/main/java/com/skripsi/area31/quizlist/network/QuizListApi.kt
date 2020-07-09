@@ -5,7 +5,7 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface QuizApi {
+interface QuizListApi {
   @GET("api/student/quiz") fun getListQuiz(@Query("access_token") accessToken: String?,
       @Query("id_course") idCourse: String?, @Query("page")
       page: Int?): Observable<ListQuizResponse>

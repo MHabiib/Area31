@@ -2,6 +2,7 @@ package com.skripsi.area31.quizlist.view
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,27 +18,29 @@ import com.skripsi.area31.core.model.Token
 import com.skripsi.area31.course.view.CourseActivity
 import com.skripsi.area31.databinding.FragmentQuizListBinding
 import com.skripsi.area31.home.view.HomeFragment
+import com.skripsi.area31.quiz.view.QuizActivity
 import com.skripsi.area31.quizlist.adapter.ListQuizAdapter
-import com.skripsi.area31.quizlist.injection.DaggerQuizComponent
-import com.skripsi.area31.quizlist.injection.QuizComponent
+import com.skripsi.area31.quizlist.injection.DaggerQuizListComponent
+import com.skripsi.area31.quizlist.injection.QuizListComponent
 import com.skripsi.area31.quizlist.model.ListQuizResponse
 import com.skripsi.area31.quizlist.model.Quiz
-import com.skripsi.area31.quizlist.presenter.QuizPresenter
+import com.skripsi.area31.quizlist.presenter.QuizListPresenter
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.CHAPTER_FRAGMENT
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
+import com.skripsi.area31.utils.Constants.Companion.ID_QUIZ
 import com.skripsi.area31.utils.PaginationScrollListener
 import javax.inject.Inject
 
-class QuizFragment : BottomSheetDialogFragment(), QuizContract {
-  private var daggerBuild: QuizComponent = DaggerQuizComponent.builder().baseComponent(
+class QuizListFragment : BottomSheetDialogFragment(), QuizListContract {
+  private var daggerBuild: QuizListComponent = DaggerQuizListComponent.builder().baseComponent(
       BaseApp.instance.baseComponent).build()
 
   init {
     daggerBuild.inject(this)
   }
 
-  @Inject lateinit var presenter: QuizPresenter
+  @Inject lateinit var presenter: QuizListPresenter
   @Inject lateinit var gson: Gson
   private lateinit var listQuizAdapter: ListQuizAdapter
   private lateinit var binding: FragmentQuizListBinding
@@ -140,7 +143,9 @@ class QuizFragment : BottomSheetDialogFragment(), QuizContract {
   }
 
   private fun quizItemClick(quizItems: Quiz) {
-
+    val intent = Intent(context, QuizActivity::class.java)
+    intent.putExtra(ID_QUIZ, quizItems.idQuiz)
+    startActivity(intent)
   }
 
   override fun onCancel(dialog: DialogInterface) {

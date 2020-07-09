@@ -4,82 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/item_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/eight_dp"
-        android:background="@drawable/background_blue_course_item"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/ic_pattern"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <ImageView
-            android:id="@+id/iv_parking_zone_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_item_course"
-            android:paddingTop="@dimen/twenty_four_dp"
-            android:paddingBottom="@dimen/twenty_four_dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="@id/item_layout"
+            app:layout_constraintBottom_toBottomOf="@id/item_layout"
+            app:layout_constraintLeft_toLeftOf="@id/item_layout"
+            app:layout_constraintRight_toRightOf="@id/item_layout"
+            android:src="@drawable/ic_leave_quiz"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
+            android:id="@+id/item_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-
-            android:paddingLeft="@dimen/twenty_four_dp"
-            android:paddingTop="@dimen/twenty_four_dp"
-            android:paddingBottom="@dimen/twenty_four_dp"
-            app:layout_constraintRight_toLeftOf="@id/iv_parking_zone_image"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:background="@drawable/background_blue_course_item_transparent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/eight_dp"
-                android:background="@drawable/card_white"
-                android:ellipsize="end"
-                android:paddingLeft="@dimen/four_dp"
-                android:paddingRight="@dimen/four_dp"
-                android:src="@drawable/ic_arrow"
-                android:tint="@color/colorAccent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_name" />
+                android:id="@+id/iv_parking_zone_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:paddingTop="@dimen/twenty_four_dp"
+                android:paddingBottom="@dimen/twenty_four_dp"
+                android:src="@drawable/ic_item_course"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/item_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:textColor="@color/white"
-                android:textSize="@dimen/h2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_title"
-                tools:text="Monalisa" />
 
-            <TextView
-                android:id="@+id/item_title"
-                android:layout_width="match_parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:textColor="@color/white"
-                android:textSize="@dimen/h_medium"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Kotlin for Beginners: Learn Programming With Kotlin" />
+                android:paddingLeft="@dimen/twenty_four_dp"
+                android:paddingTop="@dimen/twenty_four_dp"
+
+                android:paddingBottom="@dimen/twenty_four_dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/iv_parking_zone_image"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h2"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_title"
+                    tools:text="By. Monalisa" />
+
+                <TextView
+                    android:id="@+id/item_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Kotlin for Beginners: Learn Programming With Kotlin" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

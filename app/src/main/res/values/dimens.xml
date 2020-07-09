@@ -9,6 +9,7 @@
     <dimen name="h_v_small">8sp</dimen>
 
     <dimen name="zero_dp">0dp</dimen>
+    <dimen name="fivity_two">52dp</dimen>
     <dimen name="twenty_four_dp">24dp</dimen>
     <dimen name="twelve_dp">12dp</dimen>
     <dimen name="sixteen_dp">16dp</dimen>

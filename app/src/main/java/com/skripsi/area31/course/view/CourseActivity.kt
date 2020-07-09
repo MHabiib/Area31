@@ -18,7 +18,7 @@ import com.skripsi.area31.course.model.CourseDetails
 import com.skripsi.area31.course.presenter.CoursePresenter
 import com.skripsi.area31.courseresource.view.ResourceFragment
 import com.skripsi.area31.databinding.ActivityCourseBinding
-import com.skripsi.area31.quizlist.view.QuizFragment
+import com.skripsi.area31.quizlist.view.QuizListFragment
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
 import com.skripsi.area31.utils.Constants.Companion.REFRESH_COURSE
@@ -40,7 +40,7 @@ class CourseActivity : BaseActivity(), CourseContract {
   private var courseId: String? = null
   private val bottomSheetFragmentChapter = ChapterFragment()
   private val bottomSheetFragmentResource = ResourceFragment()
-  private val bottomSheetFragmentQuiz = QuizFragment()
+  private val bottomSheetFragmentQuiz = QuizListFragment()
   private val bottomSheetFragment = LeaveCourseBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,24 +64,30 @@ class CourseActivity : BaseActivity(), CourseContract {
         this@CourseActivity.finish()
       }
       ibLeave.setOnClickListener {
-        this@CourseActivity.supportFragmentManager.let { fragmentManager ->
-          bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
+        if (!bottomSheetFragment.isAdded) {
+          this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+            bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
+          }
         }
       }
       layoutChapter.setOnClickListener {
         val bundle = Bundle()
         bundle.putString(COURSE_ID, courseId)
         bottomSheetFragmentChapter.arguments = bundle
-        this@CourseActivity.supportFragmentManager.let { fragmentManager ->
-          bottomSheetFragmentChapter.show(fragmentManager, bottomSheetFragmentChapter.tag)
+        if (!bottomSheetFragmentChapter.isAdded) {
+          this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+            bottomSheetFragmentChapter.show(fragmentManager, bottomSheetFragmentChapter.tag)
+          }
         }
       }
       layoutQuiz.setOnClickListener {
         val bundle = Bundle()
         bundle.putString(COURSE_ID, courseId)
         bottomSheetFragmentQuiz.arguments = bundle
-        this@CourseActivity.supportFragmentManager.let { fragmentManager ->
-          bottomSheetFragmentQuiz.show(fragmentManager, bottomSheetFragmentQuiz.tag)
+        if (!bottomSheetFragmentQuiz.isAdded) {
+          this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+            bottomSheetFragmentQuiz.show(fragmentManager, bottomSheetFragmentQuiz.tag)
+          }
         }
       }
       layoutQna.setOnClickListener {
@@ -91,8 +97,10 @@ class CourseActivity : BaseActivity(), CourseContract {
         val bundle = Bundle()
         bundle.putString(COURSE_ID, courseId)
         bottomSheetFragmentResource.arguments = bundle
-        this@CourseActivity.supportFragmentManager.let { fragmentManager ->
-          bottomSheetFragmentResource.show(fragmentManager, bottomSheetFragmentResource.tag)
+        if (!bottomSheetFragmentResource.isAdded) {
+          this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+            bottomSheetFragmentResource.show(fragmentManager, bottomSheetFragmentResource.tag)
+          }
         }
       }
       layoutComplaint.setOnClickListener {

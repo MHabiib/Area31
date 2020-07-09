@@ -9,4 +9,8 @@
     <string name="good_night">Good Night</string>
     <string name="hello">Hello,</string>
     <string name="manual_input_courseid"><u>Manual input CourseID</u></string>
+    <string name="back_with_less_than">&#60; Back</string>
+    <string name="next_with_bigger_than">Next &#62;</string>
+    <string name="start_with_bigger_than">Start &#62;</string>
+    <string name="preview_hand_in"><u>Preview / Submit</u></string>
 </resources>

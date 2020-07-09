@@ -89,8 +89,11 @@ class ProfileFragment : Fragment(), ProfileContract {
         presenter.updateUser(accessToken, "", RegisterStudent(email, name, "", phone, ROLE_STUDENT))
       }
       btnEditPassword.setOnClickListener {
-        activity?.supportFragmentManager?.let { fragmentManager ->
-          bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
+        if (!bottomSheetFragment.isAdded) {
+
+          activity?.supportFragmentManager?.let { fragmentManager ->
+            bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
+          }
         }
       }
       profileName.addTextChangedListener {

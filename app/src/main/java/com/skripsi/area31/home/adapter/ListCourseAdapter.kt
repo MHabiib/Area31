@@ -33,7 +33,7 @@ class ListCourseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     if (getItemViewType(position) == item) {
       val historyViewHolder = holder as CourseViewHolder
       historyViewHolder.itemTitle.text = courseItems?.name
-      historyViewHolder.itemName.text = courseItems?.instructorName
+      historyViewHolder.itemName.text = "By. " + courseItems?.instructorName
     }
   }
 
