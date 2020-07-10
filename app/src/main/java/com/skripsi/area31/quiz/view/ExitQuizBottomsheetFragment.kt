@@ -15,8 +15,8 @@ class ExitQuizBottomsheetFragment : BottomSheetDialogFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
-    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bottomsheet_leave_quiz,
-        container, false)
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bottomsheet_leave_quiz, container,
+        false)
     setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AppBottomSheetDialogTheme)
     return binding.root
   }

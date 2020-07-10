@@ -1,7 +1,10 @@
 package com.skripsi.area31.main.view
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.databinding.ActivityMainBinding
@@ -20,8 +24,10 @@ import com.skripsi.area31.main.injection.MainComponent
 import com.skripsi.area31.main.presenter.MainPresenter
 import com.skripsi.area31.profile.view.ProfileFragment
 import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.MY_FIREBASE_MESSAGING
 import com.skripsi.area31.utils.Constants.Companion.REFRESH_COURSE
 import com.skripsi.area31.utils.Constants.Companion.REQUEST_CAMERA_PERMISSION
+import com.skripsi.area31.utils.Constants.Companion.STUDENT_NAME
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainContract {
@@ -139,5 +145,24 @@ class MainActivity : AppCompatActivity(), MainContract {
         supportFragmentManager.beginTransaction().hide(it).commit()
       }
     }
+  }
+
+  private val mMessageReceiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+      Toast.makeText(this@MainActivity,
+          "Hi " + intent.getStringExtra(STUDENT_NAME) + " Your quiz score have been updated !",
+          Toast.LENGTH_SHORT).show()
+    }
+  }
+
+  override fun onResume() {
+    super.onResume()
+    LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+        IntentFilter(MY_FIREBASE_MESSAGING))
+  }
+
+  override fun onPause() {
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver)
+    super.onPause()
   }
 }

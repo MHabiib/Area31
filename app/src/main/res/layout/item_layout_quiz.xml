@@ -67,6 +67,7 @@
                 android:id="@+id/layout_minutes_past"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
@@ -137,7 +138,6 @@
             android:id="@+id/layout_details"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:padding="@dimen/twenty_four_dp"
             app:layout_constraintRight_toLeftOf="@id/guideline2"

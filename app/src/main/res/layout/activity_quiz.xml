@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_pattern"
             app:layout_constraintRight_toRightOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/guideline3"/>
+            app:layout_constraintTop_toTopOf="@id/guideline3" />
 
         <ImageButton
             android:id="@+id/btn_exit"
@@ -93,13 +93,29 @@
             android:layout_marginRight="@dimen/twelve_dp"
             app:layout_constraintRight_toRightOf="parent"/>
 
+        <Button
+            android:id="@+id/btn_complaint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/complaint"
+            android:background="@null"
+            style="@style/NoCaps"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            android:clickable="false"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:layout_marginRight="@dimen/twelve_dp"
+            app:layout_constraintRight_toRightOf="parent"/>
+
         <TextView
             android:id="@+id/quiz_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:visibility="gone"
+            android:visibility="invisible"
             android:layout_marginTop="@dimen/twelve_dp"
             android:textSize="@dimen/h_medium"
             android:layout_marginLeft="@dimen/twenty_four_dp"
@@ -176,6 +192,25 @@
                     android:layout_marginTop="@dimen/twelve_dp"
                     android:textColor="@color/black"/>
 
+                <TextView
+                    android:id="@+id/tv_clear_answer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/clear_answer"/>
+
+                <TextView
+                    android:id="@+id/tv_your_answer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/clear_answer"/>
+
 
                 <RadioGroup
                     android:id="@+id/radiobuttons"
@@ -206,6 +241,33 @@
                         android:singleLine="false"
                         android:ems="10"
                         android:hint="Your answer . . ."
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/darkGrey"
+                        android:paddingBottom="@dimen/eight_dp"
+                        android:textSize="@dimen/h3" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_answer_essay_student"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:background="@drawable/card_base_white"
+                    android:paddingStart="@dimen/sixteen_dp"
+                    android:paddingTop="@dimen/twelve_dp"
+                    android:paddingEnd="@dimen/sixteen_dp"
+                    android:paddingBottom="@dimen/twelve_dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/answer_essay_student"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:inputType="textMultiLine"
+                        android:singleLine="false"
+                        android:ems="10"
+                        android:hint="Answer key . . ."
                         android:textColor="@color/black"
                         android:textColorHint="@color/darkGrey"
                         android:paddingBottom="@dimen/eight_dp"
@@ -293,6 +355,34 @@
                 android:textSize="@dimen/h2"
                 android:text="@string/start_with_bigger_than"
                 android:textColor="@color/colorPrimaryDark"/>
+
+            <Button
+                android:id="@+id/btn_review_quiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/twenty_four_dp"
+                android:background="@drawable/card_white"
+                style="@style/NoCaps"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:textSize="@dimen/h2"
+                android:text="@string/review_with_bigger_than"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <Button
+                android:id="@+id/btn_go_to_quiz_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/twelve_dp"
+                android:layout_marginTop="@dimen/twenty_four_dp"
+                android:background="@drawable/card_white"
+                style="@style/NoCaps"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:textSize="@dimen/h2"
+                android:text="Review"
+                android:textColor="@color/colorPrimaryDark"/>
+
         </LinearLayout>
 
         <Button

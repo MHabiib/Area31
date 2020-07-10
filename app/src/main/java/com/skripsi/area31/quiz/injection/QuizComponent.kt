@@ -6,5 +6,5 @@ import dagger.Component
 
 @Component(dependencies = [BaseComponent::class], modules = [QuizModule::class])
 interface QuizComponent {
-    fun inject(quizActivity: QuizActivity)
+  fun inject(quizActivity: QuizActivity)
 }

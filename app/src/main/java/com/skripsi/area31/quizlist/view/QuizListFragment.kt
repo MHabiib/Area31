@@ -26,10 +26,12 @@ import com.skripsi.area31.quizlist.model.ListQuizResponse
 import com.skripsi.area31.quizlist.model.Quiz
 import com.skripsi.area31.quizlist.presenter.QuizListPresenter
 import com.skripsi.area31.utils.Constants
-import com.skripsi.area31.utils.Constants.Companion.CHAPTER_FRAGMENT
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
 import com.skripsi.area31.utils.Constants.Companion.ID_QUIZ
+import com.skripsi.area31.utils.Constants.Companion.QUIZ_LIST_FRAGMENT
+import com.skripsi.area31.utils.Constants.Companion.QUIZ_SCORE
 import com.skripsi.area31.utils.PaginationScrollListener
+import java.util.*
 import javax.inject.Inject
 
 class QuizListFragment : BottomSheetDialogFragment(), QuizListContract {
@@ -51,7 +53,7 @@ class QuizListFragment : BottomSheetDialogFragment(), QuizListContract {
   private lateinit var idCourse: String
 
   companion object {
-    const val TAG: String = CHAPTER_FRAGMENT
+    const val TAG: String = QUIZ_LIST_FRAGMENT
   }
 
   fun newInstance(): HomeFragment = HomeFragment()
@@ -143,9 +145,17 @@ class QuizListFragment : BottomSheetDialogFragment(), QuizListContract {
   }
 
   private fun quizItemClick(quizItems: Quiz) {
-    val intent = Intent(context, QuizActivity::class.java)
-    intent.putExtra(ID_QUIZ, quizItems.idQuiz)
-    startActivity(intent)
+    if (quizItems.quizDate < Calendar.getInstance(
+            TimeZone.getTimeZone(getString(R.string.asiajakarta))).timeInMillis) {
+      val activity = activity as CourseActivity
+      activity.dismissQuizDialog()
+      val intent = Intent(context, QuizActivity::class.java)
+      intent.putExtra(ID_QUIZ, quizItems.idQuiz)
+      if (quizItems.score != null) {
+        intent.putExtra(QUIZ_SCORE, quizItems.score.toString())
+      }
+      startActivity(intent)
+    }
   }
 
   override fun onCancel(dialog: DialogInterface) {

@@ -24,6 +24,7 @@ class PreviewBottomsheetFragment : BottomSheetDialogFragment() {
   private lateinit var layout: ScrollView
   private lateinit var layoutPark: LinearLayout
   private lateinit var parkingLayout: LinearLayout
+  private lateinit var haventAnsewerdNumber: String
 
   companion object {
     const val TAG: String = PREVIEW_FRAGMENT
@@ -31,9 +32,13 @@ class PreviewBottomsheetFragment : BottomSheetDialogFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
-    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bottomsheet_preview,
-        container, false)
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bottomsheet_preview, container,
+        false)
     layout = binding.layoutQuestionNumber
+    binding.btnSubmit.setOnClickListener {
+      val activity = activity as QuizActivity
+      activity.submit(haventAnsewerdNumber)
+    }
     return binding.root
   }
 
@@ -50,6 +55,7 @@ class PreviewBottomsheetFragment : BottomSheetDialogFragment() {
   }
 
   private fun showQuestionNumber() {
+    haventAnsewerdNumber = ""
     layoutPark = LinearLayout(context)
     val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -70,20 +76,14 @@ class PreviewBottomsheetFragment : BottomSheetDialogFragment() {
         parkingLayout.orientation = LinearLayout.HORIZONTAL
         layoutPark.addView(parkingLayout)
       }
-      // creating the button
       val dynamicButton = Button(context)
-      // setting layout_width and layout_height using layout parameters
 
-      dynamicButton.layoutParams = LinearLayout.LayoutParams(
-          resources.getDimension(R.dimen.fivity_two).toInt(),
-          resources.getDimension(R.dimen.fivity_two).toInt()
-      )
-      val lp = LinearLayout.LayoutParams(0, 100)
+      val lp = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT)
       lp.weight = 1f
       dynamicButton.layoutParams = lp
 
       val parameter = dynamicButton.layoutParams as LinearLayout.LayoutParams
-      parameter.setMargins(12, 12,12, 12)
+      parameter.setMargins(12, 12, 12, 12)
 
       dynamicButton.layoutParams = parameter
       dynamicButton.text = (i + 1).toString()
@@ -91,7 +91,8 @@ class PreviewBottomsheetFragment : BottomSheetDialogFragment() {
       if (answeredQuestion[i]?.answer != null) {
         context?.resources?.getColor(R.color.white)?.let { dynamicButton.setTextColor(it) }
         dynamicButton.setBackgroundResource(R.drawable.card_primary)
-      } else{
+      } else {
+        haventAnsewerdNumber += ((i + 1).toString() + " ")
         context?.resources?.getColor(R.color.darkGrey)?.let { dynamicButton.setTextColor(it) }
         dynamicButton.setBackgroundResource(R.drawable.card_base_white)
       }

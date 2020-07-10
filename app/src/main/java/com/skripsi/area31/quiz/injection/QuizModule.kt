@@ -5,10 +5,8 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 
-@Module
-class QuizModule {
-    @Provides
-    fun provideQuizApi(retrofit: Retrofit): QuizApi {
-        return retrofit.create(QuizApi::class.java)
-    }
+@Module class QuizModule {
+  @Provides fun provideQuizApi(retrofit: Retrofit): QuizApi {
+    return retrofit.create(QuizApi::class.java)
+  }
 }
