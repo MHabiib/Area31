@@ -1,5 +1,6 @@
 package com.skripsi.area31.quiz.view
 
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.AlertDialog
 import android.content.Context
@@ -22,6 +23,7 @@ import com.skripsi.area31.quiz.model.*
 import com.skripsi.area31.quiz.presenter.QuizPresenter
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.ID_QUIZ
+import com.skripsi.area31.utils.Constants.Companion.MULTIPLECHOICE
 import com.skripsi.area31.utils.Constants.Companion.QUIZ_SCORE
 import com.skripsi.area31.utils.Constants.Companion.TOTAL_QUESTIONS
 import java.util.*
@@ -54,7 +56,7 @@ class QuizActivity : BaseActivity(), QuizContract {
   private val answeredQuestion = mutableMapOf<Int, AnsweredQuestion>()
   private var indexAt = 0
 
-  override fun onCreate(savedInstanceState: Bundle?) {
+  @SuppressLint("SetTextI18n") override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     binding = DataBindingUtil.setContentView(this, R.layout.activity_quiz)
@@ -82,6 +84,7 @@ class QuizActivity : BaseActivity(), QuizContract {
 
     with(binding) {
       rgp = binding.radiobuttons
+
       btnExit.setOnClickListener {
         if (!bottomsheetFragment.isAdded && listQuestion != null) {
           this@QuizActivity.supportFragmentManager.let { fragmentManager ->
@@ -98,21 +101,24 @@ class QuizActivity : BaseActivity(), QuizContract {
         layoutQuestion.visibility = View.VISIBLE
         btnNext.visibility = View.VISIBLE
         btnComplaint.visibility = View.VISIBLE
-        btnComplaint.isClickable = true
         tvQuestionNumberHeader.visibility = View.VISIBLE
-        tvQuestionNumber.text = "No. " + (indexAt + 1).toString()
+        btnComplaint.isClickable = true
+
+        tvQuestionNumber.text = "No. ${(indexAt + 1)}"
         tvScore.text = "Score: " + listQuestionReport?.get(
             indexAt)?.score.toString() + " | Your Score: " + listQuestionReport?.get(
             indexAt)?.studentScore.toString()
-        tvQuestionNumberHeader.text = (indexAt + 1).toString() + "/" + listQuestionReport?.size.toString()
+        tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
+            R.string.slash) + listQuestionReport?.size.toString()
         tvQuestion.text = listQuestionReport?.get(indexAt)?.question.toString()
-        if (listQuestionReport?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+
+        if (listQuestionReport?.get(indexAt)?.questionType == MULTIPLECHOICE) {
           createRadioButtonReview()
           radiobuttons.visibility = View.VISIBLE
           layoutAnswerEssay.visibility = View.GONE
           layoutAnswerEssayStudent.visibility = View.GONE
           tvYourAnswer.visibility = View.VISIBLE
-          tvYourAnswer.text = "Your answer : " + listQuestionReport?.get(indexAt)?.studentAnswer
+          tvYourAnswer.text = "Your answer : ${listQuestionReport?.get(indexAt)?.studentAnswer}"
         } else {
           radiobuttons.visibility = View.GONE
           tvYourAnswer.visibility = View.GONE
@@ -139,10 +145,11 @@ class QuizActivity : BaseActivity(), QuizContract {
         btnPreview.isClickable = true
         tvQuestionNumberHeader.visibility = View.VISIBLE
 
-        tvQuestionNumber.text = "No. " + (indexAt + 1).toString()
+        tvQuestionNumber.text = "No. ${(indexAt + 1)}"
         tvScore.text = "Score: " + listQuestion?.get(indexAt)?.score.toString()
         tvQuestion.text = listQuestion?.get(indexAt)?.question.toString()
-        if (listQuestion?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+
+        if (listQuestion?.get(indexAt)?.questionType == MULTIPLECHOICE) {
           createRadioButton()
           radiobuttons.visibility = View.VISIBLE
           layoutAnswerEssay.visibility = View.GONE
@@ -154,18 +161,21 @@ class QuizActivity : BaseActivity(), QuizContract {
 
       btnNext.setOnClickListener {
         if (listQuestion != null) {
-          SaveAnsweredQuestion()
+          saveAnsweredQuestion()
         }
+
         indexAt += 1
         btnBack.visibility = View.VISIBLE
         btnBack.isClickable = true
-        tvQuestionNumber.text = "No. " + (indexAt + 1).toString()
+        tvQuestionNumber.text = "No. ${(indexAt + 1)}"
+
         if (listQuestion != null) {
           tvScore.text = "Score: " + listQuestion?.get(indexAt)?.score.toString()
           tvQuestion.text = listQuestion?.get(indexAt)?.question.toString()
-          tvQuestionNumberHeader.text = (indexAt + 1).toString() + "/" + listQuestion?.size.toString()
+          tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
+              R.string.slash) + listQuestion?.size.toString()
 
-          if (listQuestion?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+          if (listQuestion?.get(indexAt)?.questionType == MULTIPLECHOICE) {
             createRadioButton()
             radiobuttons.visibility = View.VISIBLE
             layoutAnswerEssay.visibility = View.GONE
@@ -181,19 +191,20 @@ class QuizActivity : BaseActivity(), QuizContract {
             btnNext.isClickable = false
           }
         } else {
-          tvQuestionNumber.text = "No. " + (indexAt + 1).toString()
+          tvQuestionNumber.text = "No. ${(indexAt + 1)}"
           tvScore.text = "Score: " + listQuestionReport?.get(
               indexAt)?.score.toString() + " | Your Score: " + listQuestionReport?.get(
               indexAt)?.studentScore.toString()
           tvQuestion.text = listQuestionReport?.get(indexAt)?.question.toString()
-          tvQuestionNumberHeader.text = (indexAt + 1).toString() + "/" + listQuestionReport?.size.toString()
-          if (listQuestionReport?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+          tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
+              R.string.slash) + listQuestionReport?.size.toString()
+          if (listQuestionReport?.get(indexAt)?.questionType == MULTIPLECHOICE) {
             createRadioButtonReview()
             radiobuttons.visibility = View.VISIBLE
             layoutAnswerEssay.visibility = View.GONE
             layoutAnswerEssayStudent.visibility = View.GONE
             tvYourAnswer.visibility = View.VISIBLE
-            tvYourAnswer.text = "Your answer : " + listQuestionReport?.get(indexAt)?.studentAnswer
+            tvYourAnswer.text = "Your answer : ${listQuestionReport?.get(indexAt)?.studentAnswer}"
           } else {
             radiobuttons.visibility = View.GONE
             tvYourAnswer.visibility = View.GONE
@@ -201,6 +212,7 @@ class QuizActivity : BaseActivity(), QuizContract {
             layoutAnswerEssayStudent.visibility = View.VISIBLE
             answerEssay.isFocusable = false
             answerEssayStudent.isFocusable = false
+
             answerEssay.setText(listQuestionReport?.get(indexAt)?.studentAnswer)
             answerEssayStudent.setText(listQuestionReport?.get(indexAt)?.answerKey)
           }
@@ -213,18 +225,19 @@ class QuizActivity : BaseActivity(), QuizContract {
 
       btnBack.setOnClickListener {
         if (listQuestion != null) {
-          SaveAnsweredQuestion()
+          saveAnsweredQuestion()
         }
         btnNext.visibility = View.VISIBLE
         btnNext.isClickable = true
         indexAt -= 1
-        tvQuestionNumber.text = "No. " + (indexAt + 1).toString()
+        tvQuestionNumber.text = "No. ${(indexAt + 1)}"
         if (listQuestion != null) {
           tvScore.text = "Score: " + listQuestion?.get(indexAt)?.score.toString()
           tvQuestion.text = listQuestion?.get(indexAt)?.question.toString()
-          tvQuestionNumberHeader.text = (indexAt + 1).toString() + "/" + listQuestion?.size.toString()
+          tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
+              R.string.slash) + listQuestion?.size.toString()
 
-          if (listQuestion?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+          if (listQuestion?.get(indexAt)?.questionType == MULTIPLECHOICE) {
             createRadioButton()
             radiobuttons.visibility = View.VISIBLE
             layoutAnswerEssay.visibility = View.GONE
@@ -240,19 +253,21 @@ class QuizActivity : BaseActivity(), QuizContract {
             btnBack.isClickable = false
           }
         } else {
-          tvQuestionNumber.text = "No. " + (indexAt + 1).toString()
+          tvQuestionNumber.text = "No. ${(indexAt + 1)}"
           tvScore.text = "Score: " + listQuestionReport?.get(
               indexAt)?.score.toString() + " | Your Score: " + listQuestionReport?.get(
               indexAt)?.studentScore.toString()
           tvQuestion.text = listQuestionReport?.get(indexAt)?.question.toString()
-          tvQuestionNumberHeader.text = (indexAt + 1).toString() + "/" + listQuestionReport?.size.toString()
-          if (listQuestionReport?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+          tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
+              R.string.slash) + listQuestionReport?.size.toString()
+
+          if (listQuestionReport?.get(indexAt)?.questionType == MULTIPLECHOICE) {
             createRadioButtonReview()
             radiobuttons.visibility = View.VISIBLE
             layoutAnswerEssay.visibility = View.GONE
             layoutAnswerEssayStudent.visibility = View.GONE
             tvYourAnswer.visibility = View.VISIBLE
-            tvYourAnswer.text = "Your answer : " + listQuestionReport?.get(indexAt)?.studentAnswer
+            tvYourAnswer.text = "Your answer : ${listQuestionReport?.get(indexAt)?.studentAnswer}"
           } else {
             radiobuttons.visibility = View.GONE
             tvYourAnswer.visibility = View.GONE
@@ -271,7 +286,7 @@ class QuizActivity : BaseActivity(), QuizContract {
       }
 
       btnPreview.setOnClickListener {
-        SaveAnsweredQuestion()
+        saveAnsweredQuestion()
         val bundle = Bundle()
         listQuestion?.size?.let { totalQuestions ->
           bundle.putInt(TOTAL_QUESTIONS, totalQuestions)
@@ -286,7 +301,7 @@ class QuizActivity : BaseActivity(), QuizContract {
 
       tvClearAnswer.setOnClickListener {
         answeredQuestion.remove(indexAt)
-        if (listQuestion?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+        if (listQuestion?.get(indexAt)?.questionType == MULTIPLECHOICE) {
           rgp.clearCheck()
         } else {
           answerEssay.text?.clear()
@@ -299,8 +314,8 @@ class QuizActivity : BaseActivity(), QuizContract {
     }
   }
 
-  private fun ActivityQuizBinding.SaveAnsweredQuestion() {
-    if (listQuestion?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+  private fun ActivityQuizBinding.saveAnsweredQuestion() {
+    if (listQuestion?.get(indexAt)?.questionType == MULTIPLECHOICE) {
       val selectedRadioButton = findViewById<RadioButton>(radiobuttons.checkedRadioButtonId)
       if (selectedRadioButton != null) {
         listQuestion?.get(indexAt)?.idQuestion?.let { idQuestion ->
@@ -320,7 +335,7 @@ class QuizActivity : BaseActivity(), QuizContract {
     }
   }
 
-  override fun getQuizDataSuccess(quizResponse: QuizResponse) {
+  @SuppressLint("SetTextI18n") override fun getQuizDataSuccess(quizResponse: QuizResponse) {
     showProgress(false)
     with(binding) {
       tvTimeLeft.visibility = View.VISIBLE
@@ -336,12 +351,12 @@ class QuizActivity : BaseActivity(), QuizContract {
       indexAt = 0
       btnBack.visibility = View.GONE
       listQuestion?.let {
-        tvQuestionNumberHeader.text = (indexAt + 1).toString() + "/" + it.size.toString()
+        tvQuestionNumberHeader.text = "${(indexAt + 1)}${getString(R.string.slash)}${it.size}"
       }
     }
   }
 
-  override fun getQuizReportuccess(quizResponse: QuizReport) {
+  @SuppressLint("SetTextI18n") override fun getQuizReportuccess(quizResponse: QuizReport) {
     showProgress(false)
     with(binding) {
       btnReviewQuiz.visibility = View.VISIBLE
@@ -350,7 +365,8 @@ class QuizActivity : BaseActivity(), QuizContract {
       listQuestionReport = quizResponse.reportQuizResponses
       indexAt = 0
       listQuestionReport?.let {
-        tvQuestionNumberHeader.text = (indexAt + 1).toString() + "/" + it.size.toString()
+        tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
+            R.string.slash) + it.size.toString()
       }
     }
   }
@@ -377,7 +393,7 @@ class QuizActivity : BaseActivity(), QuizContract {
     }
   }
 
-  private fun createRadioButtonReview() {
+  @SuppressLint("SetTextI18n") private fun createRadioButtonReview() {
     rgp.removeAllViews()
     rgp.invalidate()
     var rprms: RadioGroup.LayoutParams
@@ -392,7 +408,7 @@ class QuizActivity : BaseActivity(), QuizContract {
         rprms.setMargins(0, 12, 12, 12)
         if (radioButton.text == listQuestionReport?.get(indexAt)?.answerKey) {
           rgp.check(i)
-          radioButton.text = listQuestionReport?.get(indexAt)?.answer?.get(i) + " (Answer Key)"
+          radioButton.text = "${listQuestionReport?.get(indexAt)?.answer?.get(i)} (Answer Key)"
           radioButton.isChecked = true
         }
         radioButton.isClickable = false
@@ -408,7 +424,7 @@ class QuizActivity : BaseActivity(), QuizContract {
   private fun printDifferenceDateForHours(different: Long) {
     countDownTimer = object : CountDownTimer1(different, 1000) {
 
-      override fun onTick(millisUntilFinished: Long) {
+      @SuppressLint("SetTextI18n") override fun onTick(millisUntilFinished: Long) {
         var diff = millisUntilFinished
         val secondsInMilli: Long = 1000
         val minutesInMilli = secondsInMilli * 60
@@ -427,8 +443,8 @@ class QuizActivity : BaseActivity(), QuizContract {
       }
 
       override fun onFinish() {
-        binding.quizTimeDetails.text = "Time's up!"
-        binding.quizTime.text = "Time's up!"
+        binding.quizTimeDetails.text = getString(R.string.times_up)
+        binding.quizTime.text = getString(R.string.times_up)
       }
     }.start()
   }
@@ -443,22 +459,22 @@ class QuizActivity : BaseActivity(), QuizContract {
     }
   }
 
-  fun submit(haventAnsewerdNumber: String) {
+  @SuppressLint("SetTextI18n") fun submit(haventAnsewerdNumber: String) {
     completed = true
     var answerAll = true
 
     bottomsheetFragmentPreview.dismiss()
     val mAlertDialog = AlertDialog.Builder(this@QuizActivity)
     val message: String = if (answeredQuestion.size == listQuestion?.size) {
-      "You answered all the questions !"
+      getString(R.string.you_answered_all_questions)
     } else {
       answerAll = false
       "You haven't answer question number $haventAnsewerdNumber"
     }
 
-    mAlertDialog.setTitle("Are you sure to submit this quiz?")
+    mAlertDialog.setTitle(getString(R.string.are_you_sure_submit_quiz))
     mAlertDialog.setMessage(message)
-    mAlertDialog.setPositiveButton("Yes") { dialog, id ->
+    mAlertDialog.setPositiveButton(getString(R.string.yes)) { _, _ ->
       if (!answerAll) {
         val haventAnswerdList = haventAnsewerdNumber.split(" ").toTypedArray()
         for (havent in haventAnswerdList) {
@@ -488,25 +504,26 @@ class QuizActivity : BaseActivity(), QuizContract {
         tvTimeLeft.visibility = View.GONE
         quizTimeDetails.visibility = View.GONE
         btnStartQuiz.visibility = View.GONE
-        tvQuizDetails.text = "You have completed this quiz"
+        tvQuizDetails.text = getString(R.string.you_have_completed_quiz)
       }
     }
-    mAlertDialog.setNegativeButton("No") { dialog, id ->
+    mAlertDialog.setNegativeButton(getString(R.string.no)) { dialog, _ ->
       dialog.dismiss()
     }
     mAlertDialog.show()
   }
 
-  fun jumpToQuestion(questionNumber: Int) {
+  @SuppressLint("SetTextI18n") fun jumpToQuestion(questionNumber: Int) {
     bottomsheetFragmentPreview.dismiss()
     indexAt = questionNumber
     with(binding) {
-      tvQuestionNumber.text = "No. " + (indexAt + 1).toString()
-      tvScore.text = "Score: " + listQuestion?.get(indexAt)?.score.toString()
+      tvQuestionNumber.text = "No. ${(indexAt + 1)}"
+      tvScore.text = "Score: ${listQuestion?.get(indexAt)?.score.toString()}"
       tvQuestion.text = listQuestion?.get(indexAt)?.question.toString()
-      tvQuestionNumberHeader.text = (indexAt + 1).toString() + "/" + listQuestion?.size.toString()
+      tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
+          R.string.slash) + listQuestion?.size.toString()
 
-      if (listQuestion?.get(indexAt)?.questionType == "MULTIPLECHOICE") {
+      if (listQuestion?.get(indexAt)?.questionType == MULTIPLECHOICE) {
         createRadioButton()
         radiobuttons.visibility = View.VISIBLE
         layoutAnswerEssay.visibility = View.GONE

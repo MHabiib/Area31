@@ -24,7 +24,6 @@ class ReadChapterActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView(this, R.layout.activity_read_chapter)
-    // get pageUrl from String
     pageUrl = intent.getStringExtra(PAGE_URL) ?: throw IllegalStateException(
         "field $PAGE_URL missing in Intent")
     initWebView()
@@ -70,12 +69,10 @@ class ReadChapterActivity : BaseActivity() {
 
   override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
     with(binding) {
-      // Check if the key event was the Back button and if there's history
       if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
         webView.goBack()
         return true
       }
-      // If it wasn't the Back key or there's no web page history, exit the activity)
       return super.onKeyDown(keyCode, event)
     }
   }

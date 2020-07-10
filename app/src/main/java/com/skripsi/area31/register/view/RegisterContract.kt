@@ -6,5 +6,6 @@ import okhttp3.ResponseBody
 
 interface RegisterContract : BaseView {
   fun onSuccess(token: Token)
+
   fun onBadRequest(responseBody: ResponseBody)
 }

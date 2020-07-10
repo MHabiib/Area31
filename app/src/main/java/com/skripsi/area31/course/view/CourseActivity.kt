@@ -56,6 +56,7 @@ class CourseActivity : BaseActivity(), CourseContract {
     if (this.intent.getStringExtra(COURSE_ID) != null) {
       courseId = this.intent.getStringExtra(COURSE_ID)
     }
+
     showProgress(true)
     courseId?.let { presenter.courseDetails(accessToken, it) }
 
@@ -63,6 +64,7 @@ class CourseActivity : BaseActivity(), CourseContract {
       ibBack.setOnClickListener {
         this@CourseActivity.finish()
       }
+
       ibLeave.setOnClickListener {
         if (!bottomSheetFragment.isAdded) {
           this@CourseActivity.supportFragmentManager.let { fragmentManager ->
@@ -70,6 +72,7 @@ class CourseActivity : BaseActivity(), CourseContract {
           }
         }
       }
+
       layoutChapter.setOnClickListener {
         val bundle = Bundle()
         bundle.putString(COURSE_ID, courseId)
@@ -80,6 +83,7 @@ class CourseActivity : BaseActivity(), CourseContract {
           }
         }
       }
+
       layoutQuiz.setOnClickListener {
         val bundle = Bundle()
         bundle.putString(COURSE_ID, courseId)
@@ -90,9 +94,11 @@ class CourseActivity : BaseActivity(), CourseContract {
           }
         }
       }
+
       layoutQna.setOnClickListener {
         Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
       }
+
       layoutResource.setOnClickListener {
         val bundle = Bundle()
         bundle.putString(COURSE_ID, courseId)
@@ -103,6 +109,7 @@ class CourseActivity : BaseActivity(), CourseContract {
           }
         }
       }
+
       layoutComplaint.setOnClickListener {
         Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
       }

@@ -5,6 +5,8 @@ import com.skripsi.area31.core.base.BasePresenter
 import com.skripsi.area31.profile.network.ProfileApi
 import com.skripsi.area31.profile.view.ProfileContract
 import com.skripsi.area31.register.model.RegisterStudent
+import com.skripsi.area31.utils.Constants.Companion.ON_ERROR
+import com.skripsi.area31.utils.Constants.Companion.PROFILE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -18,7 +20,7 @@ class ProfilePresenter @Inject constructor(private val profileApi: ProfileApi) :
             AndroidSchedulers.mainThread()).subscribe({
           view?.getStudentProfileSuccess(it)
         }, {
-          Log.e("PROFILE", "onError: ", it)
+          Log.e(PROFILE, ON_ERROR, it)
         }))
   }
 
@@ -33,7 +35,7 @@ class ProfilePresenter @Inject constructor(private val profileApi: ProfileApi) :
         }
       }
     }, {
-      Log.e("PROFILE", "onError: ", it)
+      Log.e(PROFILE, ON_ERROR, it)
     }))
   }
 

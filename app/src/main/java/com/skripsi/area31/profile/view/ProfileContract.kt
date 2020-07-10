@@ -7,8 +7,12 @@ import retrofit2.Response
 
 interface ProfileContract : BaseView {
   fun showProgress(show: Boolean)
+
   fun onLogout()
+
   fun getStudentProfileSuccess(student: Response<ProfileResponse>)
+
   fun updateUserSuccess(message: String)
+
   fun onBadRequest(message: ResponseBody)
 }

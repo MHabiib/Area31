@@ -134,7 +134,7 @@ class ProfileFragment : Fragment(), ProfileContract {
       email = student.body()?.user?.email.toString()
       phone = student.body()?.user?.phone.toString()
 
-      profileNameDisplay.text = "Hi " + name
+      profileNameDisplay.text = "Hi $name"
       profileName.hint = name
       profileEmail.hint = email
       profilePhoneNumber.hint = phone

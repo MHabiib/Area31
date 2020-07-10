@@ -50,7 +50,7 @@ class LoginActivity : BaseActivity(), LoginContract {
           hideKeyboard()
           presenter.login(etEmail.text.toString(), etPassword.text.toString())
         } else {
-          Toast.makeText(this@LoginActivity, "Fill all the entries with valid value.",
+          Toast.makeText(this@LoginActivity, getString(R.string.fill_all_the_entries),
               Toast.LENGTH_SHORT).show()
         }
       }
@@ -111,7 +111,8 @@ class LoginActivity : BaseActivity(), LoginContract {
 
   override fun onFailed(message: String) {
     loading(false)
-    Toast.makeText(this, "The email or password is incorrect.", Toast.LENGTH_LONG).show()
+    Toast.makeText(this, getString(R.string.the_email_or_password_incorrct),
+        Toast.LENGTH_LONG).show()
     Authentication.delete(this)
   }
 

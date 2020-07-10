@@ -4,6 +4,8 @@ import android.util.Log
 import com.skripsi.area31.core.base.BasePresenter
 import com.skripsi.area31.course.network.CourseApi
 import com.skripsi.area31.course.view.CourseContract
+import com.skripsi.area31.utils.Constants.Companion.COURSE
+import com.skripsi.area31.utils.Constants.Companion.ON_ERROR
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -19,7 +21,7 @@ class CoursePresenter @Inject constructor(private val courseApi: CourseApi) :
             else -> view?.courseDetailsSuccess(it.body()?.courseDetails)
           }
         }, {
-          Log.e("PROFILE", "onError: ", it)
+          Log.e(COURSE, ON_ERROR, it)
         }))
   }
 
@@ -36,7 +38,7 @@ class CoursePresenter @Inject constructor(private val courseApi: CourseApi) :
             }
           }
         }, {
-          Log.e("PROFILE", "onError: ", it)
+          Log.e(COURSE, ON_ERROR, it)
         }))
   }
 }

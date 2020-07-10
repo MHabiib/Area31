@@ -29,7 +29,7 @@
                 android:id="@+id/tv_preview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Preview"
+                android:text="@string/preview"
                 android:textColor="@color/white"
                 android:textSize="@dimen/h2"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -59,7 +59,7 @@
                 android:layout_marginBottom="@dimen/twenty_four_dp"
                 style="@style/NoCaps"
                 android:background="@drawable/card_white"
-                android:text="Submit"
+                android:text="@string/submit"
                 app:layout_constraintTop_toBottomOf="@id/layout_question_number"
                 android:layout_marginTop="@dimen/twelve_dp"
                 android:textColor="@color/colorPrimaryDark"/>

@@ -6,6 +6,8 @@ import okhttp3.ResponseBody
 
 interface EnrollContract : BaseView {
   fun checkCourseSuccess(course: Course)
+
   fun joinCourseSuccess(message: String)
+
   fun onBadRequest(error: ResponseBody)
 }

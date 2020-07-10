@@ -90,7 +90,7 @@
             android:clickable="false"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/twelve_dp"
-            android:layout_marginRight="@dimen/twelve_dp"
+            android:layout_marginEnd="@dimen/twelve_dp"
             app:layout_constraintRight_toRightOf="parent"/>
 
         <Button
@@ -106,7 +106,7 @@
             android:clickable="false"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/twelve_dp"
-            android:layout_marginRight="@dimen/twelve_dp"
+            android:layout_marginEnd="@dimen/twelve_dp"
             app:layout_constraintRight_toRightOf="parent"/>
 
         <TextView
@@ -118,7 +118,7 @@
             android:visibility="invisible"
             android:layout_marginTop="@dimen/twelve_dp"
             android:textSize="@dimen/h_medium"
-            android:layout_marginLeft="@dimen/twenty_four_dp"
+            android:layout_marginStart="@dimen/twenty_four_dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_preview"
             tools:text="00 : 00 : 02" />
@@ -133,7 +133,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:textColor="@color/white"
             tools:text="10/15"
-            android:layout_marginRight="@dimen/twenty_four_dp"/>
+            android:layout_marginEnd="@dimen/twenty_four_dp"/>
         
         <androidx.core.widget.NestedScrollView
             android:id="@+id/layout_question"
@@ -217,7 +217,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/twelve_dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"></RadioGroup>
+                    android:orientation="vertical"/>
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -240,7 +240,7 @@
                         android:inputType="textMultiLine"
                         android:singleLine="false"
                         android:ems="10"
-                        android:hint="Your answer . . ."
+                        android:hint="@string/your_answer"
                         android:textColor="@color/black"
                         android:textColorHint="@color/darkGrey"
                         android:paddingBottom="@dimen/eight_dp"
@@ -267,7 +267,7 @@
                         android:inputType="textMultiLine"
                         android:singleLine="false"
                         android:ems="10"
-                        android:hint="Answer key . . ."
+                        android:hint="@string/answer_key"
                         android:textColor="@color/black"
                         android:textColorHint="@color/darkGrey"
                         android:paddingBottom="@dimen/eight_dp"
@@ -324,7 +324,7 @@
                 android:id="@+id/tv_time_left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time left :"
+                android:text="@string/time_left"
                 android:textColor="@color/white"
                 android:textSize="@dimen/h2"
                 android:gravity="center"
@@ -380,7 +380,7 @@
                 android:visibility="gone"
                 android:layout_gravity="center"
                 android:textSize="@dimen/h2"
-                android:text="Review"
+                android:text="@string/review"
                 android:textColor="@color/colorPrimaryDark"/>
 
         </LinearLayout>
@@ -390,7 +390,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:layout_marginRight="@dimen/twelve_dp"
+            android:layout_marginEnd="@dimen/twelve_dp"
             android:layout_marginBottom="@dimen/twenty_four_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             style="@style/NoCaps"
@@ -404,7 +404,7 @@
             android:layout_width="wrap_content"
             android:visibility="gone"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/twenty_four_dp"
+            android:layout_marginEnd="@dimen/twenty_four_dp"
             android:layout_marginBottom="@dimen/twenty_four_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             style="@style/NoCaps"

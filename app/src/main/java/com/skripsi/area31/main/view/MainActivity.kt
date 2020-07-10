@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), MainContract {
       return
     }
     this.doubleBackToExitPressedOnce = true
-    Toast.makeText(this, "Please click back again to exit", Toast.LENGTH_SHORT).show()
+    Toast.makeText(this, getString(R.string.click_back_again_exit), Toast.LENGTH_SHORT).show()
 
     Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
   }
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity(), MainContract {
   private val mMessageReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
       Toast.makeText(this@MainActivity,
-          "Hi " + intent.getStringExtra(STUDENT_NAME) + " Your quiz score have been updated !",
+          "Hi ${intent.getStringExtra(STUDENT_NAME)} Your quiz score have been updated !",
           Toast.LENGTH_SHORT).show()
     }
   }

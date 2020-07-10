@@ -7,6 +7,8 @@ import com.skripsi.area31.register.model.RegisterStudent
 import com.skripsi.area31.register.network.RegisterApi
 import com.skripsi.area31.register.view.RegisterContract
 import com.skripsi.area31.utils.Constants.Companion.GRANT_TYPE
+import com.skripsi.area31.utils.Constants.Companion.ON_ERROR
+import com.skripsi.area31.utils.Constants.Companion.REGISTER
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -23,7 +25,7 @@ class RegisterPresenter @Inject constructor(private val registerApi: RegisterApi
         login(username, password)
       }
     }, {
-      Log.e("REGISTER", "onError: ", it)
+      Log.e(REGISTER, ON_ERROR, it)
     }))
   }
 

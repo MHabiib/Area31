@@ -31,6 +31,7 @@ import com.skripsi.area31.enroll.presenter.EnrollPresenter
 import com.skripsi.area31.home.view.HomeFragment
 import com.skripsi.area31.main.view.MainActivity
 import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.AVAILABLE
 import com.skripsi.area31.utils.Constants.Companion.HOME_FRAGMENT
 import kotlinx.android.synthetic.main.fragment_bottomsheet_enroll.*
 import okhttp3.ResponseBody
@@ -47,7 +48,6 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
 
   @Inject lateinit var presenter: EnrollPresenter
   @Inject lateinit var gson: Gson
-
   private lateinit var binding: FragmentBottomsheetEnrollBinding
   private var barcodeDetector: BarcodeDetector? = null
   private var cameraSource: CameraSource? = null
@@ -78,11 +78,13 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
         gotoStep2()
         layoutManualJoin.visibility = View.VISIBLE
       }
+
       btnCheck.setOnClickListener {
         showProgress(true)
         presenter.checkCourse(accessToken, etCourseid.text.toString())
         etCourseid.text?.clear()
       }
+
       btnJoin.setOnClickListener {
         showProgress(true)
         presenter.joinCourse(accessToken, courseId, etCoursePassword.text.toString())
@@ -175,7 +177,7 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
       tvCourseDescription.text = course.description
       tvCourseStatus.text = course.status
       courseId = course.courseId
-      if (course.status == "AVAILABLE") {
+      if (course.status == AVAILABLE) {
         tvCourseStatus.setTextColor(resources.getColor(R.color.colorAccent))
       } else {
         tvCourseStatus.setTextColor(resources.getColor(R.color.red))
@@ -232,7 +234,7 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
 
   override fun onFailed(message: String) {
     showProgress(false)
-    Toast.makeText(context, "Unable join to the course", Toast.LENGTH_LONG).show()
+    Toast.makeText(context, getString(R.string.unable_to_join_the_course), Toast.LENGTH_LONG).show()
   }
 
 

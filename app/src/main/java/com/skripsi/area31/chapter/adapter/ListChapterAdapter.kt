@@ -53,18 +53,6 @@ class ListChapterAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
   }
 
-  fun pageNumber(page: Int) {
-    pageNumber = page
-  }
-
-  fun addAt(position: Int, chapterItems: Chapter) = chapterItemsList?.add(position, chapterItems)
-
-  fun remove(position: Int) {
-    chapterItemsList?.removeAt(position)
-    notifyItemRemoved(position)
-    chapterItemsList?.size?.let { notifyItemRangeChanged(position, it) }
-  }
-
   fun clear() = chapterItemsList?.clear()
 
   inner class ChapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

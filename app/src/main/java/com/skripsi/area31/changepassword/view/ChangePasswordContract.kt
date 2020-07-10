@@ -5,6 +5,6 @@ import okhttp3.ResponseBody
 
 interface ChangePasswordContract : BaseView {
   fun onBadRequest(message: ResponseBody?)
-  fun updateUserPasswordSuccess(message: String)
 
+  fun updateUserPasswordSuccess(message: String)
 }

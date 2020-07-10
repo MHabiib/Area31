@@ -4,6 +4,7 @@ import android.util.Log
 import com.skripsi.area31.core.base.BasePresenter
 import com.skripsi.area31.courseresource.network.ResourceApi
 import com.skripsi.area31.courseresource.view.ResourceContract
+import com.skripsi.area31.utils.Constants.Companion.RESOURCE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class ResourcePresenter @Inject constructor(private val resourceApi: ResourceApi
             }
           }
         }, {
-          Log.e("ENROLL", it.message.toString())
+          Log.e(RESOURCE, it.message.toString())
         }))
   }
 }

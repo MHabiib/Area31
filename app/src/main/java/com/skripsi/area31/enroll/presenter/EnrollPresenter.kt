@@ -4,6 +4,7 @@ import android.util.Log
 import com.skripsi.area31.core.base.BasePresenter
 import com.skripsi.area31.enroll.network.EnrollApi
 import com.skripsi.area31.enroll.view.EnrollContract
+import com.skripsi.area31.utils.Constants.Companion.ENROLL
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class EnrollPresenter @Inject constructor(private val enrollApi: EnrollApi) :
             it.body()?.course?.let { course -> view?.checkCourseSuccess(course) }
           }
         }, {
-          Log.e("ENROLL", it.message.toString())
+          Log.e(ENROLL, it.message.toString())
         }))
   }
 
@@ -33,7 +34,7 @@ class EnrollPresenter @Inject constructor(private val enrollApi: EnrollApi) :
         it.body()?.message?.let { message -> view?.joinCourseSuccess(message) }
       }
     }, {
-      Log.e("ENROLL", it.message.toString())
+      Log.e(ENROLL, it.message.toString())
     }))
   }
 }

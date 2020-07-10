@@ -27,6 +27,7 @@ import com.skripsi.area31.home.view.HomeFragment
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.CHAPTER_FRAGMENT
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
+import com.skripsi.area31.utils.Constants.Companion.ID_CHAPTER
 import com.skripsi.area31.utils.PaginationScrollListener
 import javax.inject.Inject
 
@@ -68,6 +69,7 @@ class ChapterFragment : BottomSheetDialogFragment(), ChapterContract {
       savedInstanceState: Bundle?): View? {
     binding = DataBindingUtil.inflate(inflater, R.layout.fragment_chapter, container, false)
     val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
     with(binding) {
       shimmerChapter.startShimmer()
       listChapterAdapter = ListChapterAdapter()
@@ -76,6 +78,7 @@ class ChapterFragment : BottomSheetDialogFragment(), ChapterContract {
       listChapterAdapter.onItemClick = {
         chapterItemClick(it)
       }
+
       rvChapter.isNestedScrollingEnabled = false
       rvChapter.addOnScrollListener(object :
           PaginationScrollListener(linearLayoutManager, isLastPage) {
@@ -86,6 +89,7 @@ class ChapterFragment : BottomSheetDialogFragment(), ChapterContract {
           }
         }
       })
+
       ibBack.setOnClickListener {
         listChapterAdapter.clear()
         listChapterAdapter.notifyDataSetChanged()
@@ -143,7 +147,7 @@ class ChapterFragment : BottomSheetDialogFragment(), ChapterContract {
   private fun chapterItemClick(chapterItems: Chapter) {
     val intent = Intent(context, ReadChapterActivity::class.java)
     //    intent.putExtra(ID_CHAPTER, "https://google.com/search?q=" + chapterItems.idChapter)
-    intent.putExtra(Constants.ID_CHAPTER, "https://google.com/search?q=" + chapterItems.title)
+    intent.putExtra(ID_CHAPTER, "https://google.com/search?q=" + chapterItems.title)
     startActivity(intent)
   }
 

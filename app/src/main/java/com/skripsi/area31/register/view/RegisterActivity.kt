@@ -55,7 +55,7 @@ class RegisterActivity : BaseActivity(), RegisterContract {
           presenter.register(etEmail.text.toString(), etPassword.text.toString(),
               etPhone.text.toString(), etName.text.toString())
         } else {
-          Toast.makeText(this@RegisterActivity, "Fill all the entries with valid value.",
+          Toast.makeText(this@RegisterActivity, resources.getString(R.string.fill_all_the_entries),
               Toast.LENGTH_LONG).show()
         }
       }

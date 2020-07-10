@@ -38,7 +38,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Are you sure leave this course?"
+                    android:text="@string/are_you_sure_leave_this_course"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/h2"
@@ -47,7 +47,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="You must rejoin to this course to able see and partake in this course"
+                    android:text="@string/you_must_rejoin_to_this_course_to_able_see_and_partake_in_this_course"
                     android:textAlignment="center"
                     android:textSize="@dimen/h4" />
 
@@ -65,29 +65,29 @@
                     <Button
                         android:id="@+id/btn_cancel"
                         style="@style/NoCaps"
-                        android:layout_width="12dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
-                        android:layout_marginRight="@dimen/twenty_four_dp"
+                        android:layout_marginEnd="@dimen/twenty_four_dp"
                         android:layout_marginTop="@dimen/twelve_dp"
                         android:layout_marginBottom="@dimen/twenty_four_dp"
                         android:background="@drawable/card_white"
                         android:padding="@dimen/twelve_dp"
-                        android:text="Cancel"
+                        android:text="@string/cancel"
                         android:layout_weight="0.5"
                         android:textColor="@color/colorAccent" />
 
                     <Button
                         android:id="@+id/btn_Leave"
                         style="@style/NoCaps"
-                        android:layout_width="12dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginTop="@dimen/twelve_dp"
                         android:layout_marginBottom="@dimen/twenty_four_dp"
                         android:background="@drawable/card_white"
                         android:padding="@dimen/twelve_dp"
-                        android:text="Leave"
+                        android:text="@string/leave"
                         android:layout_weight="0.5"
                         android:textColor="@color/red" />
                 </LinearLayout>

@@ -37,10 +37,10 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
       val quizViewHolder = holder as QuizViewHolder
       quizViewHolder.itemTitle.text = quizItems?.titleQuiz
       quizViewHolder.itemDate.text = quizItems?.quizDate?.let {
-        "Date: \n" + Utils.convertLongToTimeShortMonth(it)
+        "Date: ${Utils.convertLongToTimeShortMonth(it)}"
       }
       quizViewHolder.itemDuration.text = quizItems?.quizDuration?.let {
-        "Duration: \n" + Utils.convertLongToMinutes(it) + " minutes"
+        "Duration: ${Utils.convertLongToMinutes(it)} minutes"
       }
       if (quizItems?.score != null) {
         quizViewHolder.layoutScore.visibility = View.VISIBLE

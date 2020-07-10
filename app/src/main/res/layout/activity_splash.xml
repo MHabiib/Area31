@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/baseWhite">
+        android:background="@drawable/background_blue_gradient_login">
 
         <ImageButton
             android:id="@+id/ib_refresh"
@@ -40,8 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/twenty_four_dp"
             android:fontFamily="sans-serif-thin"
-            android:text="Ujol"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/ujol"
+            android:textColor="@color/white"
             android:textSize="@dimen/h1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

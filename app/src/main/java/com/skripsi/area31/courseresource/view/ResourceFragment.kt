@@ -62,6 +62,7 @@ class ResourceFragment : BottomSheetDialogFragment(), ResourceContract {
       savedInstanceState: Bundle?): View? {
     binding = DataBindingUtil.inflate(inflater, R.layout.fragment_resource, container, false)
     val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
     with(binding) {
       shimmerResource.startShimmer()
       listResourceAdapter = ListResourceAdapter()
@@ -70,6 +71,7 @@ class ResourceFragment : BottomSheetDialogFragment(), ResourceContract {
       listResourceAdapter.onItemClick = {
         resourceItemClick(it)
       }
+
       rvResource.isNestedScrollingEnabled = false
       ibBack.setOnClickListener {
         listResourceAdapter.clear()

@@ -29,7 +29,7 @@
             android:tint="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="@dimen/twelve_dp"
+            android:layout_marginStart="@dimen/twelve_dp"
             android:layout_marginTop="@dimen/twelve_dp"/>
 
         <ImageView
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/twenty_four_dp"
-            android:text="Quiz"
+            android:text="@string/quiz"
             android:textColor="@color/white"
             android:textSize="@dimen/h1"
             android:textStyle="bold"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/twelve_dp"
-            android:text="- There is no quiz in this course -"
+            android:text="@string/there_is_no_quiz_in_this_course"
             android:textColor="@color/colorAccentDark"
             android:textStyle="bold"
             android:visibility="gone"

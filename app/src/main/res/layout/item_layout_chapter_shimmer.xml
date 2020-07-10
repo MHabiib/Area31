@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/darkGrey"
-                android:layout_marginRight="@dimen/twenty_four_dp"
+                android:layout_marginEnd="@dimen/twenty_four_dp"
                 app:layout_constraintRight_toRightOf="parent"
                 android:ellipsize="end"
                 android:textColor="@color/white"

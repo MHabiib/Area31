@@ -5,5 +5,6 @@ import com.skripsi.area31.core.model.Token
 
 interface LoginContract : BaseView {
   fun onSuccess(token: Token)
+
   fun onAuthorized()
 }

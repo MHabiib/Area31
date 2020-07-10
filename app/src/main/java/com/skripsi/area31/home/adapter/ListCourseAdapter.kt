@@ -53,18 +53,6 @@ class ListCourseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
   }
 
-  fun pageNumber(page: Int) {
-    pageNumber = page
-  }
-
-  fun addAt(position: Int, courseItems: Course) = courseItemsList?.add(position, courseItems)
-
-  fun remove(position: Int) {
-    courseItemsList?.removeAt(position)
-    notifyItemRemoved(position)
-    courseItemsList?.size?.let { notifyItemRangeChanged(position, it) }
-  }
-
   fun clear() = courseItemsList?.clear()
 
   inner class CourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

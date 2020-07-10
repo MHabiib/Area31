@@ -47,10 +47,8 @@ class PreviewBottomsheetFragment : BottomSheetDialogFragment() {
     this.arguments?.getInt(TOTAL_QUESTIONS)?.let {
       totalQuestions = it
     }
-    with(binding) {
-      val activity = activity as QuizActivity
-      answeredQuestion = activity.getAnsweredQuestion()
-    }
+    val activity = activity as QuizActivity
+    answeredQuestion = activity.getAnsweredQuestion()
     showQuestionNumber()
   }
 

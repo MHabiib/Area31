@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:layout_marginLeft="@dimen/twenty_four_dp"
+                android:layout_marginStart="@dimen/twenty_four_dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/h2"
                 app:layout_constraintLeft_toRightOf="@id/iv_file"

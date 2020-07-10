@@ -22,6 +22,7 @@ import com.skripsi.area31.core.model.Token
 import com.skripsi.area31.databinding.FragmentBottomsheetChangePasswordBinding
 import com.skripsi.area31.profile.view.ProfileFragment
 import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.CHANGE_PASSWORD
 import com.skripsi.area31.utils.Constants.Companion.PROFILE_FRAGMENT
 import okhttp3.ResponseBody
 import javax.inject.Inject
@@ -45,6 +46,7 @@ class ChangePasswordFragment : BottomSheetDialogFragment(), ChangePasswordContra
     binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bottomsheet_change_password,
         container, false)
     setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AppBottomSheetDialogTheme)
+
     return binding.root
   }
 
@@ -53,21 +55,23 @@ class ChangePasswordFragment : BottomSheetDialogFragment(), ChangePasswordContra
     accessToken = gson.fromJson(
         context?.getSharedPreferences(Constants.AUTHENTICATION, Context.MODE_PRIVATE)?.getString(
             Constants.TOKEN, null), Token::class.java).accessToken
-
     presenter.attach(this)
     presenter.subscribe()
 
     with(binding) {
       btnChangePassword.setOnClickListener {
         if (etRecentPassword.text.toString() == "" || etNewPassword.text.toString() == "" || etRetypeNewPassword.text.toString() == "") {
-          Toast.makeText(context, "Password can't be empty", Toast.LENGTH_LONG).show()
+          Toast.makeText(context, getString(R.string.password_cant_be_empty),
+              Toast.LENGTH_LONG).show()
         } else if (etNewPassword.text.toString() != etRetypeNewPassword.text.toString()) {
-          Toast.makeText(context, "New password must match", Toast.LENGTH_LONG).show()
+          Toast.makeText(context, getString(R.string.new_password_must_match),
+              Toast.LENGTH_LONG).show()
         } else {
           showProgress(true)
           etRecentPassword.text?.clear()
           etNewPassword.text?.clear()
           etRetypeNewPassword.text?.clear()
+
           presenter.updateUserPassword(accessToken, etNewPassword.text.toString(),
               ChangePassword(etRecentPassword.text.toString()))
         }
@@ -78,6 +82,7 @@ class ChangePasswordFragment : BottomSheetDialogFragment(), ChangePasswordContra
   override fun updateUserPasswordSuccess(message: String) {
     showProgress(false)
     val profileFragment = fragmentManager?.findFragmentByTag(PROFILE_FRAGMENT) as ProfileFragment
+
     profileFragment.dismissDialog()
     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
   }
@@ -90,7 +95,7 @@ class ChangePasswordFragment : BottomSheetDialogFragment(), ChangePasswordContra
   }
 
   override fun onFailed(message: String) {
-    Log.e("CHANGE_PASSWORD", message)
+    Log.e(CHANGE_PASSWORD, message)
   }
 
   private fun showProgress(show: Boolean) {

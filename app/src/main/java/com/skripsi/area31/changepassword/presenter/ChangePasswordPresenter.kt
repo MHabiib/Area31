@@ -5,6 +5,8 @@ import com.skripsi.area31.changepassword.model.ChangePassword
 import com.skripsi.area31.changepassword.network.ChangePasswordApi
 import com.skripsi.area31.changepassword.view.ChangePasswordContract
 import com.skripsi.area31.core.base.BasePresenter
+import com.skripsi.area31.utils.Constants.Companion.ON_ERROR
+import com.skripsi.area31.utils.Constants.Companion.PROFILE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -24,7 +26,7 @@ class ChangePasswordPresenter @Inject constructor(
             }
           }
         }, {
-          Log.e("PROFILE", "onError: ", it)
+          Log.e(PROFILE, ON_ERROR, it)
         }))
   }
 

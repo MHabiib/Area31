@@ -6,6 +6,7 @@ import com.skripsi.area31.core.model.Token
 import com.skripsi.area31.login.network.LoginApi
 import com.skripsi.area31.login.view.LoginContract
 import com.skripsi.area31.utils.Constants.Companion.GRANT_TYPE
+import com.skripsi.area31.utils.Constants.Companion.LOGIN
 import com.skripsi.area31.utils.Constants.Companion.ROLE_STUDENT
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -31,7 +32,7 @@ class LoginPresenter @Inject constructor(private val loginApi: LoginApi) :
             it.body()?.message?.let { message -> view?.onAuthorized() }
           }
         }, {
-          Log.e("LOGIN", it.message.toString())
+          Log.e(LOGIN, it.message.toString())
         }))
   }
 }
