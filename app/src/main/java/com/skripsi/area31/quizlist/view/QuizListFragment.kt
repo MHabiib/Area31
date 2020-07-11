@@ -155,6 +155,8 @@ class QuizListFragment : BottomSheetDialogFragment(), QuizListContract {
         intent.putExtra(QUIZ_SCORE, quizItems.score.toString())
       }
       startActivity(intent)
+    } else {
+      Toast.makeText(context, "Quiz not started yet !", Toast.LENGTH_SHORT).show()
     }
   }
 

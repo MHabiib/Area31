@@ -7,4 +7,12 @@ interface LoginContract : BaseView {
   fun onSuccess(token: Token)
 
   fun onAuthorized()
+
+  fun forgotPasswordSuccess()
+
+  fun forgotPasswordNextStepSuccess()
+
+  fun resetPasswordSuccess()
+
+  fun onFailedReset(string: String)
 }

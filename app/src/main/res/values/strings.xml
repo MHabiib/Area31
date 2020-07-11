@@ -15,6 +15,7 @@
     <string name="review_with_bigger_than">Review &#62;</string>
     <string name="preview_hand_in"><u>Preview / Submit</u></string>
     <string name="complaint"><u>Complaint</u></string>
+    <string name="complaint_without_underscore">Complaint</string>
     <string name="clear_answer"><u>Clear answer</u></string>
     <string name="password_cant_be_empty">Password can\'t be empty</string>
     <string name="new_password_must_match">New password must match</string>
@@ -91,4 +92,14 @@
     <string name="ongoing">Ongoing</string>
     <string name="random_str">asdkjhaskdljhlkasasdajhd</string>
     <string name="programming_with_kotlinkotlinkotlin">Programming With KotlinKotlinKotlin</string>
+    <string name="enter_your_email_and_we_ll_send_you_a_code_to_verify_you">Enter your email and we\'ll send you a code to verify you</string>
+    <string name="enter_reset_code">Enter reset code</string>
+    <string name="check_your_email_for_that_code">Check your email for that code</string>
+    <string name="didn_t_receive_code">Didn\'t receive code?</string>
+    <string name="enter_the_code">Enter the code</string>
+    <string name="resend_code"><u>Resend code</u></string>
+    <string name="success_reset_password">Success reset password</string>
+    <string name="enter_password_match">Enter the password and must be match !</string>
+    <string name="enter_the_email">Enter the email !</string>
+    <string name="resend_the_code"><u>Resend the code</u></string>
 </resources>

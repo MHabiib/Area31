@@ -35,4 +35,47 @@ class LoginPresenter @Inject constructor(private val loginApi: LoginApi) :
           Log.e(LOGIN, it.message.toString())
         }))
   }
+
+  fun forgotPassword(email: String) {
+    subscriptions.add(
+        loginApi.forgotPassword(email).subscribeOn(Schedulers.io()).observeOn(
+            AndroidSchedulers.mainThread()).subscribe({
+          if (it.code() == 400) {
+            it.errorBody()?.let { error -> view?.onFailedReset(error.string()) }
+          } else {
+            it.body()?.message?.let { message -> view?.forgotPasswordSuccess() }
+          }
+        }, {
+          Log.e(LOGIN, it.message.toString())
+        }))
+  }
+
+  fun forgotPasswordNextStep(email: String, code: Int) {
+    subscriptions.add(
+        loginApi.forgotPasswordNextStep(email, code).subscribeOn(Schedulers.io()).observeOn(
+            AndroidSchedulers.mainThread()).subscribe({
+          if (it.code() == 400) {
+            it.errorBody()?.let { error -> view?.onFailedReset(error.string()) }
+          } else {
+            it.body()?.message?.let { message -> view?.forgotPasswordNextStepSuccess() }
+          }
+        }, {
+          Log.e(LOGIN, it.message.toString())
+        }))
+  }
+
+  fun resetPassword(email: String, password: String) {
+    subscriptions.add(
+        loginApi.resetPassword(email, password).subscribeOn(Schedulers.io()).observeOn(
+            AndroidSchedulers.mainThread()).subscribe({
+          if (it.code() == 400) {
+            it.errorBody()?.let { error -> view?.onFailedReset(error.string()) }
+          } else {
+            it.body()?.message?.let { message -> view?.resetPasswordSuccess() }
+          }
+        }, {
+          Log.e(LOGIN, it.message.toString())
+        }))
+  }
+
 }

@@ -324,7 +324,7 @@
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="3"
-                            android:text="@string/complaint"
+                            android:text="@string/complaint_without_underscore"
                             android:textColor="@color/white"
                             android:textSize="@dimen/h_medium2"
                             android:textStyle="bold"

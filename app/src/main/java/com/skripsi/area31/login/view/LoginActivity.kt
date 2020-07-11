@@ -1,9 +1,11 @@
 package com.skripsi.area31.login.view
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -13,6 +15,7 @@ import com.google.gson.Gson
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.core.base.BaseActivity
+import com.skripsi.area31.core.model.SimpleCustomResponse
 import com.skripsi.area31.core.model.Token
 import com.skripsi.area31.core.network.Authentication
 import com.skripsi.area31.databinding.ActivityLoginBinding
@@ -37,6 +40,8 @@ class LoginActivity : BaseActivity(), LoginContract {
   @Inject lateinit var presenter: LoginPresenter
   @Inject lateinit var gson: Gson
   private lateinit var binding: ActivityLoginBinding
+  private lateinit var countDownTimer: CountDownTimer
+  private var email = ""
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -54,9 +59,56 @@ class LoginActivity : BaseActivity(), LoginContract {
               Toast.LENGTH_SHORT).show()
         }
       }
+
       tvForgotPassword.setOnClickListener {
-        Toast.makeText(this@LoginActivity, "Under construction.", Toast.LENGTH_SHORT).show()
+        layoutLogin.visibility = View.GONE
+        layoutForgotPassword.visibility = View.VISIBLE
+        btnBackToLogin.visibility = View.VISIBLE
+        layoutForgotPasswordFirstStep.visibility = View.VISIBLE
       }
+      btnBackToLogin.setOnClickListener {
+        layoutLogin.visibility = View.VISIBLE
+        layoutForgotPassword.visibility = View.GONE
+        layoutForgotPasswordFirstStep.visibility = View.GONE
+        layoutForgotPasswordNextStep.visibility = View.GONE
+        layoutNewPassword.visibility = View.GONE
+        btnBackToLogin.visibility = View.GONE
+        countDownTimer.cancel()
+      }
+      btnSubmit.setOnClickListener {
+        if (etEmailReset.text.toString().isNotEmpty()) {
+          loadingForgot(true)
+          hideKeyboard()
+          email = etEmailReset.text.toString()
+          presenter.forgotPassword(email)
+        } else {
+          Toast.makeText(this@LoginActivity, getString(R.string.enter_the_email), Toast.LENGTH_SHORT).show()
+        }
+      }
+      btnSubmitNextStep.setOnClickListener {
+        if (etResetCode.text.toString().isNotEmpty()) {
+          loadingForgot(true)
+          hideKeyboard()
+          presenter.forgotPasswordNextStep(email, etResetCode.text.toString().toInt())
+        } else {
+          Toast.makeText(this@LoginActivity, getString(R.string.enter_the_code), Toast.LENGTH_SHORT).show()
+        }
+      }
+      btnNewPassword.setOnClickListener {
+        if (etRetypeNewPassword.text.toString().isNotEmpty() && etRetypeNewPassword.text.toString() == etNewPassword.text.toString()) {
+          loadingForgot(true)
+          hideKeyboard()
+          presenter.resetPassword(email, etRetypeNewPassword.text.toString())
+        } else {
+          Toast.makeText(this@LoginActivity, getString(R.string.enter_password_match),
+              Toast.LENGTH_SHORT).show()
+        }
+      }
+      tvResendCode.setOnClickListener {
+        tvResendCode.isClickable = false
+        presenter.forgotPassword(email)
+      }
+
       btnRegister.setOnClickListener {
         val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
         startActivity(intent)
@@ -70,10 +122,28 @@ class LoginActivity : BaseActivity(), LoginContract {
       if (isLoading) {
         progressBar.visibility = View.VISIBLE
         btnLogin.isEnabled = false
+        btnSubmit.isClickable = false
+        btnSubmitNextStep.isClickable = false
       } else {
         etPassword.text?.clear()
         progressBar.visibility = View.GONE
         btnLogin.isEnabled = true
+        btnSubmit.isClickable = true
+        btnSubmitNextStep.isClickable = true
+      }
+    }
+  }
+
+  private fun loadingForgot(isLoading: Boolean) {
+    with(binding) {
+      if (isLoading) {
+        progressBarReset.visibility = View.VISIBLE
+        btnSubmit.isClickable = false
+        btnSubmitNextStep.isClickable = false
+      } else {
+        progressBarReset.visibility = View.GONE
+        btnSubmit.isClickable = true
+        btnSubmitNextStep.isClickable = true
       }
     }
   }
@@ -109,11 +179,57 @@ class LoginActivity : BaseActivity(), LoginContract {
     finish()
   }
 
+  override fun forgotPasswordSuccess() {
+    loadingForgot(false)
+    binding.layoutForgotPasswordFirstStep.visibility = View.GONE
+    binding.layoutForgotPasswordNextStep.visibility = View.VISIBLE
+    countDownTimer = object : CountDownTimer(60000, 1000) {
+      @SuppressLint("SetTextI18n") override fun onTick(millisUntilFinished: Long) {
+        var diff = millisUntilFinished
+        val secondsInMilli: Long = 1000
+        val minutesInMilli = secondsInMilli * 60
+
+        val elapsedMinutes = diff / minutesInMilli
+        diff %= minutesInMilli
+
+        val elapsedSeconds = diff / secondsInMilli
+        binding.tvResendCode.text = "resend in $elapsedMinutes : $elapsedSeconds"
+        binding.tvResendCode.isClickable = false
+      }
+
+      override fun onFinish() {
+        binding.tvResendCode.text = getString(R.string.resend_the_code)
+        binding.tvResendCode.isClickable = true
+      }
+    }.start()
+  }
+
+  override fun forgotPasswordNextStepSuccess() {
+    loadingForgot(false)
+    binding.layoutForgotPasswordNextStep.visibility = View.GONE
+    binding.layoutNewPassword.visibility = View.VISIBLE
+  }
+
+  override fun resetPasswordSuccess() {
+    loadingForgot(false)
+    Toast.makeText(this, getString(R.string.success_reset_password), Toast.LENGTH_SHORT).show()
+    binding.layoutLogin.visibility = View.VISIBLE
+    binding.layoutForgotPassword.visibility = View.GONE
+    binding.btnBackToLogin.visibility = View.GONE
+    binding.layoutNewPassword.visibility = View.GONE
+  }
+
   override fun onFailed(message: String) {
     loading(false)
     Toast.makeText(this, getString(R.string.the_email_or_password_incorrct),
         Toast.LENGTH_LONG).show()
     Authentication.delete(this)
+  }
+
+  override fun onFailedReset(string: String) {
+    loadingForgot(false)
+    Toast.makeText(this, gson.fromJson(string, SimpleCustomResponse::class.java).message,
+        Toast.LENGTH_SHORT).show()
   }
 
   override fun onBackPressed() {
@@ -123,6 +239,7 @@ class LoginActivity : BaseActivity(), LoginContract {
 
   override fun onDestroy() {
     presenter.detach()
+    countDownTimer.cancel()
     super.onDestroy()
   }
 }

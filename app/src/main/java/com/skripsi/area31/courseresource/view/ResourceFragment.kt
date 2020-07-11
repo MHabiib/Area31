@@ -105,6 +105,10 @@ class ResourceFragment : BottomSheetDialogFragment(), ResourceContract {
       shimmerResource.stopShimmer()
     }
     listResourceAdapter.addAll(response)
+    if (response.isEmpty()) {
+      binding.ivDontHaveResource.visibility = View.VISIBLE
+      binding.tvIvDontHaveResource.visibility = View.VISIBLE
+    }
   }
 
   private fun resourceItemClick(resourceItems: Resource) {

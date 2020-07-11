@@ -13,4 +13,10 @@ interface LoginApi {
 
   @GET("isAuthorize") fun isAuthorize(@Query("access_token") accessToken: String?, @Query("role")
   role: String?): Observable<Response<SimpleCustomResponse>>
+
+  @POST("forgot-password") fun forgotPassword(@Query("email") email: String?): Observable<Response<SimpleCustomResponse>>
+
+  @POST("forgot-password/code") fun forgotPasswordNextStep(@Query("email") email: String?, @Query("code") code: Int?): Observable<Response<SimpleCustomResponse>>
+
+  @POST("forgot-password/resetPassword") fun resetPassword(@Query("email") email: String?, @Query("password") password: String?): Observable<Response<SimpleCustomResponse>>
 }
