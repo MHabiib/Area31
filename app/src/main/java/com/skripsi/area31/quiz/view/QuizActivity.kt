@@ -22,9 +22,12 @@ import com.skripsi.area31.quiz.injection.QuizComponent
 import com.skripsi.area31.quiz.model.*
 import com.skripsi.area31.quiz.presenter.QuizPresenter
 import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.ASSIGNN_AT
 import com.skripsi.area31.utils.Constants.Companion.ID_QUIZ
 import com.skripsi.area31.utils.Constants.Companion.MULTIPLECHOICE
+import com.skripsi.area31.utils.Constants.Companion.QUIZ_DATE
 import com.skripsi.area31.utils.Constants.Companion.QUIZ_SCORE
+import com.skripsi.area31.utils.Constants.Companion.SCORE_REPORT
 import com.skripsi.area31.utils.Constants.Companion.TOTAL_QUESTIONS
 import java.util.*
 import javax.inject.Inject
@@ -44,9 +47,13 @@ class QuizActivity : BaseActivity(), QuizContract {
   private lateinit var accessToken: String
   private var idQuiz: String? = null
   private var score: String? = null
+  private var quizDate: Long? = null
+  private var assignAt: Long? = null
+  private var scoreReport: Int? = null
   private lateinit var countDownTimer: CountDownTimer1
   private val bottomsheetFragment = ExitQuizBottomsheetFragment()
   private val bottomsheetFragmentPreview = PreviewBottomsheetFragment()
+  private val bottomsheetFragmentComplaint = ComplaintBottomsheetFragment()
   private lateinit var rgp: RadioGroup
   private var completed = false
   private var fcm = ""
@@ -128,6 +135,23 @@ class QuizActivity : BaseActivity(), QuizContract {
           answerEssayStudent.isFocusable = false
           answerEssay.setText(listQuestionReport?.get(indexAt)?.studentAnswer)
           answerEssayStudent.setText(listQuestionReport?.get(indexAt)?.answerKey)
+        }
+      }
+      btnComplaint.setOnClickListener {
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener { task ->
+          if (task.isSuccessful) {
+            fcm = task.result?.token.toString() //asyc
+          }
+        }
+        val bundle = Bundle()
+        bundle.putString(QUIZ_DATE, quizDate.toString())
+        bundle.putString(ASSIGNN_AT, assignAt.toString())
+        bundle.putString(SCORE_REPORT, scoreReport.toString())
+        bottomsheetFragmentComplaint.arguments = bundle
+        if (!bottomsheetFragmentComplaint.isAdded) {
+          this@QuizActivity.supportFragmentManager.let { fragmentManager ->
+            bottomsheetFragmentComplaint.show(fragmentManager, bottomsheetFragmentComplaint.tag)
+          }
         }
       }
 
@@ -358,6 +382,9 @@ class QuizActivity : BaseActivity(), QuizContract {
 
   @SuppressLint("SetTextI18n") override fun getQuizReportuccess(quizResponse: QuizReport) {
     showProgress(false)
+    quizDate = quizResponse.quizDate
+    assignAt = quizResponse.assignAt
+    scoreReport = quizResponse.score
     with(binding) {
       btnReviewQuiz.visibility = View.VISIBLE
       tvQuizTitle.text = quizResponse.title
@@ -566,8 +593,17 @@ class QuizActivity : BaseActivity(), QuizContract {
     this@QuizActivity.finish()
   }
 
+  fun sendComplaint(complaint: String) {
+    bottomsheetFragmentComplaint.dismiss()
+    idQuiz?.let { presenter.createComplaint(accessToken, fcm, it, complaint) }
+  }
+
   override fun submitQuizSuccess(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+  }
+
+  override fun createComplaintSuccess(message: String) {
+    Toast.makeText(this, getString(R.string.success_create_complaint), Toast.LENGTH_SHORT).show()
   }
 
   override fun onFailed(message: String) {

@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.chapter.view.ChapterFragment
+import com.skripsi.area31.complaint.view.ComplaintFragment
 import com.skripsi.area31.core.base.BaseActivity
 import com.skripsi.area31.core.model.SimpleCustomResponse
 import com.skripsi.area31.core.model.Token
@@ -41,6 +42,7 @@ class CourseActivity : BaseActivity(), CourseContract {
   private val bottomSheetFragmentChapter = ChapterFragment()
   private val bottomSheetFragmentResource = ResourceFragment()
   private val bottomSheetFragmentQuiz = QuizListFragment()
+  private val bottomSheetFragmentComplaint = ComplaintFragment()
   private val bottomSheetFragment = LeaveCourseBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,7 +113,11 @@ class CourseActivity : BaseActivity(), CourseContract {
       }
 
       layoutComplaint.setOnClickListener {
-        Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
+        if (!bottomSheetFragmentComplaint.isAdded) {
+          this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+            bottomSheetFragmentComplaint.show(fragmentManager, bottomSheetFragmentComplaint.tag)
+          }
+        }
       }
     }
   }
@@ -148,6 +154,10 @@ class CourseActivity : BaseActivity(), CourseContract {
 
   fun dismissQuizDialog() {
     bottomSheetFragmentQuiz.dismiss()
+  }
+
+  fun dismissComplaintDialog() {
+    bottomSheetFragmentComplaint.dismiss()
   }
 
   override fun leaveCourseSuccess(response: String) {

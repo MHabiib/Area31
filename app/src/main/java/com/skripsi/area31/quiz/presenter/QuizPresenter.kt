@@ -42,4 +42,13 @@ class QuizPresenter @Inject constructor(private val quizApi: QuizApi) :
       Log.e(QUIZ, it.message.toString())
     }))
   }
+
+  fun createComplaint(accessToken: String, fcm: String, idQuiz: String, complaint: String) {
+    subscriptions.add(quizApi.createComplaint(fcm, idQuiz, accessToken, complaint).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({ quizResponse ->
+      quizResponse.body()?.message?.let { message -> view?.createComplaintSuccess(message) }
+    }, {
+      Log.e(QUIZ, it.message.toString())
+    }))
+  }
 }

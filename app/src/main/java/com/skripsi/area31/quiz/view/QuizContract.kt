@@ -10,4 +10,6 @@ interface QuizContract : BaseView {
   fun submitQuizSuccess(message: String)
 
   fun getQuizReportuccess(quizResponse: QuizReport)
+
+  fun createComplaintSuccess(message: String)
 }

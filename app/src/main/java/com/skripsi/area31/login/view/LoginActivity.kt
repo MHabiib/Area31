@@ -82,7 +82,8 @@ class LoginActivity : BaseActivity(), LoginContract {
           email = etEmailReset.text.toString()
           presenter.forgotPassword(email)
         } else {
-          Toast.makeText(this@LoginActivity, getString(R.string.enter_the_email), Toast.LENGTH_SHORT).show()
+          Toast.makeText(this@LoginActivity, getString(R.string.enter_the_email),
+              Toast.LENGTH_SHORT).show()
         }
       }
       btnSubmitNextStep.setOnClickListener {
@@ -91,7 +92,8 @@ class LoginActivity : BaseActivity(), LoginContract {
           hideKeyboard()
           presenter.forgotPasswordNextStep(email, etResetCode.text.toString().toInt())
         } else {
-          Toast.makeText(this@LoginActivity, getString(R.string.enter_the_code), Toast.LENGTH_SHORT).show()
+          Toast.makeText(this@LoginActivity, getString(R.string.enter_the_code),
+              Toast.LENGTH_SHORT).show()
         }
       }
       btnNewPassword.setOnClickListener {
@@ -239,7 +241,9 @@ class LoginActivity : BaseActivity(), LoginContract {
 
   override fun onDestroy() {
     presenter.detach()
-    countDownTimer.cancel()
+    if (::countDownTimer.isInitialized) {
+      countDownTimer.cancel()
+    }
     super.onDestroy()
   }
 }

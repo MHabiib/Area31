@@ -37,17 +37,16 @@ class LoginPresenter @Inject constructor(private val loginApi: LoginApi) :
   }
 
   fun forgotPassword(email: String) {
-    subscriptions.add(
-        loginApi.forgotPassword(email).subscribeOn(Schedulers.io()).observeOn(
-            AndroidSchedulers.mainThread()).subscribe({
-          if (it.code() == 400) {
-            it.errorBody()?.let { error -> view?.onFailedReset(error.string()) }
-          } else {
-            it.body()?.message?.let { message -> view?.forgotPasswordSuccess() }
-          }
-        }, {
-          Log.e(LOGIN, it.message.toString())
-        }))
+    subscriptions.add(loginApi.forgotPassword(email).subscribeOn(Schedulers.io()).observeOn(
+        AndroidSchedulers.mainThread()).subscribe({
+      if (it.code() == 400) {
+        it.errorBody()?.let { error -> view?.onFailedReset(error.string()) }
+      } else {
+        it.body()?.message?.let { message -> view?.forgotPasswordSuccess() }
+      }
+    }, {
+      Log.e(LOGIN, it.message.toString())
+    }))
   }
 
   fun forgotPasswordNextStep(email: String, code: Int) {

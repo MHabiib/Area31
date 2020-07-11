@@ -3,7 +3,7 @@ package com.skripsi.area31.utils
 class Constants {
   companion object {
     const val BASE = "https://area31.herokuapp.com/"
-    //    const val BASE = "http://10.0.2.2:8088/"
+    //        const val BASE = "http://10.0.2.2:8088/"
     const val USERNAME = "area31-client"
     const val PASSWORD = "area31-secret"
     const val GRANT_TYPE = "password"
@@ -28,6 +28,10 @@ class Constants {
     const val ID_CHAPTER = "ID_CHAPTER"
     const val TOTAL_QUESTIONS = "TOTAL_QUESTIONS"
     const val PAGE_URL = "ID_CHAPTER"
+    const val QUIZ_DATE = "quizDate"
+    const val ASSIGNN_AT = "assignAt"
+    const val SCORE_REPORT = "scoreReport"
+    const val DESCRIPTION = "description"
 
     const val REQUEST_CAMERA_PERMISSION = 2020
     const val REFRESH_COURSE = 77
@@ -47,6 +51,7 @@ class Constants {
     const val LOGIN = "LOGIN"
     const val REGISTER = "REGISTER"
     const val QUIZ = "QUIZ"
+    const val COMPLAINT = "COMPLAINT"
 
     const val ON_ERROR = "onError: "
     const val AVAILABLE = "AVAILABLE"
