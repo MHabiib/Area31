@@ -73,7 +73,9 @@ class LoginActivity : BaseActivity(), LoginContract {
         layoutForgotPasswordNextStep.visibility = View.GONE
         layoutNewPassword.visibility = View.GONE
         btnBackToLogin.visibility = View.GONE
-        countDownTimer.cancel()
+        if (::countDownTimer.isInitialized) {
+          countDownTimer.cancel()
+        }
       }
       btnSubmit.setOnClickListener {
         if (etEmailReset.text.toString().isNotEmpty()) {

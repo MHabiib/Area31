@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools1="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twelve_dp"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:background="@null"
+            android:translationZ="2dp"
+            android:src="@drawable/ic_back"
+            android:tint="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@color/orange"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@color/baseWhiteTwo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline" />
+
+        <ImageView
+            android:id="@+id/iv_dont_have_comment"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="48dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/ic_dont_have_course"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_add_comment"
+            app:layout_constraintVertical_bias="0.4" />
+
+        <LinearLayout
+            android:id="@+id/layout_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/twelve_dp"
+            android:layout_marginRight="@dimen/twelve_dp"
+            android:background="@drawable/card_white"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:padding="@dimen/twelve_dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_post_title">
+
+            <TextView
+                android:id="@+id/tv_post_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/h4"
+                tools1:text="Namee ara ara" />
+
+            <TextView
+                android:id="@+id/tv_post_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h4"
+                tools1:text="Namee araasdjhhgaskjdglkajsbdlavsdlkjhhgvaslkdjhvaslkdjbasldkjbasldkjhb ara" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_add_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:background="@drawable/card_white"
+            android:paddingStart="@dimen/sixteen_dp"
+            android:paddingTop="@dimen/twelve_dp"
+            android:paddingEnd="@dimen/sixteen_dp"
+            android:paddingBottom="@dimen/twelve_dp"
+            app:layout_constraintLeft_toLeftOf="@id/layout_post"
+            app:layout_constraintRight_toLeftOf="@id/ib_send_comment"
+            app:layout_constraintTop_toBottomOf="@id/layout_post">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:ems="10"
+                android:hint="Add a comment . . ."
+                android:textColor="@color/black"
+                android:textColorHint="@color/darkGrey"
+                android:paddingBottom="@dimen/eight_dp"
+                android:textSize="@dimen/h3" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tag_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comments"
+            app:layout_constraintTop_toBottomOf="@id/layout_add_comment"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:layout_marginLeft="@dimen/twenty_four_dp"/>
+
+        <ImageButton
+            android:id="@+id/ib_send_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/layout_add_comment"
+            app:layout_constraintTop_toTopOf="@id/layout_add_comment"
+            app:layout_constraintRight_toRightOf="@id/layout_post"
+            android:src="@drawable/ic_send"
+            android:tint="@color/darkGrey"
+            android:visibility="gone"
+            android:paddingLeft="@dimen/twelve_dp"
+            android:background="@null"
+            android:clickable="false"/>
+
+
+        <TextView
+            android:id="@+id/tv_announce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/twelve_dp"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:text="@string/qna"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h_medium2"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/ib_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_post_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/four_dp"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h_medium2"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/tv_announce"
+            app:layout_constraintTop_toTopOf="parent"
+            tools1:text="Post titas" />
+
+
+        <TextView
+            android:id="@+id/tv_iv_dont_have_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:text="@string/there_is_no_comment_in_this_course"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@id/iv_dont_have_comment"
+            app:layout_constraintRight_toRightOf="@id/iv_dont_have_comment"
+            app:layout_constraintTop_toBottomOf="@id/iv_dont_have_comment" />
+
+        <View
+            android:id="@+id/guideline"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toTopOf="@id/ib_send_comment"
+            app:layout_constraintBottom_toBottomOf="@id/ib_send_comment"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_comment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/twelve_dp"
+            android:layout_marginRight="@dimen/twelve_dp"
+            android:clipToPadding="false"
+            android:paddingBottom="400dp"
+            android:layout_marginTop="@dimen/twelve_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tag_comments" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_comment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingLeft="@dimen/twelve_dp"
+            android:paddingTop="@dimen/twelve_dp"
+            android:paddingRight="@dimen/twelve_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tag_comments">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_layout_qna_comment_shimmer" />
+
+                <include layout="@layout/item_layout_qna_comment_shimmer" />
+
+                <include layout="@layout/item_layout_qna_comment_shimmer" />
+
+                <include layout="@layout/item_layout_qna_comment_shimmer" />
+
+                <include layout="@layout/item_layout_qna_comment_shimmer" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

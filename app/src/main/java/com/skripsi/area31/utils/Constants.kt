@@ -32,6 +32,8 @@ class Constants {
     const val ASSIGNN_AT = "assignAt"
     const val SCORE_REPORT = "scoreReport"
     const val DESCRIPTION = "description"
+    const val SERIALIZABLE_COMMENT = "SerializableComment"
+    const val SERIALIZABLE_REPLIES = "SerializableReplies"
 
     const val REQUEST_CAMERA_PERMISSION = 2020
     const val REFRESH_COURSE = 77

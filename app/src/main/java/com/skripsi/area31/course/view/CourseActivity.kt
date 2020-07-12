@@ -19,6 +19,7 @@ import com.skripsi.area31.course.model.CourseDetails
 import com.skripsi.area31.course.presenter.CoursePresenter
 import com.skripsi.area31.courseresource.view.ResourceFragment
 import com.skripsi.area31.databinding.ActivityCourseBinding
+import com.skripsi.area31.qnapost.view.PostFragment
 import com.skripsi.area31.quizlist.view.QuizListFragment
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
@@ -43,6 +44,7 @@ class CourseActivity : BaseActivity(), CourseContract {
   private val bottomSheetFragmentResource = ResourceFragment()
   private val bottomSheetFragmentQuiz = QuizListFragment()
   private val bottomSheetFragmentComplaint = ComplaintFragment()
+  private val bottomSheetFragmentPost = PostFragment()
   private val bottomSheetFragment = LeaveCourseBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,7 +100,14 @@ class CourseActivity : BaseActivity(), CourseContract {
       }
 
       layoutQna.setOnClickListener {
-        Toast.makeText(this@CourseActivity, "Under construction.", Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putString(COURSE_ID, courseId)
+        bottomSheetFragmentPost.arguments = bundle
+        if (!bottomSheetFragmentPost.isAdded) {
+          this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+            bottomSheetFragmentPost.show(fragmentManager, bottomSheetFragmentPost.tag)
+          }
+        }
       }
 
       layoutResource.setOnClickListener {
@@ -154,6 +163,10 @@ class CourseActivity : BaseActivity(), CourseContract {
 
   fun dismissQuizDialog() {
     bottomSheetFragmentQuiz.dismiss()
+  }
+
+  fun dismissPostDialog() {
+    bottomSheetFragmentPost.dismiss()
   }
 
   fun dismissComplaintDialog() {

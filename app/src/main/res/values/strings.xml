@@ -81,6 +81,10 @@
     <string name="submit">Submit</string>
     <string name="there_is_no_chapter_in_this_course">- There is no chapter in this course -</string>
     <string name="there_is_no_complaint_in_this_course">- There is no complaint in this course -</string>
+    <string name="there_is_no_qna_in_this_course">- There is no qna in this course -</string>
+    <string name="there_is_no_post_in_this_course">- There is no post in this course -</string>
+    <string name="there_is_no_comment_in_this_course">- There is no comment in this post -</string>
+    <string name="there_is_no_replies_in_this_course">- There is no replies in this comment -</string>
     <string name="you_haven_t_join_any_course_yet">- You haven\'t join any course yet -</string>
     <string name="change">Change</string>
     <string name="save_changes">Save changes</string>
@@ -114,4 +118,8 @@
     <string name="your_complaint">Your complaint . . .</string>
     <string name="complaint_description_empty">Complaint descriptions can\'t be empty</string>
     <string name="success_create_complaint">Success create complaint, check on complaint page</string>
+    <string name="shimmer_qna_text">Biological sciences is study under the biochemistry, microbiology and evolutionary biology.</string>
+    <string name="comments">Comments</string>
+    <string name="add_a_replies">Add a replies . . .</string>
+    <string name="replies">Replies</string>
 </resources>
