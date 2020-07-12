@@ -17,4 +17,31 @@ class RepliesPresenter @Inject constructor(private val repliesApi: RepliesApi) :
       view?.onFailed(it.message.toString())
     }))
   }
+
+  fun postRepliesStudent(idPost: String, body: String, accessToken: String) {
+    subscriptions.add(repliesApi.postRepliesStudent(accessToken, idPost, body).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
+      view?.postRepliesStudentSuccess(it)
+    }, {
+      view?.onFailed(it.message.toString())
+    }))
+  }
+
+  fun updateRepliesStudent(idReplies: String, body: String, accessToken: String) {
+    subscriptions.add(repliesApi.updateRepliesStudent(accessToken, idReplies, body).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
+      view?.updateRepliesStudentSuccess(it)
+    }, {
+      view?.onFailed(it.message.toString())
+    }))
+  }
+
+  fun deleteRepliesStudent(idReplies: String, accessToken: String) {
+    subscriptions.add(repliesApi.deleteRepliesStudent(accessToken, idReplies).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
+      view?.deleteRepliesStudentSuccess()
+    }, {
+      view?.onFailed(it.message.toString())
+    }))
+  }
 }

@@ -18,4 +18,31 @@ class CommentPresenter @Inject constructor(private val commentApi: CommentApi) :
           view?.onFailed(it.message.toString())
         }))
   }
+
+  fun postCommentStudent(idPost: String, body: String, accessToken: String) {
+    subscriptions.add(commentApi.postCommentStudent(accessToken, idPost, body).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
+      view?.postCommentStudentSuccess(it)
+    }, {
+      view?.onFailed(it.message.toString())
+    }))
+  }
+
+  fun updateCommentStudent(idComment: String, body: String, accessToken: String) {
+    subscriptions.add(commentApi.updateCommentStudent(accessToken, idComment, body).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
+      view?.updateCommentStudentSuccess(it)
+    }, {
+      view?.onFailed(it.message.toString())
+    }))
+  }
+
+  fun deleteCommentStudent(idComment: String, accessToken: String) {
+    subscriptions.add(commentApi.deleteCommentStudent(accessToken, idComment).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
+      view?.deleteCommentStudentSuccess(it)
+    }, {
+      view?.onFailed(it.message.toString())
+    }))
+  }
 }

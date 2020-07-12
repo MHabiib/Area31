@@ -122,4 +122,15 @@
     <string name="comments">Comments</string>
     <string name="add_a_replies">Add a replies . . .</string>
     <string name="replies">Replies</string>
+    <string name="comment_cant_be_empty">Comment can\'t be empty</string>
+    <string name="replies_cant_be_empty">Replies can\'t be empty</string>
+    <string name="delete_underline"><u>Delete</u></string>
+    <string name="edit_underline"><u>Edit</u></string>
+    <string name="update_your_replies">Update your replies</string>
+    <string name="update_your_comment">Update your comment</string>
+    <string name="delete_replies_title">Delete replies</string>
+    <string name="delete_comment_title">Delete comment</string>
+    <string name="delete_comment_message">Delete your comment and replies in this comment permanently?</string>
+    <string name="delete_replies_message">Delete your replies permanently?</string>
+    <string name="delete">Delete</string>
 </resources>

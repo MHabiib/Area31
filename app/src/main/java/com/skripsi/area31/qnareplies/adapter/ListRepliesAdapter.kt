@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skripsi.area31.R
 import com.skripsi.area31.qnareplies.model.Replies
+import com.skripsi.area31.qnareplies.view.RepliesActivity
 import com.skripsi.area31.utils.Utils
 import java.util.*
 
@@ -17,6 +19,7 @@ class ListRepliesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private var isLoadingAdded = false
   private val loading = 0
   private val item = 1
+  private lateinit var idUser: String
   private var pageNumber = 0
 
   override fun onCreateViewHolder(parent: ViewGroup,
@@ -32,6 +35,20 @@ class ListRepliesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         Utils.convertLongToSimpleTime(
             Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta")).timeInMillis - it)
       }}"
+      if (idUser == replies?.idUser) {
+        repliesViewHolder.layoutEdit.visibility = View.VISIBLE
+        repliesViewHolder.edit.setOnClickListener {
+
+          (it.context as RepliesActivity).editReplies(replies.idReplies, replies.body,
+              holder.adapterPosition)
+        }
+        repliesViewHolder.delete.setOnClickListener {
+
+          (it.context as RepliesActivity).deleteReplies(replies.idReplies, holder.adapterPosition)
+        }
+      } else {
+        repliesViewHolder.layoutEdit.visibility = View.GONE
+      }
       repliesViewHolder.description.text = replies?.body
     }
   }
@@ -52,6 +69,10 @@ class ListRepliesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
   }
 
+  fun getIdUser(idUser: String) {
+    this.idUser = idUser
+  }
+
   fun addAt(position: Int, replies: Replies) = repliesList?.add(position, replies)
 
   fun remove(position: Int) {
@@ -65,6 +86,9 @@ class ListRepliesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   inner class BookingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val name: TextView = itemView.findViewById<View>(R.id.item_name) as TextView
     val description: TextView = itemView.findViewById<View>(R.id.item_description) as TextView
+    val edit: TextView = itemView.findViewById<View>(R.id.tv_edit) as TextView
+    val delete: TextView = itemView.findViewById<View>(R.id.tv_delete) as TextView
+    val layoutEdit: LinearLayout = itemView.findViewById<View>(R.id.layout_edit) as LinearLayout
 
     init {
       itemView.setOnClickListener {

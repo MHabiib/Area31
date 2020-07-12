@@ -1,5 +1,6 @@
 package com.skripsi.area31.qnareplies.view
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -20,6 +21,7 @@ import com.skripsi.area31.qnareplies.model.Replies
 import com.skripsi.area31.qnareplies.model.SerializableReplies
 import com.skripsi.area31.qnareplies.presenter.RepliesPresenter
 import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.REPLIES_BODY
 import com.skripsi.area31.utils.Constants.Companion.SERIALIZABLE_REPLIES
 import com.skripsi.area31.utils.PaginationScrollListener
 import javax.inject.Inject
@@ -37,10 +39,15 @@ class RepliesActivity : BaseActivity(), RepliesContract {
   private lateinit var listRepliesAdapter: ListRepliesAdapter
   private lateinit var binding: ActivityRepliesBinding
   private var currentPage = 0
+  private var adapterPosition = 0
   private var isLastPage = false
   private var isLoading = false
+  private var idUser: String? = null
+  private var idReplies: String? = null
   private lateinit var accessToken: String
   private lateinit var idComment: String
+  private var itemPosition: Int = 0
+  private var bottomsheet = EditRepliesBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -61,6 +68,7 @@ class RepliesActivity : BaseActivity(), RepliesContract {
       binding.tvCommentBody.text = it.bodyComment
       binding.tvPostBody.text = it.bodyPost
       binding.tvPostTitle.text = it.title
+      idUser = it.idUser
     }
 
     val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -69,9 +77,6 @@ class RepliesActivity : BaseActivity(), RepliesContract {
       listRepliesAdapter = ListRepliesAdapter()
       rvReplies.layoutManager = linearLayoutManager
       rvReplies.adapter = listRepliesAdapter
-      listRepliesAdapter.onItemClick = {
-        repliesItemClick(it)
-      }
 
       rvReplies.isNestedScrollingEnabled = false
       rvReplies.addOnScrollListener(object :
@@ -87,6 +92,19 @@ class RepliesActivity : BaseActivity(), RepliesContract {
       ibBack.setOnClickListener {
         finish()
       }
+
+      ibSendReplies.setOnClickListener {
+        addReplies.text?.let {
+          if (it.isNotEmpty()) {
+            presenter.postRepliesStudent(idComment, it.toString(), accessToken)
+            it.clear()
+          } else {
+            Toast.makeText(this@RepliesActivity, getString(R.string.replies_cant_be_empty),
+                Toast.LENGTH_SHORT).show()
+          }
+        }
+      }
+      idUser?.let { listRepliesAdapter.getIdUser(it) }
     }
   }
 
@@ -120,8 +138,55 @@ class RepliesActivity : BaseActivity(), RepliesContract {
     isLoading = false
   }
 
-  private fun repliesItemClick(repliesItems: Replies) {
-    Toast.makeText(this, repliesItems.idReplies, Toast.LENGTH_SHORT).show()
+  fun deleteReplies(idReplies: String, adapterPosition: Int) {
+    val mAlertDialog = AlertDialog.Builder(this@RepliesActivity)
+    mAlertDialog.setTitle(R.string.delete_replies_title)
+    mAlertDialog.setMessage(getString(R.string.delete_replies_message))
+    mAlertDialog.setPositiveButton(getString(R.string.delete)) { _, _ ->
+      itemPosition = adapterPosition
+      presenter.deleteRepliesStudent(idReplies, accessToken)
+    }
+    mAlertDialog.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+      dialog.dismiss()
+    }
+    mAlertDialog.show()
+  }
+
+  fun editReplies(idReplies: String, body: String, adapterPosition: Int) {
+    this.idReplies = idReplies
+    this.adapterPosition = adapterPosition
+    val bundle = Bundle()
+    bundle.putString(REPLIES_BODY, body)
+    bottomsheet.arguments = bundle
+    if (!bottomsheet.isAdded) {
+      this@RepliesActivity.supportFragmentManager.let { fragmentManager ->
+        bottomsheet.show(fragmentManager, bottomsheet.tag)
+      }
+    }
+  }
+
+  fun updateReplies(replies: String) {
+    idReplies?.let { presenter.updateRepliesStudent(it, replies, accessToken) }
+    bottomsheet.dismiss()
+  }
+
+  override fun updateRepliesStudentSuccess(replies: Replies) {
+    listRepliesAdapter.remove(itemPosition)
+    listRepliesAdapter.addAt(itemPosition, replies)
+    listRepliesAdapter.notifyItemChanged(itemPosition)
+  }
+
+  override fun deleteRepliesStudentSuccess() {
+    listRepliesAdapter.remove(itemPosition)
+  }
+
+  override fun postRepliesStudentSuccess(replies: Replies) {
+    if (binding.ivDontHaveReplies.visibility == View.VISIBLE) {
+      binding.ivDontHaveReplies.visibility = View.GONE
+      binding.tvIvDontHaveReplies.visibility = View.GONE
+    }
+    listRepliesAdapter.addAt(0, replies)
+    listRepliesAdapter.notifyDataSetChanged()
   }
 
   override fun onFailed(message: String) {

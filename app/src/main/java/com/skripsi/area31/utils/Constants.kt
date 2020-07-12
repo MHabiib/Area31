@@ -23,6 +23,7 @@ class Constants {
     const val PREVIEW_FRAGMENT = "PREVIEW_FRAGMENT"
 
     const val COURSE_ID = "COURSE_ID"
+    const val ID_USER = "ID_USER"
     const val ID_QUIZ = "COURSE_ID"
     const val QUIZ_SCORE = "QUIZ_SCORE"
     const val ID_CHAPTER = "ID_CHAPTER"
@@ -34,6 +35,8 @@ class Constants {
     const val DESCRIPTION = "description"
     const val SERIALIZABLE_COMMENT = "SerializableComment"
     const val SERIALIZABLE_REPLIES = "SerializableReplies"
+    const val COMMENT_BODY = "COMMENT_BODY"
+    const val REPLIES_BODY = "REPLIES_BODY"
 
     const val REQUEST_CAMERA_PERMISSION = 2020
     const val REFRESH_COURSE = 77

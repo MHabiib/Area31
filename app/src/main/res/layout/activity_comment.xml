@@ -127,8 +127,7 @@
             android:tint="@color/darkGrey"
             android:visibility="gone"
             android:paddingLeft="@dimen/twelve_dp"
-            android:background="@null"
-            android:clickable="false"/>
+            android:background="@null"/>
 
 
         <TextView
@@ -186,7 +185,7 @@
             android:layout_marginRight="@dimen/twelve_dp"
             android:clipToPadding="false"
             android:paddingBottom="400dp"
-            android:layout_marginTop="@dimen/twelve_dp"
+            android:layout_marginTop="@dimen/four_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tag_comments" />
 
@@ -195,7 +194,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingLeft="@dimen/twelve_dp"
-            android:paddingTop="@dimen/twelve_dp"
+            android:paddingTop="@dimen/four_dp"
             android:paddingRight="@dimen/twelve_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tag_comments">

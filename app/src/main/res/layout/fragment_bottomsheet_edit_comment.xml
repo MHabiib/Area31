@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_add_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_base_white"
+            android:paddingStart="@dimen/sixteen_dp"
+            android:paddingTop="@dimen/twelve_dp"
+            android:paddingEnd="@dimen/sixteen_dp"
+            android:paddingBottom="@dimen/twelve_dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/ib_send_comment"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:inputType="textMultiLine"
+                android:singleLine="false"
+                android:ems="10"
+                android:hint="@string/update_your_comment"
+                android:textColor="@color/black"
+                android:textColorHint="@color/darkGrey"
+                android:paddingBottom="@dimen/eight_dp"
+                android:textSize="@dimen/h3" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/ib_send_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/layout_add_comment"
+            app:layout_constraintTop_toTopOf="@id/layout_add_comment"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/ic_send"
+            android:tint="@color/darkGrey"
+            android:paddingLeft="@dimen/twelve_dp"
+            android:paddingRight="@dimen/twelve_dp"
+            android:background="@null"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

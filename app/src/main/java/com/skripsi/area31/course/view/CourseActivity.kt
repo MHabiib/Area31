@@ -23,6 +23,7 @@ import com.skripsi.area31.qnapost.view.PostFragment
 import com.skripsi.area31.quizlist.view.QuizListFragment
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
+import com.skripsi.area31.utils.Constants.Companion.ID_USER
 import com.skripsi.area31.utils.Constants.Companion.REFRESH_COURSE
 import okhttp3.ResponseBody
 import javax.inject.Inject
@@ -40,6 +41,8 @@ class CourseActivity : BaseActivity(), CourseContract {
   private lateinit var binding: ActivityCourseBinding
   private lateinit var accessToken: String
   private var courseId: String? = null
+  private var idUser: String? = null
+  private var getDetailsSuccess = false
   private val bottomSheetFragmentChapter = ChapterFragment()
   private val bottomSheetFragmentResource = ResourceFragment()
   private val bottomSheetFragmentQuiz = QuizListFragment()
@@ -100,13 +103,19 @@ class CourseActivity : BaseActivity(), CourseContract {
       }
 
       layoutQna.setOnClickListener {
-        val bundle = Bundle()
-        bundle.putString(COURSE_ID, courseId)
-        bottomSheetFragmentPost.arguments = bundle
-        if (!bottomSheetFragmentPost.isAdded) {
-          this@CourseActivity.supportFragmentManager.let { fragmentManager ->
-            bottomSheetFragmentPost.show(fragmentManager, bottomSheetFragmentPost.tag)
+        if (getDetailsSuccess) {
+          val bundle = Bundle()
+          bundle.putString(COURSE_ID, courseId)
+          bundle.putString(ID_USER, idUser)
+          bottomSheetFragmentPost.arguments = bundle
+          if (!bottomSheetFragmentPost.isAdded) {
+            this@CourseActivity.supportFragmentManager.let { fragmentManager ->
+              bottomSheetFragmentPost.show(fragmentManager, bottomSheetFragmentPost.tag)
+            }
           }
+        } else {
+          Toast.makeText(this@CourseActivity, "Please wait the loading completed first !",
+              Toast.LENGTH_SHORT).show()
         }
       }
 
@@ -132,6 +141,8 @@ class CourseActivity : BaseActivity(), CourseContract {
   }
 
   override fun courseDetailsSuccess(courseDetails: CourseDetails?) {
+    getDetailsSuccess = true
+    idUser = courseDetails?.idUser
     showProgress(false)
     with(binding) {
       by.visibility = View.VISIBLE

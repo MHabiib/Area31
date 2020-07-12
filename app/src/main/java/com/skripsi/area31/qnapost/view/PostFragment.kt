@@ -46,6 +46,7 @@ class PostFragment : BottomSheetDialogFragment(), PostContract {
   private var currentPage = 0
   private var isLastPage = false
   private var isLoading = false
+  private var idUser: String? = null
   private lateinit var accessToken: String
   private lateinit var idCourse: String
 
@@ -105,6 +106,7 @@ class PostFragment : BottomSheetDialogFragment(), PostContract {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     idCourse = this.arguments?.getString(Constants.COURSE_ID).toString()
+    idUser = this.arguments?.getString(Constants.ID_USER).toString()
     accessToken = gson.fromJson(
         context?.getSharedPreferences(Constants.AUTHENTICATION, Context.MODE_PRIVATE)?.getString(
             Constants.TOKEN, null), Token::class.java).accessToken
@@ -146,8 +148,9 @@ class PostFragment : BottomSheetDialogFragment(), PostContract {
 
   private fun postItemClick(postItems: Post) {
     val intent = Intent(context, CommentActivity::class.java)
-    intent.putExtra(SERIALIZABLE_COMMENT,
-        SerializableComment(postItems.body, postItems.title, postItems.idPost, postItems.name))
+    intent.putExtra(SERIALIZABLE_COMMENT, idUser?.let {
+      SerializableComment(postItems.body, postItems.title, postItems.idPost, postItems.name, it)
+    })
     startActivity(intent)
   }
 
