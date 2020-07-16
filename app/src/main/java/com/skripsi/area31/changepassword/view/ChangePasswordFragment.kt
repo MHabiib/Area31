@@ -68,12 +68,12 @@ class ChangePasswordFragment : BottomSheetDialogFragment(), ChangePasswordContra
               Toast.LENGTH_LONG).show()
         } else {
           showProgress(true)
+          presenter.updateUserPassword(accessToken, etNewPassword.text.toString(),
+              ChangePassword(etRecentPassword.text.toString()))
           etRecentPassword.text?.clear()
           etNewPassword.text?.clear()
           etRetypeNewPassword.text?.clear()
 
-          presenter.updateUserPassword(accessToken, etNewPassword.text.toString(),
-              ChangePassword(etRecentPassword.text.toString()))
         }
       }
     }
@@ -95,7 +95,9 @@ class ChangePasswordFragment : BottomSheetDialogFragment(), ChangePasswordContra
   }
 
   override fun onFailed(message: String) {
+    showProgress(false)
     Log.e(CHANGE_PASSWORD, message)
+    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
   }
 
   private fun showProgress(show: Boolean) {
