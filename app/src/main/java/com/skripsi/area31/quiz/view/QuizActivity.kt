@@ -351,6 +351,7 @@ class QuizActivity : BaseActivity(), QuizContract {
       if (answerEssay.text.toString() != "") {
         listQuestion?.get(indexAt)?.idQuestion?.let { idQuestion ->
           answeredQuestion.put(indexAt, AnsweredQuestion(answerEssay.text.toString(), idQuestion))
+          answerEssay.text?.clear()
         }
       } else {
         answeredQuestion.remove(indexAt)

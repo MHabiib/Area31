@@ -96,7 +96,7 @@ class CommentActivity : BaseActivity(), CommentContract {
         override fun loadMoreItems() {
           if (!isLoading && !isLastPage) {
             isLoading = true
-            presenter.getListComment(accessToken, idCourse, currentPage)
+            presenter.getListComment(accessToken, idPost, currentPage)
           }
         }
       })
