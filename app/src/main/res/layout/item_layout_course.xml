@@ -40,7 +40,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/twenty_four_dp"
                 android:paddingTop="@dimen/twenty_four_dp"
 
                 android:paddingBottom="@dimen/twenty_four_dp"
@@ -49,23 +48,39 @@
                 app:layout_constraintRight_toLeftOf="@id/iv_parking_zone_image"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/item_name"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/h2"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/item_title"
-                    tools:text="By. Monalisa" />
+                    android:background="@drawable/background_blue_gradient_chapter"
+                    app:layout_constraintTop_toBottomOf="@id/item_title"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="@dimen/eight_dp"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <TextView
+                        android:id="@+id/item_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/twenty_four_dp"
+                        android:ellipsize="end"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/h2"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:text="By. Monalisa" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <TextView
                     android:id="@+id/item_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:paddingLeft="@dimen/twenty_four_dp"
                     android:maxLines="3"
                     android:textColor="@color/white"
                     android:textSize="@dimen/h_medium"

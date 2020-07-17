@@ -45,7 +45,12 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
       if (quizItems?.score != null) {
         quizViewHolder.layoutScore.visibility = View.VISIBLE
         quizViewHolder.score.text = quizItems.score.toString()
-      } else {
+      } else if(quizItems?.assignedAt != null) {
+        quizViewHolder.layoutScore.visibility = View.GONE
+        quizViewHolder.ongoing.visibility = View.GONE
+        quizViewHolder.ibStartQuiz.visibility = View.GONE
+      }
+      else {
         quizViewHolder.layoutScore.visibility = View.GONE
         if (quizItems?.quizDate != null && quizItems.quizDate < System.currentTimeMillis() && quizItems.quizDate + quizItems.quizDuration > System.currentTimeMillis()) {
           quizViewHolder.ongoing.visibility = View.VISIBLE

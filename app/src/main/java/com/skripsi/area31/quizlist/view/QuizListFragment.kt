@@ -78,7 +78,11 @@ class QuizListFragment : BottomSheetDialogFragment(), QuizListContract {
       rvQuiz.layoutManager = linearLayoutManager
       rvQuiz.adapter = listQuizAdapter
       listQuizAdapter.onItemClick = {
-        quizItemClick(it)
+        if (it.score == null && it.assignedAt != null) {
+          Toast.makeText(context, "You have submitted this quiz, please wait for the score", Toast.LENGTH_SHORT).show()
+        } else {
+          quizItemClick(it)
+        }
       }
       rvQuiz.isNestedScrollingEnabled = false
       rvQuiz.addOnScrollListener(object :

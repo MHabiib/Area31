@@ -124,8 +124,6 @@ class QuizActivity : BaseActivity(), QuizContract {
           radiobuttons.visibility = View.VISIBLE
           layoutAnswerEssay.visibility = View.GONE
           layoutAnswerEssayStudent.visibility = View.GONE
-          tvYourAnswer.visibility = View.VISIBLE
-          tvYourAnswer.text = "Your answer : ${listQuestionReport?.get(indexAt)?.studentAnswer}"
         } else {
           radiobuttons.visibility = View.GONE
           tvYourAnswer.visibility = View.GONE
@@ -435,10 +433,9 @@ class QuizActivity : BaseActivity(), QuizContract {
             ActionBar.LayoutParams.WRAP_CONTENT)
         rprms.setMargins(0, 12, 12, 12)
         if (radioButton.text == listQuestionReport?.get(indexAt)?.answerKey) {
-          rgp.check(i)
           radioButton.text = "${listQuestionReport?.get(indexAt)?.answer?.get(i)} (Answer Key)"
-          radioButton.isChecked = true
         }
+        radioButton.isChecked = radioButton.text == listQuestionReport?.get(indexAt)?.studentAnswer
         radioButton.isClickable = false
         rgp.addView(radioButton, rprms)
       }
