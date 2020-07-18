@@ -11,9 +11,9 @@ import javax.inject.Inject
 
 class ComplaintPresenter @Inject constructor(private val complaintApi: ComplaintApi) :
     BasePresenter<ComplaintContract>() {
-  fun getListComplaint(accessToken: String) {
+  fun getListComplaint(accessToken: String, idCourse: String) {
     subscriptions.add(
-        complaintApi.getAllStudentComplaint(accessToken).subscribeOn(Schedulers.io()).observeOn(
+        complaintApi.getAllStudentComplaint(accessToken, idCourse).subscribeOn(Schedulers.io()).observeOn(
             AndroidSchedulers.mainThread()).subscribe({
           view?.getListComplaintSuccess(it)
         }, {

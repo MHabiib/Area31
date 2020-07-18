@@ -98,7 +98,7 @@ class ComplaintFragment : BottomSheetDialogFragment(), ComplaintContract {
     presenter.attach(this)
     presenter.apply {
       subscribe()
-      getListComplaint(accessToken)
+      getListComplaint(accessToken, idCourse)
     }
   }
 

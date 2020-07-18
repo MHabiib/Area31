@@ -41,6 +41,9 @@ class ReadChapterActivity : BaseActivity() {
       webView.settings.loadWithOverviewMode = true
       webView.settings.useWideViewPort = true
       webView.settings.domStorageEnabled = true
+      webView.settings.builtInZoomControls = true
+      webView.settings.displayZoomControls = true
+      webView.setInitialScale(200) // zoom x4 (200%)
       webView.webViewClient = object : WebViewClient() {
         override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?,
             error: SslError?) {
@@ -78,7 +81,7 @@ class ReadChapterActivity : BaseActivity() {
   }
 
   private fun loadUrl(pageUrl: String) {
-    binding.webView.loadUrl(pageUrl)
+    binding.webView.loadData(pageUrl, "text/html; charset=utf-8", "UTF-8")
   }
 
   override fun onFailed(message: String) {

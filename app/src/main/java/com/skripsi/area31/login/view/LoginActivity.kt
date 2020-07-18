@@ -41,6 +41,7 @@ class LoginActivity : BaseActivity(), LoginContract {
   @Inject lateinit var gson: Gson
   private lateinit var binding: ActivityLoginBinding
   private lateinit var countDownTimer: CountDownTimer
+  private var code = 0
   private var email = ""
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,7 +93,8 @@ class LoginActivity : BaseActivity(), LoginContract {
         if (etResetCode.text.toString().isNotEmpty()) {
           loadingForgot(true)
           hideKeyboard()
-          presenter.forgotPasswordNextStep(email, etResetCode.text.toString().toInt())
+          code = etResetCode.text.toString().toInt()
+          presenter.forgotPasswordNextStep(email, code)
         } else {
           Toast.makeText(this@LoginActivity, getString(R.string.enter_the_code),
               Toast.LENGTH_SHORT).show()
@@ -102,7 +104,7 @@ class LoginActivity : BaseActivity(), LoginContract {
         if (etRetypeNewPassword.text.toString().isNotEmpty() && etRetypeNewPassword.text.toString() == etNewPassword.text.toString()) {
           loadingForgot(true)
           hideKeyboard()
-          presenter.resetPassword(email, etRetypeNewPassword.text.toString())
+          presenter.resetPassword(email, etRetypeNewPassword.text.toString(), code)
         } else {
           Toast.makeText(this@LoginActivity, getString(R.string.enter_password_match),
               Toast.LENGTH_SHORT).show()

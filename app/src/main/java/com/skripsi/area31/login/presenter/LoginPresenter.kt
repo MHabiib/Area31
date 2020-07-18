@@ -63,9 +63,9 @@ class LoginPresenter @Inject constructor(private val loginApi: LoginApi) :
         }))
   }
 
-  fun resetPassword(email: String, password: String) {
+  fun resetPassword(email: String, password: String, code: Int) {
     subscriptions.add(
-        loginApi.resetPassword(email, password).subscribeOn(Schedulers.io()).observeOn(
+        loginApi.resetPassword(email, password, code).subscribeOn(Schedulers.io()).observeOn(
             AndroidSchedulers.mainThread()).subscribe({
           if (it.code() == 400) {
             it.errorBody()?.let { error -> view?.onFailedReset(error.string()) }

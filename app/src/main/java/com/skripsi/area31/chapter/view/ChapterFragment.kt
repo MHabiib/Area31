@@ -27,7 +27,7 @@ import com.skripsi.area31.home.view.HomeFragment
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.CHAPTER_FRAGMENT
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
-import com.skripsi.area31.utils.Constants.Companion.ID_CHAPTER
+import com.skripsi.area31.utils.Constants.Companion.PAGE_URL
 import com.skripsi.area31.utils.PaginationScrollListener
 import javax.inject.Inject
 
@@ -146,8 +146,7 @@ class ChapterFragment : BottomSheetDialogFragment(), ChapterContract {
 
   private fun chapterItemClick(chapterItems: Chapter) {
     val intent = Intent(context, ReadChapterActivity::class.java)
-    //    intent.putExtra(ID_CHAPTER, "https://google.com/search?q=" + chapterItems.idChapter)
-    intent.putExtra(ID_CHAPTER, "https://google.com/search?q=" + chapterItems.title)
+    intent.putExtra(PAGE_URL, chapterItems.lectureNote)
     startActivity(intent)
   }
 
