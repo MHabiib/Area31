@@ -84,15 +84,8 @@
                     tools:text="1280"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/h_medium"
+                    android:textSize="@dimen/h2"
                     android:layout_weight="0.2"
-                    android:gravity="center"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Minutes ago"
-                    android:layout_weight="0.3"
                     android:gravity="center"/>
 
             </LinearLayout>

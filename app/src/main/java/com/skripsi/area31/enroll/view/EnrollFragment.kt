@@ -108,7 +108,7 @@ class EnrollFragment : BottomSheetDialogFragment(), EnrollContract {
   private fun initialiseDetectorsAndSources() {
     barcodeDetector = BarcodeDetector.Builder(context).setBarcodeFormats(Barcode.QR_CODE).build()
 
-    cameraSource = CameraSource.Builder(context, barcodeDetector).setRequestedPreviewSize(1920,
+    cameraSource = CameraSource.Builder(context, barcodeDetector).setRequestedPreviewSize(1080,
         1080).setAutoFocusEnabled(true).build()
 
     surfaceView.holder.addCallback(object : SurfaceHolder.Callback {

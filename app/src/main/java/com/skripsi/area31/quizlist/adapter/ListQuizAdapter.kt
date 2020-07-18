@@ -40,7 +40,7 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         "Date: ${Utils.convertLongToTimeShortMonth(it)}"
       }
       quizViewHolder.itemDuration.text = quizItems?.quizDuration?.let {
-        "Duration: ${Utils.convertLongToMinutes(it)} minutes"
+        "Duration: ${Utils.convertLongToSimpleTime(it)}"
       }
       if (quizItems?.score != null) {
         quizViewHolder.layoutScore.visibility = View.VISIBLE
@@ -64,13 +64,13 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
               quizViewHolder.layoutMinutesPast.visibility = View.GONE
               quizViewHolder.ongoing.visibility = View.GONE
               quizViewHolder.ibStartQuiz.visibility = View.GONE
-              quizViewHolder.minutes.text = Utils.convertLongToMinutes(quizTime)
+              quizViewHolder.minutes.text = Utils.convertLongToSimpleTime(quizTime)
             } else {
               quizViewHolder.layoutMinutesPast.visibility = View.VISIBLE
               quizViewHolder.layoutMinutes.visibility = View.GONE
               quizViewHolder.ongoing.visibility = View.GONE
               quizViewHolder.ibStartQuiz.visibility = View.GONE
-              quizViewHolder.minutesPast.text = Utils.convertLongToMinutes(quizTime * -1)
+              quizViewHolder.minutesPast.text = Utils.convertLongToSimpleTime(quizTime * -1)
             }
           }
         }
