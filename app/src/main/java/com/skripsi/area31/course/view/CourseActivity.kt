@@ -131,6 +131,9 @@ class CourseActivity : BaseActivity(), CourseContract {
       }
 
       layoutComplaint.setOnClickListener {
+        val bundle = Bundle()
+        bundle.putString(COURSE_ID, courseId)
+        bottomSheetFragmentComplaint.arguments = bundle
         if (!bottomSheetFragmentComplaint.isAdded) {
           this@CourseActivity.supportFragmentManager.let { fragmentManager ->
             bottomSheetFragmentComplaint.show(fragmentManager, bottomSheetFragmentComplaint.tag)
