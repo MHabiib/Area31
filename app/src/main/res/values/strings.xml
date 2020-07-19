@@ -80,7 +80,7 @@
     <string name="preview">Preview</string>
     <string name="submit">Submit</string>
     <string name="there_is_no_chapter_in_this_course">- There is no chapter in this course -</string>
-    <string name="there_is_no_complaint_in_this_course">- There is no complaint in this course -</string>
+    <string name="there_is_no_complaint_in_this_course">- There is no complaint in this course, to assign a complaint you must partake on quiz -</string>
     <string name="there_is_no_qna_in_this_course">- There is no qna in this course -</string>
     <string name="there_is_no_post_in_this_course">- There is no post in this course -</string>
     <string name="there_is_no_comment_in_this_course">- There is no comment in this post -</string>
@@ -133,4 +133,17 @@
     <string name="delete_comment_message">Delete your comment and replies in this comment permanently?</string>
     <string name="delete_replies_message">Delete your replies permanently?</string>
     <string name="delete">Delete</string>
+    <string name="minutes">minutes</string>
+    <string name="score_with_two_dots">Score :</string>
+    <string name="started">Started</string>
+    <string name="start_in">Start in</string>
+    <string name="hours_ago">hours ago</string>
+    <string name="minutes_ago">minutes ago</string>
+    <string name="you_have_submitted_quiz">You have submitted this quiz, please wait for the score</string>
+    <string name="quiz_passed">The quiz has been passed. You can\'t partake on this quiz</string>
+    <string name="score_with_two_dotss">Score:</string>
+    <string name="your_score">| Your Score:</string>
+    <string name="you_havent_answer">You haven\'t answer question number</string>
+    <string name="your_answer_two_dots">Your answer :</string>
+    <string name="answer_key_with_bracket">(Answer Key)</string>
 </resources>

@@ -12,12 +12,11 @@ import javax.inject.Inject
 class ComplaintPresenter @Inject constructor(private val complaintApi: ComplaintApi) :
     BasePresenter<ComplaintContract>() {
   fun getListComplaint(accessToken: String, idCourse: String) {
-    subscriptions.add(
-        complaintApi.getAllStudentComplaint(accessToken, idCourse).subscribeOn(Schedulers.io()).observeOn(
-            AndroidSchedulers.mainThread()).subscribe({
-          view?.getListComplaintSuccess(it)
-        }, {
-          Log.e(COMPLAINT, it.message.toString())
-        }))
+    subscriptions.add(complaintApi.getAllStudentComplaint(accessToken, idCourse).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({
+      view?.getListComplaintSuccess(it)
+    }, {
+      Log.e(COMPLAINT, it.message.toString())
+    }))
   }
 }

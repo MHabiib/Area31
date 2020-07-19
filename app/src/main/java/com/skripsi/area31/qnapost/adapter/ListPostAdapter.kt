@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skripsi.area31.R
 import com.skripsi.area31.qnapost.model.Post
-import com.skripsi.area31.utils.Utils
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ListPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   var onItemClick: ((Post) -> Unit)? = null
@@ -29,11 +29,18 @@ class ListPostAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     if (getItemViewType(position) == item) {
       val postViewHolder = holder as BookingViewHolder
       postViewHolder.title.text = "${post?.title} | ${post?.createdAt?.let {
-        Utils.convertLongToSimpleTime(
-            Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta")).timeInMillis - it)
+        val time = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta")).timeInMillis - it
+        var minutes = TimeUnit.MILLISECONDS.toMinutes(time)
+        if (minutes > 59) {
+          minutes = TimeUnit.MILLISECONDS.toHours(time)
+          minutes.toString() + holder.itemView.resources.getString(R.string.hours_ago)
+        } else {
+          minutes.toString() + holder.itemView.resources.getString(R.string.minutes_ago)
+        }
       }}"
       postViewHolder.description.text = post?.body
-      postViewHolder.comment.text = "${post?.totalComment.toString()} comments"
+      postViewHolder.comment.text = post?.totalComment.toString() + " " + holder.itemView.resources.getString(
+          R.string.comments)
     }
   }
 

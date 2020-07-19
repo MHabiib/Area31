@@ -4,11 +4,16 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.gson.Gson
@@ -27,6 +32,7 @@ import com.skripsi.area31.register.view.RegisterActivity
 import com.skripsi.area31.utils.Constants.Companion.AUTHENTICATION
 import com.skripsi.area31.utils.Constants.Companion.ROLE_STUDENT
 import com.skripsi.area31.utils.Constants.Companion.TOKEN
+import java.util.*
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), LoginContract {
@@ -41,11 +47,13 @@ class LoginActivity : BaseActivity(), LoginContract {
   @Inject lateinit var gson: Gson
   private lateinit var binding: ActivityLoginBinding
   private lateinit var countDownTimer: CountDownTimer
+  private val spinnerItems = ArrayList<String>()
   private var code = 0
   private var email = ""
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setupLanguage()
     binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
     presenter.attach(this)
     presenter.subscribe()
@@ -119,6 +127,70 @@ class LoginActivity : BaseActivity(), LoginContract {
         val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
         startActivity(intent)
         finish()
+      }
+
+      val adapter = this@LoginActivity.let {
+        ArrayAdapter(it, R.layout.spinner_style_small_text, spinnerItems)
+      }
+      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+      val shp = this@LoginActivity.getSharedPreferences("com.skripsi.area31.PREFERENCES",
+          Context.MODE_PRIVATE)
+      val editor = shp?.edit()
+
+      val firstItem: String
+      val secondItem: String
+      spinnerItems.add("Language / Bahasa")
+      if (shp?.getString("USER_LANGUAGE", "en") == "en") {
+        spinnerItems.add("English")
+        spinnerItems.add("Bahasa Indonesia")
+        firstItem = "en"
+        secondItem = "in"
+      } else {
+        spinnerItems.add("Bahasa Indonesia")
+        spinnerItems.add("English")
+        firstItem = "in"
+        secondItem = "en"
+      }
+      language.adapter = adapter
+      var isSpinnerInitial = true
+      language.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+          //No implementation needed
+        }
+
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+          (p0?.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.white))
+
+          if (isSpinnerInitial) {
+            isSpinnerInitial = false
+            return
+          }
+          when (p2) {
+            0 -> {
+              Toast.makeText(this@LoginActivity, "Choose your language", Toast.LENGTH_SHORT).show()
+            }
+            1 -> {
+              editor?.putString("USER_LANGUAGE", firstItem)
+              editor?.apply()
+              Handler().postDelayed({
+                val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                Runtime.getRuntime().exit(0)
+              }, 1000)
+            }
+            else -> {
+              editor?.putString("USER_LANGUAGE", secondItem)
+              editor?.apply()
+              Handler().postDelayed({
+                val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                Runtime.getRuntime().exit(0)
+              }, 1000)
+            }
+          }
+        }
       }
     }
   }
@@ -208,6 +280,16 @@ class LoginActivity : BaseActivity(), LoginContract {
         binding.tvResendCode.isClickable = true
       }
     }.start()
+  }
+
+  private fun setupLanguage() {
+    val shp = getSharedPreferences("com.skripsi.area31.PREFERENCES", Context.MODE_PRIVATE)
+    val language = shp.getString("USER_LANGUAGE", "en")
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+    val config = Configuration()
+    config.locale = locale
+    resources.updateConfiguration(config, resources.displayMetrics)
   }
 
   override fun forgotPasswordNextStepSuccess() {

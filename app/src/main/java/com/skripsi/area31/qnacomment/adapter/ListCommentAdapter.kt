@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skripsi.area31.R
 import com.skripsi.area31.qnacomment.model.Comment
 import com.skripsi.area31.qnacomment.view.CommentActivity
-import com.skripsi.area31.utils.Utils
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ListCommentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   var onItemClick: ((Comment) -> Unit)? = null
@@ -32,11 +32,18 @@ class ListCommentAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     if (getItemViewType(position) == item) {
       val commentViewHolder = holder as BookingViewHolder
       commentViewHolder.name.text = "${comment?.name} | ${comment?.createdAt?.let {
-        Utils.convertLongToSimpleTime(
-            Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta")).timeInMillis - it)
+        val time = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta")).timeInMillis - it
+        var minutes = TimeUnit.MILLISECONDS.toMinutes(time)
+        if (minutes > 59) {
+          minutes = TimeUnit.MILLISECONDS.toHours(time)
+          minutes.toString() + holder.itemView.resources.getString(R.string.hours_ago)
+        } else {
+          minutes.toString() + holder.itemView.resources.getString(R.string.minutes_ago)
+        }
       }}"
       commentViewHolder.description.text = comment?.body
-      commentViewHolder.replies.text = "${comment?.totalReplies.toString()} replies"
+      commentViewHolder.replies.text = comment?.totalReplies.toString() + " " + holder.itemView.resources.getString(
+          R.string.replies)
       if (idUser == comment?.idUser) {
         commentViewHolder.layoutEdit.visibility = View.VISIBLE
         commentViewHolder.edit.setOnClickListener {

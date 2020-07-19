@@ -11,6 +11,7 @@ import com.skripsi.area31.R
 import com.skripsi.area31.quizlist.model.Quiz
 import com.skripsi.area31.utils.Utils
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   var onItemClick: ((Quiz) -> Unit)? = null
@@ -37,20 +38,20 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
       val quizViewHolder = holder as QuizViewHolder
       quizViewHolder.itemTitle.text = quizItems?.titleQuiz
       quizViewHolder.itemDate.text = quizItems?.quizDate?.let {
-        "Date: ${Utils.convertLongToTimeShortMonth(it)}"
+        holder.itemView.context.getString(R.string.date) + Utils.convertLongToTimeShortMonth(it)
       }
       quizViewHolder.itemDuration.text = quizItems?.quizDuration?.let {
-        "Duration: ${Utils.convertLongToSimpleTime(it)}"
+        holder.itemView.context.getString(R.string.duration) + Utils.convertLongToMinutes(
+            it) + " " + holder.itemView.context.getString(R.string.minutes)
       }
       if (quizItems?.score != null) {
         quizViewHolder.layoutScore.visibility = View.VISIBLE
         quizViewHolder.score.text = quizItems.score.toString()
-      } else if(quizItems?.assignedAt != null) {
+      } else if (quizItems?.assignedAt != null) {
         quizViewHolder.layoutScore.visibility = View.GONE
         quizViewHolder.ongoing.visibility = View.GONE
         quizViewHolder.ibStartQuiz.visibility = View.GONE
-      }
-      else {
+      } else {
         quizViewHolder.layoutScore.visibility = View.GONE
         if (quizItems?.quizDate != null && quizItems.quizDate < System.currentTimeMillis() && quizItems.quizDate + quizItems.quizDuration > System.currentTimeMillis()) {
           quizViewHolder.ongoing.visibility = View.VISIBLE
@@ -64,13 +65,32 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
               quizViewHolder.layoutMinutesPast.visibility = View.GONE
               quizViewHolder.ongoing.visibility = View.GONE
               quizViewHolder.ibStartQuiz.visibility = View.GONE
-              quizViewHolder.minutes.text = Utils.convertLongToSimpleTime(quizTime)
+              quizViewHolder.minutes.text = quizTime.let {
+                val time = it
+                var minutes = TimeUnit.MILLISECONDS.toMinutes(time)
+                if (minutes > 59) {
+                  minutes = TimeUnit.MILLISECONDS.toHours(time)
+                  minutes.toString()
+                } else {
+                  minutes.toString()
+                }
+              }
             } else {
               quizViewHolder.layoutMinutesPast.visibility = View.VISIBLE
               quizViewHolder.layoutMinutes.visibility = View.GONE
               quizViewHolder.ongoing.visibility = View.GONE
               quizViewHolder.ibStartQuiz.visibility = View.GONE
-              quizViewHolder.minutesPast.text = Utils.convertLongToSimpleTime(quizTime * -1)
+              quizViewHolder.minutesPast.text = (quizTime * -1).let {
+                val time = it
+                var minutes = TimeUnit.MILLISECONDS.toMinutes(time)
+                if (minutes > 59) {
+                  minutes = TimeUnit.MILLISECONDS.toHours(time)
+                  minutes.toString() + " " + holder.itemView.resources.getString(R.string.hours_ago)
+                } else {
+                  minutes.toString() + " " + holder.itemView.resources.getString(
+                      R.string.minutes_ago)
+                }
+              }
             }
           }
         }

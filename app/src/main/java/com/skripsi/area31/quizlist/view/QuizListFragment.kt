@@ -79,7 +79,11 @@ class QuizListFragment : BottomSheetDialogFragment(), QuizListContract {
       rvQuiz.adapter = listQuizAdapter
       listQuizAdapter.onItemClick = {
         if (it.score == null && it.assignedAt != null) {
-          Toast.makeText(context, "You have submitted this quiz, please wait for the score", Toast.LENGTH_SHORT).show()
+          Toast.makeText(context, getString(R.string.you_have_submitted_quiz),
+              Toast.LENGTH_SHORT).show()
+        } else if (it.score == null && it.quizDate + it.quizDuration < Calendar.getInstance(
+                TimeZone.getTimeZone(getString(R.string.asiajakarta))).timeInMillis) {
+          Toast.makeText(context, getString(R.string.quiz_passed), Toast.LENGTH_SHORT).show()
         } else {
           quizItemClick(it)
         }

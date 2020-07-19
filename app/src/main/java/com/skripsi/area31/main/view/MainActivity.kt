@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -28,6 +29,7 @@ import com.skripsi.area31.utils.Constants.Companion.MY_FIREBASE_MESSAGING
 import com.skripsi.area31.utils.Constants.Companion.REFRESH_COURSE
 import com.skripsi.area31.utils.Constants.Companion.REQUEST_CAMERA_PERMISSION
 import com.skripsi.area31.utils.Constants.Companion.STUDENT_NAME
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainContract {
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity(), MainContract {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setupLanguage()
     binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     presenter.attach(this)
     binding.ibNavigationHome.setOnClickListener {
@@ -83,6 +86,16 @@ class MainActivity : AppCompatActivity(), MainContract {
         showHomeFragment()
       }
     }
+  }
+
+  private fun setupLanguage() {
+    val shp = getSharedPreferences("com.skripsi.area31.PREFERENCES", Context.MODE_PRIVATE)
+    val language = shp.getString("USER_LANGUAGE", "en")
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+    val config = Configuration()
+    config.locale = locale
+    resources.updateConfiguration(config, resources.displayMetrics)
   }
 
   private var doubleBackToExitPressedOnce = false

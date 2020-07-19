@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skripsi.area31.R
 import com.skripsi.area31.qnareplies.model.Replies
 import com.skripsi.area31.qnareplies.view.RepliesActivity
-import com.skripsi.area31.utils.Utils
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class ListRepliesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   var onItemClick: ((Replies) -> Unit)? = null
@@ -32,8 +32,14 @@ class ListRepliesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     if (getItemViewType(position) == item) {
       val repliesViewHolder = holder as BookingViewHolder
       repliesViewHolder.name.text = "${replies?.name} | ${replies?.createdAt?.let {
-        Utils.convertLongToSimpleTime(
-            Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta")).timeInMillis - it)
+        val time = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta")).timeInMillis - it
+        var minutes = TimeUnit.MILLISECONDS.toMinutes(time)
+        if (minutes > 59) {
+          minutes = TimeUnit.MILLISECONDS.toHours(time)
+          minutes.toString() + holder.itemView.resources.getString(R.string.hours_ago)
+        } else {
+          minutes.toString() + holder.itemView.resources.getString(R.string.minutes_ago)
+        }
       }}"
       if (idUser == replies?.idUser) {
         repliesViewHolder.layoutEdit.visibility = View.VISIBLE

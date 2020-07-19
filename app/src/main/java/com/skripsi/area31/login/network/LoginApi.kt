@@ -21,5 +21,6 @@ interface LoginApi {
       @Query("code") code: Int?): Observable<Response<SimpleCustomResponse>>
 
   @POST("forgot-password/resetPassword") fun resetPassword(@Query("email") email: String?,
-      @Query("password") password: String?, @Query("code") code: Int?): Observable<Response<SimpleCustomResponse>>
+      @Query("password") password: String?, @Query("code")
+      code: Int?): Observable<Response<SimpleCustomResponse>>
 }

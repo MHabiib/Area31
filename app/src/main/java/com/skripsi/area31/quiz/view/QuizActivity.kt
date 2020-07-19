@@ -112,9 +112,9 @@ class QuizActivity : BaseActivity(), QuizContract {
         btnComplaint.isClickable = true
 
         tvQuestionNumber.text = "No. ${(indexAt + 1)}"
-        tvScore.text = "Score: " + listQuestionReport?.get(
-            indexAt)?.score.toString() + " | Your Score: " + listQuestionReport?.get(
-            indexAt)?.studentScore.toString()
+        tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestionReport?.get(
+            indexAt)?.score.toString() + getString(
+            R.string.your_score) + " " + listQuestionReport?.get(indexAt)?.studentScore.toString()
         tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
             R.string.slash) + listQuestionReport?.size.toString()
         tvQuestion.text = listQuestionReport?.get(indexAt)?.question.toString()
@@ -168,7 +168,8 @@ class QuizActivity : BaseActivity(), QuizContract {
         tvQuestionNumberHeader.visibility = View.VISIBLE
 
         tvQuestionNumber.text = "No. ${(indexAt + 1)}"
-        tvScore.text = "Score: " + listQuestion?.get(indexAt)?.score.toString()
+        tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestion?.get(
+            indexAt)?.score.toString()
         tvQuestion.text = listQuestion?.get(indexAt)?.question.toString()
 
         if (listQuestion?.get(indexAt)?.questionType == MULTIPLECHOICE) {
@@ -192,7 +193,8 @@ class QuizActivity : BaseActivity(), QuizContract {
         tvQuestionNumber.text = "No. ${(indexAt + 1)}"
 
         if (listQuestion != null) {
-          tvScore.text = "Score: " + listQuestion?.get(indexAt)?.score.toString()
+          tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestion?.get(
+              indexAt)?.score.toString()
           tvQuestion.text = listQuestion?.get(indexAt)?.question.toString()
           tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
               R.string.slash) + listQuestion?.size.toString()
@@ -214,9 +216,9 @@ class QuizActivity : BaseActivity(), QuizContract {
           }
         } else {
           tvQuestionNumber.text = "No. ${(indexAt + 1)}"
-          tvScore.text = "Score: " + listQuestionReport?.get(
-              indexAt)?.score.toString() + " | Your Score: " + listQuestionReport?.get(
-              indexAt)?.studentScore.toString()
+          tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestionReport?.get(
+              indexAt)?.score.toString() + getString(
+              R.string.your_score) + " " + listQuestionReport?.get(indexAt)?.studentScore.toString()
           tvQuestion.text = listQuestionReport?.get(indexAt)?.question.toString()
           tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
               R.string.slash) + listQuestionReport?.size.toString()
@@ -226,7 +228,9 @@ class QuizActivity : BaseActivity(), QuizContract {
             layoutAnswerEssay.visibility = View.GONE
             layoutAnswerEssayStudent.visibility = View.GONE
             tvYourAnswer.visibility = View.VISIBLE
-            tvYourAnswer.text = "Your answer : ${listQuestionReport?.get(indexAt)?.studentAnswer}"
+            tvYourAnswer.text = getString(
+                R.string.your_answer_two_dots) + " " + listQuestionReport?.get(
+                indexAt)?.studentAnswer
           } else {
             radiobuttons.visibility = View.GONE
             tvYourAnswer.visibility = View.GONE
@@ -254,7 +258,8 @@ class QuizActivity : BaseActivity(), QuizContract {
         indexAt -= 1
         tvQuestionNumber.text = "No. ${(indexAt + 1)}"
         if (listQuestion != null) {
-          tvScore.text = "Score: " + listQuestion?.get(indexAt)?.score.toString()
+          tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestion?.get(
+              indexAt)?.score.toString()
           tvQuestion.text = listQuestion?.get(indexAt)?.question.toString()
           tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
               R.string.slash) + listQuestion?.size.toString()
@@ -276,9 +281,9 @@ class QuizActivity : BaseActivity(), QuizContract {
           }
         } else {
           tvQuestionNumber.text = "No. ${(indexAt + 1)}"
-          tvScore.text = "Score: " + listQuestionReport?.get(
-              indexAt)?.score.toString() + " | Your Score: " + listQuestionReport?.get(
-              indexAt)?.studentScore.toString()
+          tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestionReport?.get(
+              indexAt)?.score.toString() + getString(
+              R.string.your_score) + " " + listQuestionReport?.get(indexAt)?.studentScore.toString()
           tvQuestion.text = listQuestionReport?.get(indexAt)?.question.toString()
           tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
               R.string.slash) + listQuestionReport?.size.toString()
@@ -289,7 +294,9 @@ class QuizActivity : BaseActivity(), QuizContract {
             layoutAnswerEssay.visibility = View.GONE
             layoutAnswerEssayStudent.visibility = View.GONE
             tvYourAnswer.visibility = View.VISIBLE
-            tvYourAnswer.text = "Your answer : ${listQuestionReport?.get(indexAt)?.studentAnswer}"
+            tvYourAnswer.text = getString(
+                R.string.your_answer_two_dots) + " " + listQuestionReport?.get(
+                indexAt)?.studentAnswer
           } else {
             radiobuttons.visibility = View.GONE
             tvYourAnswer.visibility = View.GONE
@@ -433,7 +440,8 @@ class QuizActivity : BaseActivity(), QuizContract {
             ActionBar.LayoutParams.WRAP_CONTENT)
         rprms.setMargins(0, 12, 12, 12)
         if (radioButton.text == listQuestionReport?.get(indexAt)?.answerKey) {
-          radioButton.text = "${listQuestionReport?.get(indexAt)?.answer?.get(i)} (Answer Key)"
+          radioButton.text = listQuestionReport?.get(indexAt)?.answer?.get(i) + " " + getString(
+              R.string.answer_key_with_bracket)
         }
         radioButton.isChecked = radioButton.text == listQuestionReport?.get(indexAt)?.studentAnswer
         radioButton.isClickable = false
@@ -494,7 +502,7 @@ class QuizActivity : BaseActivity(), QuizContract {
       getString(R.string.you_answered_all_questions)
     } else {
       answerAll = false
-      "You haven't answer question number $haventAnsewerdNumber"
+      getString(R.string.you_havent_answer) + " " + haventAnsewerdNumber
     }
 
     mAlertDialog.setTitle(getString(R.string.are_you_sure_submit_quiz))
@@ -543,7 +551,8 @@ class QuizActivity : BaseActivity(), QuizContract {
     indexAt = questionNumber
     with(binding) {
       tvQuestionNumber.text = "No. ${(indexAt + 1)}"
-      tvScore.text = "Score: ${listQuestion?.get(indexAt)?.score.toString()}"
+      tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestion?.get(
+          indexAt)?.score.toString()
       tvQuestion.text = listQuestion?.get(indexAt)?.question.toString()
       tvQuestionNumberHeader.text = (indexAt + 1).toString() + getString(
           R.string.slash) + listQuestion?.size.toString()

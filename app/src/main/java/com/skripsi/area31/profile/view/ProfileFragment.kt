@@ -3,9 +3,13 @@ package com.skripsi.area31.profile.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.widget.addTextChangedListener
@@ -32,6 +36,7 @@ import com.skripsi.area31.utils.Constants.Companion.ROLE_STUDENT
 import com.skripsi.area31.utils.Constants.Companion.TOKEN
 import okhttp3.ResponseBody
 import retrofit2.Response
+import java.util.*
 import javax.inject.Inject
 
 class ProfileFragment : Fragment(), ProfileContract {
@@ -47,6 +52,7 @@ class ProfileFragment : Fragment(), ProfileContract {
   private lateinit var binding: FragmentProfileBinding
   private lateinit var accessToken: String
   private val bottomSheetFragment = ChangePasswordFragment()
+  private val spinnerItems = ArrayList<String>()
   private var email = ""
   private var name = ""
   private var phone = ""
@@ -104,6 +110,70 @@ class ProfileFragment : Fragment(), ProfileContract {
       }
       profilePhoneNumber.addTextChangedListener {
         enableSaveButton()
+      }
+
+      val adapter = context?.let {
+        ArrayAdapter(it, R.layout.spinner_style_small_text, spinnerItems)
+      }
+      adapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+      val shp = activity?.getSharedPreferences("com.skripsi.area31.PREFERENCES",
+          Context.MODE_PRIVATE)
+      val editor = shp?.edit()
+
+      val firstItem: String
+      val secondItem: String
+      spinnerItems.add("Language / Bahasa")
+      if (shp?.getString("USER_LANGUAGE", "en") == "en") {
+        spinnerItems.add("English")
+        spinnerItems.add("Bahasa Indonesia")
+        firstItem = "en"
+        secondItem = "in"
+      } else {
+        spinnerItems.add("Bahasa Indonesia")
+        spinnerItems.add("English")
+        firstItem = "in"
+        secondItem = "en"
+      }
+      language.adapter = adapter
+      var isSpinnerInitial = true
+      language.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+          //No implementation needed
+        }
+
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+          (p0?.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.white))
+
+          if (isSpinnerInitial) {
+            isSpinnerInitial = false
+            return
+          }
+          when (p2) {
+            0 -> {
+              Toast.makeText(context, "Choose your language", Toast.LENGTH_SHORT).show()
+            }
+            1 -> {
+              editor?.putString("USER_LANGUAGE", firstItem)
+              editor?.apply()
+              Handler().postDelayed({
+                val intent = Intent(context, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                Runtime.getRuntime().exit(0)
+              }, 1000)
+            }
+            else -> {
+              editor?.putString("USER_LANGUAGE", secondItem)
+              editor?.apply()
+              Handler().postDelayed({
+                val intent = Intent(context, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                Runtime.getRuntime().exit(0)
+              }, 1000)
+            }
+          }
+        }
       }
     }
     return binding.root
@@ -185,6 +255,15 @@ class ProfileFragment : Fragment(), ProfileContract {
     startActivity(intent)
     activity?.finish()
     presenter.logout(accessToken)
+  }
+
+  private fun setLocale(localeName: String) {
+    val myLocale = Locale(localeName)
+    val res = resources
+    val dm = res.displayMetrics
+    val conf = res.configuration
+    conf.locale = myLocale
+    res.updateConfiguration(conf, dm)
   }
 
   fun dismissDialog() {

@@ -7,6 +7,5 @@ import retrofit2.http.Query
 
 interface ComplaintApi {
   @GET("api/student/complaint") fun getAllStudentComplaint(@Query("access_token")
-  accessToken: String?, @Query("id_course")
-  idCourse: String?): Observable<List<Complaint>>
+  accessToken: String?, @Query("id_course") idCourse: String?): Observable<List<Complaint>>
 }

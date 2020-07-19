@@ -2,6 +2,7 @@ package com.skripsi.area31.splash.view
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
@@ -22,6 +23,7 @@ import com.skripsi.area31.splash.presenter.SplashPresenter
 import com.skripsi.area31.utils.Constants.Companion.AUTHENTICATION
 import com.skripsi.area31.utils.Constants.Companion.TOKEN
 import kotlinx.coroutines.Dispatchers
+import java.util.*
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity(), SplashContract {
@@ -38,6 +40,7 @@ class SplashActivity : BaseActivity(), SplashContract {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setupLanguage()
     binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
     val settings = getSharedPreferences("prefs", 0)
     val firstRun = settings.getBoolean("firstRun", false)
@@ -63,6 +66,16 @@ class SplashActivity : BaseActivity(), SplashContract {
       val a = Intent(this, Dispatchers.Main::class.java)
       startActivity(a)
     }
+  }
+
+  private fun setupLanguage() {
+    val shp = getSharedPreferences("com.skripsi.area31.PREFERENCES", Context.MODE_PRIVATE)
+    val language = shp.getString("USER_LANGUAGE", "en")
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+    val config = Configuration()
+    config.locale = locale
+    resources.updateConfiguration(config, resources.displayMetrics)
   }
 
   override fun onSuccess(token: Token) {
