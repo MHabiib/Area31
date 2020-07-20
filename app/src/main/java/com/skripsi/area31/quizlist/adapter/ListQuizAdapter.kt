@@ -70,9 +70,10 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 var minutes = TimeUnit.MILLISECONDS.toMinutes(time)
                 if (minutes > 59) {
                   minutes = TimeUnit.MILLISECONDS.toHours(time)
-                  minutes.toString()
+                  minutes.toString() + " " + holder.itemView.resources.getString(R.string.hours)
                 } else {
-                  minutes.toString()
+                  minutes.toString() + " " + holder.itemView.resources.getString(
+                    R.string.minutes)
                 }
               }
             } else {

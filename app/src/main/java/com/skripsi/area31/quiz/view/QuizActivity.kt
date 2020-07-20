@@ -185,6 +185,7 @@ class QuizActivity : BaseActivity(), QuizContract {
       btnNext.setOnClickListener {
         if (listQuestion != null) {
           saveAnsweredQuestion()
+          answerEssay.text?.clear()
         }
 
         indexAt += 1
@@ -252,6 +253,7 @@ class QuizActivity : BaseActivity(), QuizContract {
       btnBack.setOnClickListener {
         if (listQuestion != null) {
           saveAnsweredQuestion()
+          answerEssay.text?.clear()
         }
         btnNext.visibility = View.VISIBLE
         btnNext.isClickable = true
@@ -356,7 +358,6 @@ class QuizActivity : BaseActivity(), QuizContract {
       if (answerEssay.text.toString() != "") {
         listQuestion?.get(indexAt)?.idQuestion?.let { idQuestion ->
           answeredQuestion.put(indexAt, AnsweredQuestion(answerEssay.text.toString(), idQuestion))
-          answerEssay.text?.clear()
         }
       } else {
         answeredQuestion.remove(indexAt)

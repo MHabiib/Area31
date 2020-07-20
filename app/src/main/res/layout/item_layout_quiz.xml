@@ -112,7 +112,7 @@
                     tools:text="1280"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/h_medium"
+                    android:textSize="@dimen/h2"
                     android:layout_weight="0.3"
                     android:gravity="center"/>
             </LinearLayout>

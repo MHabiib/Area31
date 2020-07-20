@@ -133,12 +133,13 @@
     <string name="delete_comment_message">Delete your comment and replies in this comment permanently?</string>
     <string name="delete_replies_message">Delete your replies permanently?</string>
     <string name="delete">Delete</string>
-    <string name="minutes">minutes</string>
     <string name="score_with_two_dots">Score :</string>
     <string name="started">Started</string>
     <string name="start_in">Start in</string>
     <string name="hours_ago">hours ago</string>
     <string name="minutes_ago">minutes ago</string>
+    <string name="hours">hours</string>
+    <string name="minutes">minutes</string>
     <string name="you_have_submitted_quiz">You have submitted this quiz, please wait for the score</string>
     <string name="quiz_passed">The quiz has been passed. You can\'t partake on this quiz</string>
     <string name="score_with_two_dotss">Score:</string>

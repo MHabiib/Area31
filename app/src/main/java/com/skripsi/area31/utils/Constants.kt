@@ -2,8 +2,8 @@ package com.skripsi.area31.utils
 
 class Constants {
   companion object {
-    const val BASE = "https://area31.herokuapp.com/"
-    //        const val BASE = "http://10.0.2.2:8088/"
+//    const val BASE = "https://area31.herokuapp.com/"
+            const val BASE = "http://10.0.2.2:8088/"
     const val USERNAME = "area31-client"
     const val PASSWORD = "area31-secret"
     const val GRANT_TYPE = "password"
