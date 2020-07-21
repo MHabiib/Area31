@@ -227,7 +227,7 @@
             android:layout_marginLeft="@dimen/twelve_dp"
             android:layout_marginRight="@dimen/twelve_dp"
             android:clipToPadding="false"
-            android:paddingBottom="400dp"
+            android:paddingBottom="80dp"
             android:layout_marginTop="@dimen/four_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tag_repliess" />

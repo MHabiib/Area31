@@ -1,5 +1,6 @@
 package com.skripsi.area31.qnapost.view
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -27,6 +28,7 @@ import com.skripsi.area31.qnapost.model.ListPostResponse
 import com.skripsi.area31.qnapost.model.Post
 import com.skripsi.area31.qnapost.presenter.PostPresenter
 import com.skripsi.area31.utils.Constants
+import com.skripsi.area31.utils.Constants.Companion.LAUNCH_COMMENT_ACTIVITY
 import com.skripsi.area31.utils.Constants.Companion.SERIALIZABLE_COMMENT
 import com.skripsi.area31.utils.PaginationScrollListener
 import javax.inject.Inject
@@ -151,7 +153,24 @@ class PostFragment : BottomSheetDialogFragment(), PostContract {
     intent.putExtra(SERIALIZABLE_COMMENT, idUser?.let {
       SerializableComment(postItems.body, postItems.title, postItems.idPost, postItems.name, it)
     })
-    startActivity(intent)
+    startActivityForResult(intent, LAUNCH_COMMENT_ACTIVITY)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == LAUNCH_COMMENT_ACTIVITY) {
+      if (resultCode == RESULT_OK) {
+        with(binding) {
+          rvPost.isEnabled = false
+          shimmerPost.visibility = View.VISIBLE
+          shimmerPost.startShimmer()
+          listPostAdapter.clear()
+          listPostAdapter.notifyDataSetChanged()
+          currentPage = 0
+          presenter.getListPost(accessToken, idCourse, currentPage)
+        }
+      }
+    }
   }
 
   override fun onCancel(dialog: DialogInterface) {

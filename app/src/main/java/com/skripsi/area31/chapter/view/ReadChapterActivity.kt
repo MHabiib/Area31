@@ -43,7 +43,6 @@ class ReadChapterActivity : BaseActivity() {
       webView.settings.domStorageEnabled = true
       webView.settings.builtInZoomControls = true
       webView.settings.displayZoomControls = true
-      webView.setInitialScale(200) // zoom x4 (200%)
       webView.webViewClient = object : WebViewClient() {
         override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?,
             error: SslError?) {

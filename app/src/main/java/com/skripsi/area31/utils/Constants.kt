@@ -2,8 +2,8 @@ package com.skripsi.area31.utils
 
 class Constants {
   companion object {
-//    const val BASE = "https://area31.herokuapp.com/"
-            const val BASE = "http://10.0.2.2:8088/"
+    const val BASE = "https://area31.herokuapp.com/"
+    //        const val BASE = "http://10.0.2.2:8088/"
     const val USERNAME = "area31-client"
     const val PASSWORD = "area31-secret"
     const val GRANT_TYPE = "password"
@@ -41,6 +41,8 @@ class Constants {
     const val REQUEST_CAMERA_PERMISSION = 2020
     const val REFRESH_COURSE = 77
     const val LAUNCH_SECOND_ACTIVITY = 88
+    const val LAUNCH_COMMENT_ACTIVITY = 66
+    const val LAUNCH_REPLIES_ACTIVITY = 55
 
     const val MY_FIREBASE_MESSAGING = "firebaseMessaging"
     const val STUDENT_NAME = "studentName"

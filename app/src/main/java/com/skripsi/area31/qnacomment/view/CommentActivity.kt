@@ -1,5 +1,6 @@
 package com.skripsi.area31.qnacomment.view
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -26,6 +27,7 @@ import com.skripsi.area31.qnareplies.model.SerializableReplies
 import com.skripsi.area31.qnareplies.view.RepliesActivity
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.COMMENT_BODY
+import com.skripsi.area31.utils.Constants.Companion.LAUNCH_REPLIES_ACTIVITY
 import com.skripsi.area31.utils.Constants.Companion.SERIALIZABLE_COMMENT
 import com.skripsi.area31.utils.Constants.Companion.SERIALIZABLE_REPLIES
 import com.skripsi.area31.utils.PaginationScrollListener
@@ -55,6 +57,7 @@ class CommentActivity : BaseActivity(), CommentContract {
   private lateinit var postBody: String
   private lateinit var postTitle: String
   private var itemPosition: Int = 0
+  private var addDeleteComment = 0
   private var bottomsheet = EditCommentBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,6 +105,10 @@ class CommentActivity : BaseActivity(), CommentContract {
       })
 
       ibBack.setOnClickListener {
+        val intent = Intent()
+        if (addDeleteComment != 0) {
+          setResult(Activity.RESULT_OK, intent)
+        }
         finish()
       }
 
@@ -151,6 +158,7 @@ class CommentActivity : BaseActivity(), CommentContract {
   }
 
   fun deleteComment(idComment: String, adapterPosition: Int) {
+    addDeleteComment -= 1
     val mAlertDialog = AlertDialog.Builder(this@CommentActivity)
     mAlertDialog.setTitle(getString(R.string.delete_comment_title))
     mAlertDialog.setMessage(getString(R.string.delete_comment_message))
@@ -193,6 +201,7 @@ class CommentActivity : BaseActivity(), CommentContract {
   }
 
   override fun postCommentStudentSuccess(comment: Comment) {
+    addDeleteComment += 1
     if (binding.ivDontHaveComment.visibility == View.VISIBLE) {
       binding.ivDontHaveComment.visibility = View.GONE
       binding.tvIvDontHaveComment.visibility = View.GONE
@@ -207,7 +216,33 @@ class CommentActivity : BaseActivity(), CommentContract {
       SerializableReplies(postTitle, postBody, postName, commentItems.body, commentItems.name,
           commentItems.idComment, it)
     })
-    startActivity(intent)
+    startActivityForResult(intent, LAUNCH_REPLIES_ACTIVITY)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == LAUNCH_REPLIES_ACTIVITY) {
+      if (resultCode == Activity.RESULT_OK) {
+        with(binding) {
+          rvComment.isEnabled = false
+          shimmerComment.visibility = View.VISIBLE
+          shimmerComment.startShimmer()
+          listCommentAdapter.clear()
+          listCommentAdapter.notifyDataSetChanged()
+          currentPage = 0
+          presenter.getListComment(accessToken, idPost, currentPage)
+        }
+      }
+    }
+  }
+
+  override fun onBackPressed() {
+    val intent = Intent()
+    if (addDeleteComment != 0) {
+      setResult(Activity.RESULT_OK, intent)
+    }
+    finish()
+    super.onBackPressed()
   }
 
   override fun onFailed(message: String) {

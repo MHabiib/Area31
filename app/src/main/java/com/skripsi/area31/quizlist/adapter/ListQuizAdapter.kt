@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.skripsi.area31.R
 import com.skripsi.area31.quizlist.model.Quiz
@@ -47,6 +48,7 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
       if (quizItems?.score != null) {
         quizViewHolder.layoutScore.visibility = View.VISIBLE
         quizViewHolder.score.text = quizItems.score.toString()
+        quizViewHolder.itemLayout.setBackgroundResource(R.drawable.card_quiz_purple)
       } else if (quizItems?.assignedAt != null) {
         quizViewHolder.layoutScore.visibility = View.GONE
         quizViewHolder.ongoing.visibility = View.GONE
@@ -57,6 +59,7 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
           quizViewHolder.ongoing.visibility = View.VISIBLE
           quizViewHolder.ibStartQuiz.visibility = View.VISIBLE
           quizViewHolder.layoutMinutes.visibility = View.GONE
+          quizViewHolder.itemLayout.setBackgroundResource(R.drawable.card_quiz_green)
         } else {
           val quizTime = quizItems?.quizDate?.minus(System.currentTimeMillis())
           if (quizTime != null) {
@@ -65,6 +68,7 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
               quizViewHolder.layoutMinutesPast.visibility = View.GONE
               quizViewHolder.ongoing.visibility = View.GONE
               quizViewHolder.ibStartQuiz.visibility = View.GONE
+              quizViewHolder.itemLayout.setBackgroundResource(R.drawable.card_quiz_orange)
               quizViewHolder.minutes.text = quizTime.let {
                 val time = it
                 var minutes = TimeUnit.MILLISECONDS.toMinutes(time)
@@ -81,6 +85,7 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
               quizViewHolder.layoutMinutes.visibility = View.GONE
               quizViewHolder.ongoing.visibility = View.GONE
               quizViewHolder.ibStartQuiz.visibility = View.GONE
+              quizViewHolder.itemLayout.setBackgroundResource(R.drawable.card_quiz_red)
               quizViewHolder.minutesPast.text = (quizTime * -1).let {
                 val time = it
                 var minutes = TimeUnit.MILLISECONDS.toMinutes(time)
@@ -127,6 +132,7 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val ongoing: TextView = itemView.findViewById<View>(R.id.tv_ongoing) as TextView
     val ibStartQuiz: ImageButton = itemView.findViewById<View>(R.id.iv_start_quiz) as ImageButton
     val layoutScore: LinearLayout = itemView.findViewById<View>(R.id.layout_score) as LinearLayout
+    val itemLayout: ConstraintLayout = itemView.findViewById<View>(R.id.item_layout) as ConstraintLayout
     val layoutMinutes: LinearLayout = itemView.findViewById<View>(
         R.id.layout_minutes) as LinearLayout
     val layoutMinutesPast: LinearLayout = itemView.findViewById<View>(

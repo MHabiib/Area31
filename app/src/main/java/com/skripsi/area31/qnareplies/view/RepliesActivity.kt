@@ -1,7 +1,9 @@
 package com.skripsi.area31.qnareplies.view
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -47,6 +49,7 @@ class RepliesActivity : BaseActivity(), RepliesContract {
   private lateinit var accessToken: String
   private lateinit var idComment: String
   private var itemPosition: Int = 0
+  private var addDeleteComment = 0
   private var bottomsheet = EditRepliesBottomsheetFragment()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +93,10 @@ class RepliesActivity : BaseActivity(), RepliesContract {
       })
 
       ibBack.setOnClickListener {
+        val intent = Intent()
+        if (addDeleteComment != 0) {
+          setResult(Activity.RESULT_OK, intent)
+        }
         finish()
       }
 
@@ -177,10 +184,20 @@ class RepliesActivity : BaseActivity(), RepliesContract {
   }
 
   override fun deleteRepliesStudentSuccess() {
+    addDeleteComment -= 1
     listRepliesAdapter.remove(itemPosition)
   }
 
+  override fun onBackPressed() {
+    val intent = Intent()
+    if (addDeleteComment != 0) {
+      setResult(Activity.RESULT_OK, intent)
+    }
+    super.onBackPressed()
+  }
+
   override fun postRepliesStudentSuccess(replies: Replies) {
+    addDeleteComment += 1
     if (binding.ivDontHaveReplies.visibility == View.VISIBLE) {
       binding.ivDontHaveReplies.visibility = View.GONE
       binding.tvIvDontHaveReplies.visibility = View.GONE

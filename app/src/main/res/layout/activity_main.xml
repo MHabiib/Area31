@@ -34,7 +34,7 @@
             android:elevation="8dp"
             android:padding="@dimen/sixteen_dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_scan"
+            android:src="@drawable/ic_scan_plus"
             android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -138,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_begin="206dp" />
+                    app:layout_constraintGuide_end="205dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"

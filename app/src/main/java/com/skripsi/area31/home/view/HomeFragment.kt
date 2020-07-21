@@ -13,6 +13,7 @@ import com.google.gson.Gson
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
 import com.skripsi.area31.core.model.Token
+import com.skripsi.area31.core.network.Authentication
 import com.skripsi.area31.course.view.CourseActivity
 import com.skripsi.area31.databinding.FragmentHomeBinding
 import com.skripsi.area31.home.adapter.ListCourseAdapter
@@ -21,6 +22,7 @@ import com.skripsi.area31.home.injection.HomeComponent
 import com.skripsi.area31.home.model.Course
 import com.skripsi.area31.home.model.ListCourse
 import com.skripsi.area31.home.presenter.HomePresenter
+import com.skripsi.area31.main.view.MainActivity
 import com.skripsi.area31.utils.Constants
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
 import com.skripsi.area31.utils.Constants.Companion.HOME_FRAGMENT
@@ -169,6 +171,24 @@ class HomeFragment : Fragment(), HomeContract {
     val intent = Intent(context, CourseActivity::class.java)
     intent.putExtra(COURSE_ID, courseItems.idCourse)
     startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY)
+  }
+
+  override fun refreshToken() {
+    context?.let { Authentication.getRefresh(it) }?.let { presenter.refreshToken(it) }
+  }
+
+  override fun onSuccessRefresh(token: Token) {
+    context?.let {
+      Authentication.save(it, token, gson.fromJson(
+          context?.getSharedPreferences(Constants.AUTHENTICATION, Context.MODE_PRIVATE)?.getString(
+              Constants.TOKEN, null), Token::class.java).role)
+    }
+    presenter.loadListCourse(accessToken, currentPage)
+  }
+
+  override fun onLogin() {
+    val activity = activity as MainActivity
+    activity.showLogin()
   }
 }
 

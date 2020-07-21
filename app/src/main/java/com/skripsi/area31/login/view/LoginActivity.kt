@@ -139,7 +139,6 @@ class LoginActivity : BaseActivity(), LoginContract {
 
       val firstItem: String
       val secondItem: String
-      spinnerItems.add("Language / Bahasa")
       if (shp?.getString("USER_LANGUAGE", "en") == "en") {
         spinnerItems.add("English")
         spinnerItems.add("Bahasa Indonesia")
@@ -167,9 +166,6 @@ class LoginActivity : BaseActivity(), LoginContract {
           }
           when (p2) {
             0 -> {
-              Toast.makeText(this@LoginActivity, "Choose your language", Toast.LENGTH_SHORT).show()
-            }
-            1 -> {
               editor?.putString("USER_LANGUAGE", firstItem)
               editor?.apply()
               Handler().postDelayed({

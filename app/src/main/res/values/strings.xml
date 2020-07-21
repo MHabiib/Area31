@@ -147,4 +147,5 @@
     <string name="you_havent_answer">You haven\'t answer question number</string>
     <string name="your_answer_two_dots">Your answer :</string>
     <string name="answer_key_with_bracket">(Answer Key)</string>
+    <string name="back_to_login">&#60; <u>Back to login</u></string>
 </resources>

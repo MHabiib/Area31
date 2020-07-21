@@ -122,7 +122,6 @@ class ProfileFragment : Fragment(), ProfileContract {
 
       val firstItem: String
       val secondItem: String
-      spinnerItems.add("Language / Bahasa")
       if (shp?.getString("USER_LANGUAGE", "en") == "en") {
         spinnerItems.add("English")
         spinnerItems.add("Bahasa Indonesia")
@@ -150,9 +149,6 @@ class ProfileFragment : Fragment(), ProfileContract {
           }
           when (p2) {
             0 -> {
-              Toast.makeText(context, "Choose your language", Toast.LENGTH_SHORT).show()
-            }
-            1 -> {
               editor?.putString("USER_LANGUAGE", firstItem)
               editor?.apply()
               Handler().postDelayed({
@@ -255,6 +251,24 @@ class ProfileFragment : Fragment(), ProfileContract {
     startActivity(intent)
     activity?.finish()
     presenter.logout(accessToken)
+  }
+
+  override fun refreshToken() {
+    context?.let { Authentication.getRefresh(it) }?.let { presenter.refreshToken(it) }
+  }
+
+  override fun onSuccessRefresh(token: Token) {
+    context?.let {
+      Authentication.save(it, token, gson.fromJson(
+          context?.getSharedPreferences(AUTHENTICATION, Context.MODE_PRIVATE)?.getString(
+              TOKEN, null), Token::class.java).role)
+    }
+    presenter.loadData(accessToken)
+  }
+
+  override fun onLogin() {
+    val activity = activity as MainActivity
+    activity.showLogin()
   }
 
   private fun setLocale(localeName: String) {

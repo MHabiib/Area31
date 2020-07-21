@@ -33,7 +33,7 @@
     <string name="things_in_this_course">Menu dalam pelajaran ini</string>
     <string name="chapter">Bab</string>
     <string name="learn_now">Pelajari yukk</string>
-    <string name="play_now">Tertantang dengan kuis</string>
+    <string name="play_now">Tertantang dengan kuis?</string>
     <string name="quiz">Kuis</string>
     <string name="ask_now">Tanyakan sesuatu</string>
     <string name="qna">QnA</string>
@@ -147,4 +147,5 @@
     <string name="you_havent_answer">Kamu belum menjawab pertanyaan nomor</string>
     <string name="answer_key_with_bracket">(Jawaban yang benar)</string>
     <string name="your_answer_two_dots">Jawaban kamu :</string>
+    <string name="back_to_login">&#60; <u>Kembali ke login</u></string>
 </resources>

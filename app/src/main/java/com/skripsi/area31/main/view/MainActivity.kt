@@ -17,9 +17,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.skripsi.area31.BaseApp
 import com.skripsi.area31.R
+import com.skripsi.area31.core.network.Authentication
 import com.skripsi.area31.databinding.ActivityMainBinding
 import com.skripsi.area31.enroll.view.EnrollFragment
 import com.skripsi.area31.home.view.HomeFragment
+import com.skripsi.area31.login.view.LoginActivity
 import com.skripsi.area31.main.injection.DaggerMainComponent
 import com.skripsi.area31.main.injection.MainComponent
 import com.skripsi.area31.main.presenter.MainPresenter
@@ -166,6 +168,13 @@ class MainActivity : AppCompatActivity(), MainContract {
           "Hi ${intent.getStringExtra(STUDENT_NAME)} Your quiz score have been updated !",
           Toast.LENGTH_SHORT).show()
     }
+  }
+
+  fun showLogin() {
+    Authentication.delete(this)
+    val intent = Intent(this, LoginActivity::class.java)
+    startActivity(intent)
+    finish()
   }
 
   override fun onResume() {
