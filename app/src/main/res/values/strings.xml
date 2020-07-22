@@ -146,6 +146,25 @@
     <string name="your_score">| Your Score:</string>
     <string name="you_havent_answer">You haven\'t answer question number</string>
     <string name="your_answer_two_dots">Your answer :</string>
+    <string name="answer_key_two_dots">Answer key :</string>
     <string name="answer_key_with_bracket">(Answer Key)</string>
     <string name="back_to_login">&#60; <u>Back to login</u></string>
+    <string name="reason">Reason . . .</string>
+    <string name="show_scoring_steps"><![CDATA[Show scoring steps >]]></string>
+    <string name="coursine_similarity">Cosine Similarity</string>
+    <string name="word_list">Word list</string>
+    <string name="masing_masing_anggota_dari_vektor_q_dikalikan_dengan_masing_masing_anggota_dari_dari_vektor_d_dan_hasil_perkalian_tersebut_kemudian_dijumlahkan">Each member of vector <b>q</b> is multiplied by each member of vector <b>d</b> and add up the product</string>
+    <string name="anggota_dari_vektor_d_dikuadratkan_dan_dijumlahkan_kemudian_diakarkan">each member of vector <b>d</b>
+is squared, added and then square rooted</string>
+    <string name="anggota_dari_vektor_p_dikuadratkan_dan_dijumlahkan_kemudian_diakarkan">each member of vector <b>p</b>
+is squared, added and then square rooted</string>
+    <string name="hasil_yang_diperoleh_dari_langkah_1_dibagikan_dengan_hasil_dari_langkah_2_dan_3_yang_dikalikan_kemudian_hasil_tersebut_dikalikan">The product from step 1 is divided by the product from step 2 and 3 which has been multiplied before, and then the product is multiplied</string>
+    <string name="setelah_memproyeksikan_kedua_teks_tersebut_maka_didapatkan_vektor_kedua_teks_yaitu">After both texts is projected, then we\'ll get the vector of both texts which shown :</string>
+    <string name="rasio_kemunculan_kata_pada_kalimat_jawaban_siswa">= Ratio of the text appeared in student\'s answer sentence</string>
+    <string name="rasio_kemunculan_kata_pada_kalimat_kunci_jawaban">= Ratio of the text appeared in answer key sentence</string>
+    <string name="info">Info</string>
+    <string name="bobot_nilai_dari">Maximum score of this question is </string>
+    <string name="maka_hasil_yang"> , your cosine score is </string>
+    <string name="dikalikan_dengan"> multiplies with </string>
+    <string name="dengan_pembulatan_maka"> with rounding, your final score is:</string>
 </resources>

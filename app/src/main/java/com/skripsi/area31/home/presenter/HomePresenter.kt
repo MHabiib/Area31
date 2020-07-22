@@ -17,21 +17,20 @@ class HomePresenter @Inject constructor(private val homeApi: HomeApi) :
             AndroidSchedulers.mainThread()).subscribe({
           view?.loadListCourseSuccess(it)
         }, {
-            if (it.message.equals("HTTP 401 ")) {
-                view?.refreshToken()
-            } else {
-                view?.onFailed(it.message.toString())
-            }
+          if (it.message.equals("HTTP 401 ")) {
+            view?.refreshToken()
+          } else {
+            view?.onFailed(it.message.toString())
+          }
         }))
   }
 
   fun refreshToken(refreshToken: String) {
-    subscriptions.add(
-        homeApi.refresh(Constants.GRANT_TYPE_REFRESH, refreshToken).subscribeOn(Schedulers.io()).observeOn(
-            AndroidSchedulers.mainThread()).subscribe({ token: Token ->
-          view?.onSuccessRefresh(token)
-        }, {
-          view?.onLogin()
-        }))
+    subscriptions.add(homeApi.refresh(Constants.GRANT_TYPE_REFRESH, refreshToken).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({ token: Token ->
+      view?.onSuccessRefresh(token)
+    }, {
+      view?.onLogin()
+    }))
   }
 }

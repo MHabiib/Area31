@@ -260,8 +260,8 @@ class ProfileFragment : Fragment(), ProfileContract {
   override fun onSuccessRefresh(token: Token) {
     context?.let {
       Authentication.save(it, token, gson.fromJson(
-          context?.getSharedPreferences(AUTHENTICATION, Context.MODE_PRIVATE)?.getString(
-              TOKEN, null), Token::class.java).role)
+          context?.getSharedPreferences(AUTHENTICATION, Context.MODE_PRIVATE)?.getString(TOKEN,
+              null), Token::class.java).role)
     }
     presenter.loadData(accessToken)
   }

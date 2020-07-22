@@ -27,6 +27,7 @@ import com.skripsi.area31.utils.Constants.Companion.AUTHENTICATION
 import com.skripsi.area31.utils.Constants.Companion.COURSE_ID
 import com.skripsi.area31.utils.Constants.Companion.DESCRIPTION
 import com.skripsi.area31.utils.Constants.Companion.QUIZ_DATE
+import com.skripsi.area31.utils.Constants.Companion.REASON
 import com.skripsi.area31.utils.Constants.Companion.SCORE_REPORT
 import com.skripsi.area31.utils.Constants.Companion.TOKEN
 import javax.inject.Inject
@@ -121,6 +122,7 @@ class ComplaintFragment : BottomSheetDialogFragment(), ComplaintContract {
     bundle.putString(ASSIGNN_AT, complaintItems.assignedAt.toString())
     bundle.putString(SCORE_REPORT, complaintItems.score.toString())
     bundle.putString(DESCRIPTION, complaintItems.description)
+    bundle.putString(REASON, complaintItems.reason)
     bottomsheerComplaintDetails.arguments = bundle
     if (!bottomsheerComplaintDetails.isAdded) {
       activity?.supportFragmentManager.let { fragmentManager ->

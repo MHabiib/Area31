@@ -274,12 +274,19 @@
                         android:textSize="@dimen/h3" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
-                    android:id="@+id/layout_answer"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/btn_scoring_stps"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/twenty_four_dp"
-                    android:orientation="vertical"/>
+                    style="@style/NoCaps"
+                    android:visibility="gone"
+                    android:background="@drawable/card_primary"
+                    android:padding="@dimen/twelve_dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/twelve_dp"
+                    android:layout_gravity="center"
+                    android:text="@string/show_scoring_steps"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

@@ -143,9 +143,26 @@
     <string name="you_have_submitted_quiz">Kamu sudah mengirimkan jawaban kamu, tunggu untuk hasil nya ya.</string>
     <string name="quiz_passed">Kuis ini sudah berlalu, kamu tidak dapat lagi mengerjakannya</string>
     <string name="score_with_two_dotss">Nilai:</string>
-    <string name="your_score">| Nilai kamu:</string>
+    <string name="your_score">| Nilai kamu :</string>
     <string name="you_havent_answer">Kamu belum menjawab pertanyaan nomor</string>
     <string name="answer_key_with_bracket">(Jawaban yang benar)</string>
     <string name="your_answer_two_dots">Jawaban kamu :</string>
+    <string name="answer_key_two_dots">Kunci jawaban :</string>
     <string name="back_to_login">&#60; <u>Kembali ke login</u></string>
+    <string name="show_scoring_steps"><![CDATA[Lihat cara penilaian >]]></string>
+    <string name="coursine_similarity">Cosine Similarity</string>
+    <string name="word_list">Word list</string>
+    <string name="reason">Alasan . . .</string>
+    <string name="masing_masing_anggota_dari_vektor_q_dikalikan_dengan_masing_masing_anggota_dari_dari_vektor_d_dan_hasil_perkalian_tersebut_kemudian_dijumlahkan">Masing-masing anggota dari vektor <b>q</b> dikalikan dengan masing-masing anggota dari dari vektor <b>d</b> dan hasil perkalian tersebut kemudian dijumlahkan.</string>
+    <string name="anggota_dari_vektor_d_dikuadratkan_dan_dijumlahkan_kemudian_diakarkan">Anggota dari vektor <b>d</b> dikuadratkan dan dijumlahkan kemudian diakarkan</string>
+    <string name="anggota_dari_vektor_p_dikuadratkan_dan_dijumlahkan_kemudian_diakarkan">Anggota dari vektor <b>p</b> dikuadratkan dan dijumlahkan kemudian diakarkan</string>
+    <string name="hasil_yang_diperoleh_dari_langkah_1_dibagikan_dengan_hasil_dari_langkah_2_dan_3_yang_dikalikan_kemudian_hasil_tersebut_dikalikan">Hasil yang diperoleh dari langkah 1 dibagikan dengan hasil dari langkah 2 dan 3 yang dikalikan, kemudian hasil tersebut dikalikan.</string>
+    <string name="setelah_memproyeksikan_kedua_teks_tersebut_maka_didapatkan_vektor_kedua_teks_yaitu">Setelah memproyeksikan kedua teks tersebut, maka didapatkan vektor kedua teks, yaitu :</string>
+    <string name="rasio_kemunculan_kata_pada_kalimat_jawaban_siswa">= Rasio kemunculan kata pada kalimat jawaban siswa</string>
+    <string name="rasio_kemunculan_kata_pada_kalimat_kunci_jawaban">= Rasio kemunculan kata pada kalimat kunci jawaban</string>
+    <string name="info">Info</string>
+    <string name="bobot_nilai_dari">Bobot nilai dari soal tersebut adalah </string>
+    <string name="maka_hasil_yang"> , hasil cosine yang diperoleh yaitu </string>
+    <string name="dikalikan_dengan"> dikalikan dengan </string>
+    <string name="dengan_pembulatan_maka"> dengan pembulatan, maka nilai yang didapat ialah:</string>
 </resources>

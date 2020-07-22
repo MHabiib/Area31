@@ -13,6 +13,7 @@ import com.skripsi.area31.databinding.FragmentBottomsheetComplaintDetailsBinding
 import com.skripsi.area31.utils.Constants.Companion.ASSIGNN_AT
 import com.skripsi.area31.utils.Constants.Companion.DESCRIPTION
 import com.skripsi.area31.utils.Constants.Companion.QUIZ_DATE
+import com.skripsi.area31.utils.Constants.Companion.REASON
 import com.skripsi.area31.utils.Constants.Companion.SCORE_REPORT
 import com.skripsi.area31.utils.Utils
 
@@ -32,11 +33,16 @@ class ComplainDetailsBottomsheet : BottomSheetDialogFragment() {
     }
     this.arguments?.getString(ASSIGNN_AT)?.let {
       assignAt = it.toLong()
-      binding.tvCompletedComplaint.text = ": ${Utils.convertLongToTimeShortMonth(
-          it.toLong())} minutes"
+      binding.tvCompletedComplaint.text = ": ${Utils.convertLongToTimeShortMonth(it.toLong())}"
     }
     this.arguments?.getString(DESCRIPTION)?.let {
       binding.complaintDesc.setText(it)
+    }
+    this.arguments?.getString(REASON)?.let {
+      if (it != null) {
+        binding.layoutReasonDesc.visibility = View.VISIBLE
+        binding.reasonDesc.setText(it)
+      }
     }
     this.arguments?.getString(SCORE_REPORT)?.let {
       binding.tvScoreComplaint.text = ": ${it}"
@@ -45,7 +51,8 @@ class ComplainDetailsBottomsheet : BottomSheetDialogFragment() {
       if (assignAt != null && quizDate != null) {
         assignAt?.let { assignAt ->
           quizDate?.let { quizDate ->
-            tvTimeTakenComplaint.text = ": ${Utils.convertLongToMinutes(assignAt - quizDate)}"
+            tvTimeTakenComplaint.text = ": ${Utils.convertLongToMinutes(
+                assignAt - quizDate)} ${resources.getString(R.string.minutes)}"
           }
         }
       }

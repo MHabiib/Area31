@@ -35,8 +35,7 @@ class ComplaintBottomsheetFragment : BottomSheetDialogFragment() {
     }
     this.arguments?.getString(ASSIGNN_AT)?.let {
       assignAt = it.toLong()
-      binding.tvCompletedComplaint.text = ": ${Utils.convertLongToTimeShortMonth(
-          it.toLong())} minutes"
+      binding.tvCompletedComplaint.text = ": ${Utils.convertLongToTimeShortMonth(it.toLong())}"
     }
     this.arguments?.getString(SCORE_REPORT)?.let {
       binding.tvScoreComplaint.text = ": ${it}"

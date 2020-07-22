@@ -76,8 +76,7 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                   minutes = TimeUnit.MILLISECONDS.toHours(time)
                   minutes.toString() + " " + holder.itemView.resources.getString(R.string.hours)
                 } else {
-                  minutes.toString() + " " + holder.itemView.resources.getString(
-                    R.string.minutes)
+                  minutes.toString() + " " + holder.itemView.resources.getString(R.string.minutes)
                 }
               }
             } else {
@@ -132,7 +131,8 @@ class ListQuizAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val ongoing: TextView = itemView.findViewById<View>(R.id.tv_ongoing) as TextView
     val ibStartQuiz: ImageButton = itemView.findViewById<View>(R.id.iv_start_quiz) as ImageButton
     val layoutScore: LinearLayout = itemView.findViewById<View>(R.id.layout_score) as LinearLayout
-    val itemLayout: ConstraintLayout = itemView.findViewById<View>(R.id.item_layout) as ConstraintLayout
+    val itemLayout: ConstraintLayout = itemView.findViewById<View>(
+        R.id.item_layout) as ConstraintLayout
     val layoutMinutes: LinearLayout = itemView.findViewById<View>(
         R.id.layout_minutes) as LinearLayout
     val layoutMinutesPast: LinearLayout = itemView.findViewById<View>(

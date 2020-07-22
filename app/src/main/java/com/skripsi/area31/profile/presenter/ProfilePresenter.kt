@@ -46,13 +46,12 @@ class ProfilePresenter @Inject constructor(private val profileApi: ProfileApi) :
   }
 
   fun refreshToken(refreshToken: String) {
-    subscriptions.add(
-        profileApi.refresh(Constants.GRANT_TYPE_REFRESH, refreshToken).subscribeOn(Schedulers.io()).observeOn(
-            AndroidSchedulers.mainThread()).subscribe({ token: Token ->
-          view?.onSuccessRefresh(token)
-        }, {
-          view?.onLogin()
-        }))
+    subscriptions.add(profileApi.refresh(Constants.GRANT_TYPE_REFRESH, refreshToken).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe({ token: Token ->
+      view?.onSuccessRefresh(token)
+    }, {
+      view?.onLogin()
+    }))
   }
 
   fun logout(accessToken: String) {
