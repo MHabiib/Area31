@@ -93,7 +93,12 @@ class ScoringStepsBottomsheetFragment : BottomSheetDialogFragment() {
 
     val activity = activity as QuizActivity
     val ratioList = activity.getRatioList()
-    ratioList?.let { scoringStepsAdapter.addAll(it) }
+    ratioList?.let { list ->
+      list.sortBy {
+        it.word
+      }
+      scoringStepsAdapter.addAll(list)
+    }
 
     with(binding) {
       if (ratioList != null) {
@@ -129,6 +134,7 @@ class ScoringStepsBottomsheetFragment : BottomSheetDialogFragment() {
           }
           scoreStepFour += ratio.ratioAnswer * ratio.ratioAnswer
         }
+
         tvAnswer.text = getString(R.string.your_answer_two_dots) + " " + ratioAnswer.toString()
         tvAnswerKey.text = getString(R.string.answer_key_two_dots) + " " + ratioAnswerKey.toString()
         tvStepTwo.text = "$stringStepTwo = $scoreStepTwo"

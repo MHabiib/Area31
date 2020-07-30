@@ -111,11 +111,14 @@ class QuizActivity : BaseActivity(), QuizContract {
         tvClearAnswer.visibility = View.GONE
         layoutQuizDetails.visibility = View.GONE
         layoutQuestion.visibility = View.VISIBLE
-        btnNext.visibility = View.VISIBLE
         btnComplaint.visibility = View.VISIBLE
         tvQuestionNumberHeader.visibility = View.VISIBLE
         btnComplaint.isClickable = true
-
+        if (listQuestionReport?.size.toString().toInt() > 1) {
+          btnNext.visibility = View.VISIBLE
+        } else {
+          btnNext.visibility = View.GONE
+        }
         tvQuestionNumber.text = "No. ${(indexAt + 1)}"
         tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestionReport?.get(
             indexAt)?.score.toString() + getString(
@@ -130,6 +133,9 @@ class QuizActivity : BaseActivity(), QuizContract {
           radiobuttons.visibility = View.VISIBLE
           layoutAnswerEssay.visibility = View.GONE
           layoutAnswerEssayStudent.visibility = View.GONE
+          tvYourAnswer.visibility = View.VISIBLE
+          tvYourAnswer.text = getString(
+              R.string.your_answer_two_dots) + " " + listQuestionReport?.get(indexAt)?.studentAnswer
         } else {
           radiobuttons.visibility = View.GONE
           tvYourAnswer.visibility = View.GONE
@@ -173,7 +179,12 @@ class QuizActivity : BaseActivity(), QuizContract {
         layoutQuizDetails.visibility = View.GONE
         quizTime.visibility = View.VISIBLE
         layoutQuestion.visibility = View.VISIBLE
-        btnNext.visibility = View.VISIBLE
+        if (listQuestion?.size.toString().toInt() > 1) {
+          btnNext.visibility = View.VISIBLE
+        } else {
+          btnNext.visibility = View.GONE
+        }
+
         btnPreview.visibility = View.VISIBLE
         btnPreview.isClickable = true
         tvQuestionNumberHeader.visibility = View.VISIBLE
@@ -503,7 +514,9 @@ class QuizActivity : BaseActivity(), QuizContract {
           radioButton.text = listQuestionReport?.get(indexAt)?.answer?.get(i) + " " + getString(
               R.string.answer_key_with_bracket)
         }
-        radioButton.isChecked = radioButton.text == listQuestionReport?.get(indexAt)?.studentAnswer
+        if (radioButton.text == listQuestionReport?.get(indexAt)?.studentAnswer) {
+          radioButton.isChecked = true
+        }
         radioButton.isClickable = false
         rgp.addView(radioButton, rprms)
       }
