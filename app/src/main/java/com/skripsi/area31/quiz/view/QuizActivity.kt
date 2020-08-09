@@ -623,6 +623,7 @@ class QuizActivity : BaseActivity(), QuizContract {
     bottomsheetFragmentPreview.dismiss()
     indexAt = questionNumber
     with(binding) {
+      answerEssay.text?.clear()
       tvQuestionNumber.text = "No. ${(indexAt + 1)}"
       tvScore.text = getString(R.string.score_with_two_dots) + " " + listQuestion?.get(
           indexAt)?.score.toString()

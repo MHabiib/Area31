@@ -162,6 +162,10 @@ class QuizListFragment : BottomSheetDialogFragment(), QuizListContract {
       if (quizItems.score != null) {
         intent.putExtra(QUIZ_SCORE, quizItems.score.toString())
       }
+      listQuizAdapter.clear()
+      listQuizAdapter.notifyDataSetChanged()
+      currentPage = 0
+      isLastPage = false
       startActivity(intent)
     } else {
       Toast.makeText(context, "Quiz not started yet !", Toast.LENGTH_SHORT).show()
