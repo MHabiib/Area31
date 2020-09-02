@@ -28,10 +28,6 @@ import com.skripsi.area31.utils.Constants.Companion.MULTIPLECHOICE
 import com.skripsi.area31.utils.Constants.Companion.QUIZ_DATE
 import com.skripsi.area31.utils.Constants.Companion.QUIZ_SCORE
 import com.skripsi.area31.utils.Constants.Companion.SCORE_REPORT
-import com.skripsi.area31.utils.Constants.Companion.SCORING_STEPS_ANSWER
-import com.skripsi.area31.utils.Constants.Companion.SCORING_STEPS_ANSWER_KEY
-import com.skripsi.area31.utils.Constants.Companion.SCORING_STEPS_ANSWER_SCORE
-import com.skripsi.area31.utils.Constants.Companion.SCORING_STEPS_ANSWER_SCORE_STUDENT
 import com.skripsi.area31.utils.Constants.Companion.TOTAL_QUESTIONS
 import java.util.*
 import javax.inject.Inject
@@ -58,7 +54,6 @@ class QuizActivity : BaseActivity(), QuizContract {
   private val bottomsheetFragment = ExitQuizBottomsheetFragment()
   private val bottomsheetFragmentPreview = PreviewBottomsheetFragment()
   private val bottomsheetFragmentComplaint = ComplaintBottomsheetFragment()
-  private val bottomsheetFragmentScoringSteps = ScoringStepsBottomsheetFragment()
   private lateinit var rgp: RadioGroup
   private var completed = false
   private var fcm = ""
@@ -128,11 +123,9 @@ class QuizActivity : BaseActivity(), QuizContract {
         tvQuestion.text = listQuestionReport?.get(indexAt)?.question.toString()
 
         if (listQuestionReport?.get(indexAt)?.questionType == MULTIPLECHOICE) {
-          btnScoringStps.visibility = View.GONE
           createRadioButtonReview()
           radiobuttons.visibility = View.VISIBLE
           layoutAnswerEssay.visibility = View.GONE
-          layoutAnswerEssayStudent.visibility = View.GONE
           tvYourAnswer.visibility = View.VISIBLE
           tvYourAnswer.text = getString(
               R.string.your_answer_two_dots) + " " + listQuestionReport?.get(indexAt)?.studentAnswer
@@ -140,16 +133,8 @@ class QuizActivity : BaseActivity(), QuizContract {
           radiobuttons.visibility = View.GONE
           tvYourAnswer.visibility = View.GONE
           layoutAnswerEssay.visibility = View.VISIBLE
-          layoutAnswerEssayStudent.visibility = View.VISIBLE
-          if (listQuestionReport?.get(indexAt)?.ratioMap == null) {
-            btnScoringStps.visibility = View.GONE
-          } else {
-            btnScoringStps.visibility = View.VISIBLE
-          }
           answerEssay.isFocusable = false
-          answerEssayStudent.isFocusable = false
           answerEssay.setText(listQuestionReport?.get(indexAt)?.studentAnswer)
-          answerEssayStudent.setText(listQuestionReport?.get(indexAt)?.answerKey)
         }
       }
       btnComplaint.setOnClickListener {
@@ -247,29 +232,19 @@ class QuizActivity : BaseActivity(), QuizContract {
               R.string.slash) + listQuestionReport?.size.toString()
           if (listQuestionReport?.get(indexAt)?.questionType == MULTIPLECHOICE) {
             createRadioButtonReview()
-            btnScoringStps.visibility = View.GONE
             radiobuttons.visibility = View.VISIBLE
             layoutAnswerEssay.visibility = View.GONE
-            layoutAnswerEssayStudent.visibility = View.GONE
             tvYourAnswer.visibility = View.VISIBLE
             tvYourAnswer.text = getString(
                 R.string.your_answer_two_dots) + " " + listQuestionReport?.get(
                 indexAt)?.studentAnswer
           } else {
-            if (listQuestionReport?.get(indexAt)?.ratioMap == null) {
-              btnScoringStps.visibility = View.GONE
-            } else {
-              btnScoringStps.visibility = View.VISIBLE
-            }
             radiobuttons.visibility = View.GONE
             tvYourAnswer.visibility = View.GONE
             layoutAnswerEssay.visibility = View.VISIBLE
-            layoutAnswerEssayStudent.visibility = View.VISIBLE
             answerEssay.isFocusable = false
-            answerEssayStudent.isFocusable = false
 
             answerEssay.setText(listQuestionReport?.get(indexAt)?.studentAnswer)
-            answerEssayStudent.setText(listQuestionReport?.get(indexAt)?.answerKey)
           }
           if (indexAt + 1 == listQuestionReport?.size) {
             btnNext.visibility = View.INVISIBLE
@@ -320,28 +295,18 @@ class QuizActivity : BaseActivity(), QuizContract {
 
           if (listQuestionReport?.get(indexAt)?.questionType == MULTIPLECHOICE) {
             createRadioButtonReview()
-            btnScoringStps.visibility = View.GONE
             radiobuttons.visibility = View.VISIBLE
             layoutAnswerEssay.visibility = View.GONE
-            layoutAnswerEssayStudent.visibility = View.GONE
             tvYourAnswer.visibility = View.VISIBLE
             tvYourAnswer.text = getString(
                 R.string.your_answer_two_dots) + " " + listQuestionReport?.get(
                 indexAt)?.studentAnswer
           } else {
-            if (listQuestionReport?.get(indexAt)?.ratioMap == null) {
-              btnScoringStps.visibility = View.GONE
-            } else {
-              btnScoringStps.visibility = View.VISIBLE
-            }
             radiobuttons.visibility = View.GONE
             tvYourAnswer.visibility = View.GONE
             layoutAnswerEssay.visibility = View.VISIBLE
-            layoutAnswerEssayStudent.visibility = View.VISIBLE
             answerEssay.isFocusable = false
-            answerEssayStudent.isFocusable = false
             answerEssay.setText(listQuestionReport?.get(indexAt)?.studentAnswer)
-            answerEssayStudent.setText(listQuestionReport?.get(indexAt)?.answerKey)
           }
           if (indexAt == 0) {
             btnBack.visibility = View.INVISIBLE
@@ -362,10 +327,6 @@ class QuizActivity : BaseActivity(), QuizContract {
             bottomsheetFragmentPreview.show(fragmentManager, bottomsheetFragmentPreview.tag)
           }
         }
-      }
-
-      btnScoringStps.setOnClickListener {
-        showScoringActivity()
       }
 
       tvClearAnswer.setOnClickListener {
@@ -393,27 +354,6 @@ class QuizActivity : BaseActivity(), QuizContract {
     return ratioList
   }
 
-  private fun showScoringActivity() {
-    val bundle = Bundle()
-    bundle.putString(SCORING_STEPS_ANSWER, listQuestionReport?.get(indexAt)?.studentAnswer)
-    bundle.putString(SCORING_STEPS_ANSWER_KEY, listQuestionReport?.get(indexAt)?.answerKey)
-    listQuestionReport?.get(indexAt)?.score?.let {
-      bundle.putInt(SCORING_STEPS_ANSWER_SCORE, it)
-    }
-    listQuestionReport?.get(indexAt)?.studentScore?.let {
-      bundle.putInt(SCORING_STEPS_ANSWER_SCORE_STUDENT, it)
-    }
-
-    listQuestion?.size?.let { totalQuestions ->
-      bundle.putInt(TOTAL_QUESTIONS, totalQuestions)
-    }
-    bottomsheetFragmentScoringSteps.arguments = bundle
-    if (!bottomsheetFragmentScoringSteps.isAdded) {
-      this@QuizActivity.supportFragmentManager.let { fragmentManager ->
-        bottomsheetFragmentScoringSteps.show(fragmentManager, bottomsheetFragmentScoringSteps.tag)
-      }
-    }
-  }
 
   private fun ActivityQuizBinding.saveAnsweredQuestion() {
     if (listQuestion?.get(indexAt)?.questionType == MULTIPLECHOICE) {
@@ -672,10 +612,6 @@ class QuizActivity : BaseActivity(), QuizContract {
   fun leaveQuiz() {
     bottomsheetFragment.dismiss()
     this@QuizActivity.finish()
-  }
-
-  fun dismissScoringDialog() {
-    bottomsheetFragmentScoringSteps.dismiss()
   }
 
   fun sendComplaint(complaint: String) {

@@ -246,48 +246,6 @@
                         android:paddingBottom="@dimen/eight_dp"
                         android:textSize="@dimen/h3" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_answer_essay_student"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:layout_marginTop="@dimen/twelve_dp"
-                    android:background="@drawable/card_base_white"
-                    android:paddingStart="@dimen/sixteen_dp"
-                    android:paddingTop="@dimen/twelve_dp"
-                    android:paddingEnd="@dimen/sixteen_dp"
-                    android:paddingBottom="@dimen/twelve_dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/answer_essay_student"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:inputType="textMultiLine"
-                        android:singleLine="false"
-                        android:ems="10"
-                        android:hint="@string/answer_key"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/darkGrey"
-                        android:paddingBottom="@dimen/eight_dp"
-                        android:textSize="@dimen/h3" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btn_scoring_stps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/NoCaps"
-                    android:visibility="gone"
-                    android:background="@drawable/card_primary"
-                    android:padding="@dimen/twelve_dp"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/twelve_dp"
-                    android:layout_gravity="center"
-                    android:text="@string/show_scoring_steps"/>
-
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
